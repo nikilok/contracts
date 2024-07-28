@@ -31,21 +31,23 @@ import {
 	TabsList,
 	TabsTrigger,
 } from "@/app/components/ui/tabs";
+import TabList from "@/app/ui/contracts/tab-list";
 import { ListFilter, MoreHorizontal, PlusCircle } from "lucide-react";
 
-export default function Page() {
+export default function Page({
+	searchParams,
+}: {
+	searchParams: {
+		status: string;
+	};
+}) {
+	const status = searchParams?.status || "active";
+
 	return (
 		<main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-			<Tabs defaultValue="active">
+			<Tabs defaultValue="active" value={status}>
 				<div className="flex items-center">
-					<TabsList>
-						<TabsTrigger value="all">All</TabsTrigger>
-						<TabsTrigger value="active">Active</TabsTrigger>
-						<TabsTrigger value="expired">Expired</TabsTrigger>
-						<TabsTrigger value="draft" className="hidden sm:flex">
-							Draft
-						</TabsTrigger>
-					</TabsList>
+					<TabList />
 					<div className="ml-auto flex items-center gap-2">
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
