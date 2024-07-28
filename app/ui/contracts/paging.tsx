@@ -29,19 +29,18 @@ export function Paging({ totalPages = 0 }: { totalPages: number }) {
 			<PaginationContent>
 				<PaginationItem>
 					<PaginationPrevious
-						className={clsx({
-							"opacity-50 pointer-events-none": currentPage <= 1,
-						})}
-						href={
-							currentPage <= 1
-								? createPageURL(1)
-								: createPageURL(currentPage - 1)
-						}
+						isDisabled={currentPage <= 1}
+						href={createPageURL(currentPage - 1)}
 					/>
 				</PaginationItem>
-				{allPages.map((page) => {
+				{allPages.map((page, index) => {
 					return (
-						<PaginationItem key={page}>
+						<PaginationItem
+							key={`${page} ${
+								// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+								index
+							}`}
+						>
 							{page === "..." ? (
 								<PaginationEllipsis />
 							) : (
@@ -57,14 +56,8 @@ export function Paging({ totalPages = 0 }: { totalPages: number }) {
 				})}
 				<PaginationItem>
 					<PaginationNext
-						className={clsx({
-							"opacity-50 pointer-events-none": currentPage >= totalPages,
-						})}
-						href={
-							currentPage >= totalPages
-								? createPageURL(totalPages)
-								: createPageURL(currentPage + 1)
-						}
+						isDisabled={currentPage >= totalPages}
+						href={createPageURL(currentPage + 1)}
 					/>
 				</PaginationItem>
 			</PaginationContent>
