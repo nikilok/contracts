@@ -314,7 +314,7 @@ export default function Page({
 							<div className="relative w-full">
 								<div className="absolute inset-x-0 -bottom-20 h-8 left-0">
 									<div className="flex justify-center">
-										<Paging totalNumber={10} />
+										<Paging totalPages={10} />
 									</div>
 								</div>
 							</div>
@@ -1129,7 +1129,7 @@ export default function Page({
 							<div className="relative w-full">
 								<div className="absolute inset-x-0 -bottom-20 h-8 left-0">
 									<div className="flex justify-center">
-										<Paging totalNumber={20} />
+										<Paging totalPages={20} />
 									</div>
 								</div>
 							</div>
