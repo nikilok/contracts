@@ -14,18 +14,20 @@ export default function TabList() {
 	};
 	return (
 		<TabsList>
-			<TabsTrigger value="all">
-				<Link href={createPageURL("all")}>All</Link>
-			</TabsTrigger>
-			<TabsTrigger value="active">
-				<Link href={createPageURL("active")}>Active</Link>
-			</TabsTrigger>
-			<TabsTrigger value="expired">
-				<Link href={createPageURL("expired")}>Expired</Link>
-			</TabsTrigger>
-			<TabsTrigger value="draft" className="hidden sm:flex">
-				<Link href={createPageURL("draft")}>Draft</Link>
-			</TabsTrigger>
+			<Link href={createPageURL("all")}>
+				<TabsTrigger value="all">All</TabsTrigger>
+			</Link>
+			<Link href={createPageURL("active")}>
+				<TabsTrigger value="active">Active </TabsTrigger>
+			</Link>
+			<Link href={createPageURL("expired")}>
+				<TabsTrigger value="expired">Expired</TabsTrigger>
+			</Link>
+			<Link href={createPageURL("draft")}>
+				<TabsTrigger value="draft" className="hidden sm:flex">
+					Draft
+				</TabsTrigger>
+			</Link>
 		</TabsList>
 	);
 }
