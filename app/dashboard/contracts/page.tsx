@@ -31,6 +31,7 @@ import {
 	TabsList,
 	TabsTrigger,
 } from "@/app/components/ui/tabs";
+import { Paging } from "@/app/ui/contracts/paging";
 import TabList from "@/app/ui/contracts/tab-list";
 import { ListFilter, MoreHorizontal, PlusCircle } from "lucide-react";
 
@@ -307,6 +308,15 @@ export default function Page({
 						<CardFooter>
 							<div className="text-xs text-muted-foreground">
 								Showing <strong>1-10</strong> of <strong>32</strong> contracts
+							</div>
+						</CardFooter>
+						<CardFooter>
+							<div className="relative w-full">
+								<div className="absolute inset-x-0 -bottom-20 h-8 left-0">
+									<div className="flex justify-center">
+										<Paging totalNumber={10} />
+									</div>
+								</div>
 							</div>
 						</CardFooter>
 					</Card>
@@ -1113,6 +1123,15 @@ export default function Page({
 						<CardFooter>
 							<div className="text-xs text-muted-foreground">
 								Showing <strong>1-10</strong> of <strong>32</strong> contracts
+							</div>
+						</CardFooter>
+						<CardFooter>
+							<div className="relative w-full">
+								<div className="absolute inset-x-0 -bottom-20 h-8 left-0">
+									<div className="flex justify-center">
+										<Paging totalNumber={20} />
+									</div>
+								</div>
 							</div>
 						</CardFooter>
 					</Card>
