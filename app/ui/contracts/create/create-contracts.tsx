@@ -22,8 +22,8 @@ import { Switch } from "@/app/components/ui/switch";
 import { Textarea } from "@/app/components/ui/textarea";
 import {
 	Calendar as CalendarDaysIcon,
-	RocketIcon,
 	Notebook,
+	RocketIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
