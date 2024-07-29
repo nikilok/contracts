@@ -157,6 +157,22 @@ export default function Form() {
 						</div>
 					</div>
 					<div className="space-y-2">
+						<Label htmlFor="savings">Savings</Label>
+						<div className="flex items-center gap-2">
+							<Input id="savings" type="number" placeholder="Enter value" />
+							<Select>
+								<SelectTrigger>
+									<SelectValue placeholder="Currency" />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectItem value="usd">USD</SelectItem>
+									<SelectItem value="gbp">GBP</SelectItem>
+									<SelectItem value="eur">EUR</SelectItem>
+								</SelectContent>
+							</Select>
+						</div>
+					</div>
+					<div className="space-y-2">
 						<Label htmlFor="service-categorization">
 							Service Categorization
 						</Label>
@@ -292,7 +308,7 @@ export default function Form() {
 				<Button tabIndex={0} type="submit" className="gap-1">
 					<RocketIcon className="h-3.5 w-3.5" />
 					<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-						Submit Request
+						Submit
 					</span>
 				</Button>
 			</CardFooter>

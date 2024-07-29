@@ -4,6 +4,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/app/components/ui/card";
+import { Separator } from "@/app/components/ui/separator";
 import Form from "@/app/ui/contracts/create/create-contracts";
 
 export default function Page() {
@@ -16,6 +17,7 @@ export default function Page() {
 						Please fill out the form to submit a new contract request.
 					</CardDescription>
 				</CardHeader>
+				<Separator className="mb-4" />
 				<Form />
 			</Card>
 		</main>
