@@ -25,15 +25,11 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/app/components/ui/table";
-import {
-	Tabs,
-	TabsContent,
-	TabsList,
-	TabsTrigger,
-} from "@/app/components/ui/tabs";
+import { Tabs, TabsContent } from "@/app/components/ui/tabs";
 import { Paging } from "@/app/ui/contracts/paging";
 import TabList from "@/app/ui/contracts/tab-list";
-import { ListFilter, MoreHorizontal, PlusCircle } from "lucide-react";
+import { File, ListFilter, MoreHorizontal, PlusCircle } from "lucide-react";
+import Link from "next/link";
 
 export default function Page({
 	searchParams,
@@ -70,17 +66,19 @@ export default function Page({
 							</DropdownMenuContent>
 						</DropdownMenu>
 						<Button size="sm" variant="outline" className="h-7 gap-1">
-							{/* <File className="h-3.5 w-3.5" /> */}
+							<File className="h-3.5 w-3.5" />
 							<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
 								Export
 							</span>
 						</Button>
-						<Button size="sm" className="h-7 gap-1">
-							<PlusCircle className="h-3.5 w-3.5" />
-							<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-								Create Contract
-							</span>
-						</Button>
+						<Link href={{ pathname: "/dashboard/create", query: { status } }}>
+							<Button size="sm" className="h-7 gap-1">
+								<PlusCircle className="h-3.5 w-3.5" />
+								<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+									Create Contract
+								</span>
+							</Button>
+						</Link>
 					</div>
 				</div>
 				<TabsContent value="active">
