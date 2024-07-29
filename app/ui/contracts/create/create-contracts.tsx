@@ -3,6 +3,7 @@
 import { Button } from "@/app/components/ui/button";
 import { Calendar } from "@/app/components/ui/calendar";
 import { CardContent, CardFooter } from "@/app/components/ui/card";
+import { DateRangePicker } from "@/app/components/ui/date-range-picker";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import {
@@ -94,20 +95,14 @@ export default function Form() {
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="contract-period">Contract Period</Label>
-						<Popover>
-							<PopoverTrigger asChild>
-								<Button
-									variant="outline"
-									className="w-full justify-start font-normal"
-								>
-									<CalendarDaysIcon className="mr-2 h-4 w-4" />
-									Select date range
-								</Button>
-							</PopoverTrigger>
-							<PopoverContent className="w-auto p-0" align="start">
-								<Calendar mode="range" numberOfMonths={2} />
-							</PopoverContent>
-						</Popover>
+						<DateRangePicker
+							onUpdate={(values) => console.log(values)}
+							initialDateFrom="2023-01-01"
+							initialDateTo="2023-12-31"
+							align="start"
+							locale="en-GB"
+							showCompare={false}
+						/>
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="contract-type">Contract Type</Label>
