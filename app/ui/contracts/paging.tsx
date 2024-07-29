@@ -40,6 +40,7 @@ export function Paging({ totalPages = 0 }: { totalPages: number }) {
 								// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 								index
 							}`}
+							className="hidden md:block"
 						>
 							{page === "..." ? (
 								<PaginationEllipsis />
@@ -54,6 +55,11 @@ export function Paging({ totalPages = 0 }: { totalPages: number }) {
 						</PaginationItem>
 					);
 				})}
+				<PaginationItem className="block md:hidden">
+					<PaginationLink href={createPageURL(currentPage)}>
+						{currentPage}
+					</PaginationLink>
+				</PaginationItem>
 				<PaginationItem>
 					<PaginationNext
 						isDisabled={currentPage >= totalPages}

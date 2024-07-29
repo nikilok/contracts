@@ -20,7 +20,11 @@ import {
 } from "@/app/components/ui/select";
 import { Switch } from "@/app/components/ui/switch";
 import { Textarea } from "@/app/components/ui/textarea";
-import { Calendar as CalendarDaysIcon, RocketIcon } from "lucide-react";
+import {
+	Calendar as CalendarDaysIcon,
+	RocketIcon,
+	Notebook,
+} from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -296,15 +300,21 @@ export default function Form() {
 					</div>
 				</div>
 			</CardContent>
-			<CardFooter className="flex justify-between">
+			<CardFooter className="flex justify-end gap-3">
 				<Link
 					tabIndex={-1}
 					href={{ pathname: "/dashboard/contracts", query: { status } }}
 				>
-					<Button tabIndex={-1} variant="outline">
+					<Button tabIndex={-1} variant="link">
 						Cancel
 					</Button>
 				</Link>
+				<Button variant="outline" tabIndex={0} type="submit" className="gap-1">
+					<Notebook className="h-3.5 w-3.5" />
+					<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+						Save draft
+					</span>
+				</Button>
 				<Button tabIndex={0} type="submit" className="gap-1">
 					<RocketIcon className="h-3.5 w-3.5" />
 					<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
