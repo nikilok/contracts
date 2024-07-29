@@ -98,8 +98,8 @@ export default function Form() {
 						<div>
 							<DateRangePicker
 								onUpdate={(values) => console.log(values)}
-								initialDateFrom="2023-01-01"
-								initialDateTo="2023-12-31"
+								initialDateFrom={new Date().toLocaleDateString("en-CA")}
+								initialDateTo={new Date().toLocaleDateString("en-CA")}
 								align="start"
 								locale="en-GB"
 								showCompare={false}
