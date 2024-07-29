@@ -95,14 +95,16 @@ export default function Form() {
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="contract-period">Contract Period</Label>
-						<DateRangePicker
-							onUpdate={(values) => console.log(values)}
-							initialDateFrom="2023-01-01"
-							initialDateTo="2023-12-31"
-							align="start"
-							locale="en-GB"
-							showCompare={false}
-						/>
+						<div>
+							<DateRangePicker
+								onUpdate={(values) => console.log(values)}
+								initialDateFrom="2023-01-01"
+								initialDateTo="2023-12-31"
+								align="start"
+								locale="en-GB"
+								showCompare={false}
+							/>
+						</div>
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="contract-type">Contract Type</Label>
