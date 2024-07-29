@@ -279,10 +279,15 @@ export default function Form() {
 				</div>
 			</CardContent>
 			<CardFooter className="flex justify-between">
-				<Link href={{ pathname: "/dashboard/contracts", query: { status } }}>
-					<Button variant="outline">Cancel</Button>
+				<Link
+					tabIndex={-1}
+					href={{ pathname: "/dashboard/contracts", query: { status } }}
+				>
+					<Button tabIndex={-1} variant="outline">
+						Cancel
+					</Button>
 				</Link>
-				<Button type="submit" className="gap-1">
+				<Button tabIndex={0} type="submit" className="gap-1">
 					<RocketIcon className="h-3.5 w-3.5" />
 					<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
 						Submit Request
