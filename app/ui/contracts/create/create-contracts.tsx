@@ -34,6 +34,7 @@ export default function Form() {
 	const searchParams = useSearchParams();
 	const params = new URLSearchParams(searchParams);
 	const status = params.get("status");
+	const [date, setDate] = useState<Date | undefined>();
 
 	return (
 		<form>
@@ -48,11 +49,16 @@ export default function Form() {
 									className="w-full justify-start font-normal"
 								>
 									<CalendarDaysIcon className="mr-2 h-4 w-4" />
-									Pick a date
+									{date ? date?.toDateString() : "Pick a date"}
 								</Button>
 							</PopoverTrigger>
 							<PopoverContent className="w-auto p-0" align="start">
-								<Calendar mode="single" />
+								<Calendar
+									mode="single"
+									selected={date}
+									onSelect={setDate}
+									className="rounded-md border shadow"
+								/>
 							</PopoverContent>
 						</Popover>
 					</div>
