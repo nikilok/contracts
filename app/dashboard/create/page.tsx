@@ -6,6 +6,7 @@ import {
 } from "@/app/components/ui/card";
 import { Separator } from "@/app/components/ui/separator";
 import Form from "@/app/ui/contracts/create/create-contracts";
+import { Suspense } from "react";
 
 export default function Page() {
 	return (
@@ -18,7 +19,9 @@ export default function Page() {
 					</CardDescription>
 				</CardHeader>
 				<Separator className="mb-4" />
-				<Form />
+				<Suspense fallback="loading...">
+					<Form />
+				</Suspense>
 			</Card>
 		</main>
 	);
