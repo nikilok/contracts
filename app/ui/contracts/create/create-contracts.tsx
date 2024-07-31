@@ -31,6 +31,8 @@ import { useState } from "react";
 
 export default function Form() {
 	const [contractReviewPeriod, setContractReviewPeriod] = useState("30");
+	const [infoSecComplete, setInfoSecComplete] = useState(false);
+	const [piiComplete, setPiiComplete] = useState(false);
 	const searchParams = useSearchParams();
 	const params = new URLSearchParams(searchParams);
 	const status = params.get("status");
@@ -123,11 +125,11 @@ export default function Form() {
 								<SelectValue placeholder="Select contract type" />
 							</SelectTrigger>
 							<SelectContent>
-								<SelectItem value="contract1">Contract 1</SelectItem>
-								<SelectItem value="contract2">Contract 2</SelectItem>
-								<SelectItem value="contract3">Contract 3</SelectItem>
-								<SelectItem value="contract4">Contract 4</SelectItem>
-								<SelectItem value="contract5">Contract 5</SelectItem>
+								<SelectItem value="msa">MSA</SelectItem>
+								<SelectItem value="sow">SOW</SelectItem>
+								<SelectItem value="addendum">Addendum</SelectItem>
+								<SelectItem value="extension">Extension</SelectItem>
+								<SelectItem value="order-form">Order Form</SelectItem>
 							</SelectContent>
 						</Select>
 					</div>
@@ -138,11 +140,12 @@ export default function Form() {
 								<SelectValue placeholder="Select request type" />
 							</SelectTrigger>
 							<SelectContent>
-								<SelectItem value="request1">Request 1</SelectItem>
-								<SelectItem value="request2">Request 2</SelectItem>
-								<SelectItem value="request3">Request 3</SelectItem>
-								<SelectItem value="request4">Request 4</SelectItem>
-								<SelectItem value="request5">Request 5</SelectItem>
+								<SelectItem value="new-contract">New Contract</SelectItem>
+								<SelectItem value="rfp">RFP</SelectItem>
+								<SelectItem value="contract-renewal">
+									Contract Renewal
+								</SelectItem>
+								<SelectItem value="amendmend">Amendmend</SelectItem>
 							</SelectContent>
 						</Select>
 					</div>
@@ -191,21 +194,14 @@ export default function Form() {
 								<SelectValue placeholder="Select categorization" />
 							</SelectTrigger>
 							<SelectContent>
-								<SelectItem value="categorization1">
-									Categorization 1
+								<SelectItem value="non-outsourcing">
+									Non Outsourcing-Standard Service
 								</SelectItem>
-								<SelectItem value="categorization2">
-									Categorization 2
+								<SelectItem value="material">Material</SelectItem>
+								<SelectItem value="material-outsourcing">
+									Material Outsourcing
 								</SelectItem>
-								<SelectItem value="categorization3">
-									Categorization 3
-								</SelectItem>
-								<SelectItem value="categorization4">
-									Categorization 4
-								</SelectItem>
-								<SelectItem value="categorization5">
-									Categorization 5
-								</SelectItem>
+								<SelectItem value="outsourcing">Outsourcing</SelectItem>
 							</SelectContent>
 						</Select>
 					</div>
@@ -216,11 +212,9 @@ export default function Form() {
 								<SelectValue placeholder="Select risk classification" />
 							</SelectTrigger>
 							<SelectContent>
-								<SelectItem value="risk1">Risk 1</SelectItem>
-								<SelectItem value="risk2">Risk 2</SelectItem>
-								<SelectItem value="risk3">Risk 3</SelectItem>
-								<SelectItem value="risk4">Risk 4</SelectItem>
-								<SelectItem value="risk5">Risk 5</SelectItem>
+								<SelectItem value="non-critical">Non Critical</SelectItem>
+								<SelectItem value="critical">Critical</SelectItem>
+								<SelectItem value="supportive">Supportive</SelectItem>
 							</SelectContent>
 						</Select>
 					</div>
@@ -231,21 +225,59 @@ export default function Form() {
 								<SelectValue placeholder="Select benefiting region" />
 							</SelectTrigger>
 							<SelectContent>
-								<SelectItem value="region1">Region 1</SelectItem>
-								<SelectItem value="region2">Region 2</SelectItem>
-								<SelectItem value="region3">Region 3</SelectItem>
-								<SelectItem value="region4">Region 4</SelectItem>
-								<SelectItem value="region5">Region 5</SelectItem>
+								<SelectItem value="global">Global</SelectItem>
+								<SelectItem value="uk">UK</SelectItem>
+								<SelectItem value="us">US</SelectItem>
+								<SelectItem value="BEL">Belgium</SelectItem>
+								<SelectItem value="IRE">Ireland</SelectItem>
+								<SelectItem value="LI">Lichtenstein</SelectItem>
+								<SelectItem value="aus">AUS</SelectItem>
 							</SelectContent>
 						</Select>
 					</div>
-					<div className="space-x-2">
-						<Label htmlFor="infosec-in-scope">Infosec in Scope</Label>
-						<Switch id="infosec-in-scope" aria-label="Infosec in Scope" />
+					<div className="flex flex-col gap-2">
+						<div className="space-x-2">
+							<Label htmlFor="infosec-in-scope">Infosec in Scope</Label>
+							<Switch
+								id="infosec-in-scope"
+								checked={infoSecComplete}
+								onCheckedChange={setInfoSecComplete}
+								aria-label="Infosec in Scope"
+							/>
+						</div>
+						{infoSecComplete === true && (
+							<div className="space-x-2">
+								<Label htmlFor="infosec-assesment">
+									Infosec assesment complete ?
+								</Label>
+								<Switch
+									id="infosec-assesment"
+									aria-label="Infosec Assessment Complete"
+								/>
+							</div>
+						)}
 					</div>
-					<div className="space-x-2">
-						<Label htmlFor="pii-in-scope">PII in Scope</Label>
-						<Switch id="pii-in-scope" aria-label="PII in Scope" />
+					<div className="flex flex-col gap-2">
+						<div className="space-x-2">
+							<Label htmlFor="pii-in-scope">PII in Scope</Label>
+							<Switch
+								id="pii-in-scope"
+								checked={piiComplete}
+								onCheckedChange={setPiiComplete}
+								aria-label="PII in Scope"
+							/>
+						</div>
+						{piiComplete === true && (
+							<div className="space-x-2">
+								<Label htmlFor="pii-assessment-complete">
+									Data privacy assessment complete ?
+								</Label>
+								<Switch
+									id="pii-assessment-complete"
+									aria-label="Data privacy assessment complete ?"
+								/>
+							</div>
+						)}
 					</div>
 					<div className="space-x-2">
 						<Label htmlFor="sef-completed">SEF Completed</Label>
