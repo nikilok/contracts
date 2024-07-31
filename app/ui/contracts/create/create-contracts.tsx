@@ -37,6 +37,7 @@ export default function Form() {
 	const params = new URLSearchParams(searchParams);
 	const status = params.get("status");
 	const [date, setDate] = useState<Date | undefined>();
+	const [currency, setCurrency] = useState<string | undefined>();
 
 	return (
 		<form>
@@ -158,7 +159,7 @@ export default function Form() {
 								type="number"
 								placeholder="Enter value"
 							/>
-							<Select>
+							<Select onValueChange={setCurrency}>
 								<SelectTrigger>
 									<SelectValue placeholder="Currency" />
 								</SelectTrigger>
@@ -173,17 +174,13 @@ export default function Form() {
 					<div className="space-y-2">
 						<Label htmlFor="savings">Savings</Label>
 						<div className="flex items-center gap-2">
-							<Input id="savings" type="number" placeholder="Enter value" />
-							<Select>
-								<SelectTrigger>
-									<SelectValue placeholder="Currency" />
-								</SelectTrigger>
-								<SelectContent>
-									<SelectItem value="usd">USD</SelectItem>
-									<SelectItem value="gbp">GBP</SelectItem>
-									<SelectItem value="eur">EUR</SelectItem>
-								</SelectContent>
-							</Select>
+							<Input
+								className="max-w-[85%]"
+								id="savings"
+								type="number"
+								placeholder="Enter value"
+							/>
+							<span className="uppercase text-xs opacity-50">{currency}</span>
 						</div>
 					</div>
 					<div className="space-y-2">
