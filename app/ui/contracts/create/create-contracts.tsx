@@ -93,11 +93,12 @@ export default function Form() {
 								<SelectValue placeholder="Select sub-category" />
 							</SelectTrigger>
 							<SelectContent>
-								<SelectItem value="subcategory1">Sub-category 1</SelectItem>
-								<SelectItem value="subcategory2">Sub-category 2</SelectItem>
-								<SelectItem value="subcategory3">Sub-category 3</SelectItem>
-								<SelectItem value="subcategory4">Sub-category 4</SelectItem>
-								<SelectItem value="subcategory5">Sub-category 5</SelectItem>
+								<SelectItem value="hr">HR Technology</SelectItem>
+								<SelectItem value="benefits">Benefits</SelectItem>
+								<SelectItem value="payroll">Payroll</SelectItem>
+								<SelectItem value="reward">Reward</SelectItem>
+								<SelectItem value="talent">Talent</SelectItem>
+								<SelectItem value="recruitment">Recruitment</SelectItem>
 							</SelectContent>
 						</Select>
 					</div>
