@@ -21,6 +21,16 @@ import {
 } from "@/app/components/ui/select";
 import { Switch } from "@/app/components/ui/switch";
 import { Textarea } from "@/app/components/ui/textarea";
+import {
+	ContractTypes,
+	Currency,
+	Regions,
+	RenewalStrategy,
+	RequestType,
+	RiskClassification,
+	ServiceCategorization,
+	SubCategory,
+} from "@/app/lib/constants";
 import { addSupplier } from "@/app/lib/data";
 import {
 	Calendar as CalendarDaysIcon,
@@ -97,12 +107,13 @@ export default function Form({
 								<SelectValue placeholder="Select sub-category" />
 							</SelectTrigger>
 							<SelectContent>
-								<SelectItem value="hr">HR Technology</SelectItem>
-								<SelectItem value="benefits">Benefits</SelectItem>
-								<SelectItem value="payroll">Payroll</SelectItem>
-								<SelectItem value="reward">Reward</SelectItem>
-								<SelectItem value="talent">Talent</SelectItem>
-								<SelectItem value="recruitment">Recruitment</SelectItem>
+								{SubCategory.map(({ label, value }) => {
+									return (
+										<SelectItem key={value} value={value}>
+											{label}
+										</SelectItem>
+									);
+								})}
 							</SelectContent>
 						</Select>
 					</div>
@@ -130,11 +141,13 @@ export default function Form({
 								<SelectValue placeholder="Select contract type" />
 							</SelectTrigger>
 							<SelectContent>
-								<SelectItem value="msa">MSA</SelectItem>
-								<SelectItem value="sow">SOW</SelectItem>
-								<SelectItem value="addendum">Addendum</SelectItem>
-								<SelectItem value="extension">Extension</SelectItem>
-								<SelectItem value="order-form">Order Form</SelectItem>
+								{ContractTypes.map(({ value, label }) => {
+									return (
+										<SelectItem key={value} value={value}>
+											{label}
+										</SelectItem>
+									);
+								})}
 							</SelectContent>
 						</Select>
 					</div>
@@ -145,12 +158,13 @@ export default function Form({
 								<SelectValue placeholder="Select request type" />
 							</SelectTrigger>
 							<SelectContent>
-								<SelectItem value="new-contract">New Contract</SelectItem>
-								<SelectItem value="rfp">RFP</SelectItem>
-								<SelectItem value="contract-renewal">
-									Contract Renewal
-								</SelectItem>
-								<SelectItem value="amendmend">Amendmend</SelectItem>
+								{RequestType.map(({ value, label }) => {
+									return (
+										<SelectItem key={value} value={value}>
+											{label}
+										</SelectItem>
+									);
+								})}
 							</SelectContent>
 						</Select>
 					</div>
@@ -167,9 +181,13 @@ export default function Form({
 									<SelectValue placeholder="Currency" />
 								</SelectTrigger>
 								<SelectContent>
-									<SelectItem value="usd">USD</SelectItem>
-									<SelectItem value="gbp">GBP</SelectItem>
-									<SelectItem value="eur">EUR</SelectItem>
+									{Currency.map(({ value, label }) => {
+										return (
+											<SelectItem key={value} value={value}>
+												{label}
+											</SelectItem>
+										);
+									})}
 								</SelectContent>
 							</Select>
 						</div>
@@ -195,14 +213,13 @@ export default function Form({
 								<SelectValue placeholder="Select categorization" />
 							</SelectTrigger>
 							<SelectContent>
-								<SelectItem value="non-outsourcing">
-									Non Outsourcing-Standard Service
-								</SelectItem>
-								<SelectItem value="material">Material</SelectItem>
-								<SelectItem value="material-outsourcing">
-									Material Outsourcing
-								</SelectItem>
-								<SelectItem value="outsourcing">Outsourcing</SelectItem>
+								{ServiceCategorization.map(({ value, label }) => {
+									return (
+										<SelectItem key={value} value={value}>
+											{label}
+										</SelectItem>
+									);
+								})}
 							</SelectContent>
 						</Select>
 					</div>
@@ -213,9 +230,13 @@ export default function Form({
 								<SelectValue placeholder="Select risk classification" />
 							</SelectTrigger>
 							<SelectContent>
-								<SelectItem value="non-critical">Non Critical</SelectItem>
-								<SelectItem value="critical">Critical</SelectItem>
-								<SelectItem value="supportive">Supportive</SelectItem>
+								{RiskClassification.map(({ value, label }) => {
+									return (
+										<SelectItem key={value} value={value}>
+											{label}
+										</SelectItem>
+									);
+								})}
 							</SelectContent>
 						</Select>
 					</div>
@@ -226,13 +247,13 @@ export default function Form({
 								<SelectValue placeholder="Select benefiting region" />
 							</SelectTrigger>
 							<SelectContent>
-								<SelectItem value="global">Global</SelectItem>
-								<SelectItem value="uk">UK</SelectItem>
-								<SelectItem value="us">US</SelectItem>
-								<SelectItem value="BEL">Belgium</SelectItem>
-								<SelectItem value="IRE">Ireland</SelectItem>
-								<SelectItem value="LI">Lichtenstein</SelectItem>
-								<SelectItem value="aus">AUS</SelectItem>
+								{Regions.map(({ value, label }) => {
+									return (
+										<SelectItem key={value} value={value}>
+											{label}
+										</SelectItem>
+									);
+								})}
 							</SelectContent>
 						</Select>
 					</div>
@@ -321,11 +342,13 @@ export default function Form({
 								<SelectValue placeholder="Select renewal strategy" />
 							</SelectTrigger>
 							<SelectContent>
-								<SelectItem value="rfp">RFP/Tender</SelectItem>
-								<SelectItem value="direct">Direct Renewal</SelectItem>
-								<SelectItem value="benchmark">Market Benchmark</SelectItem>
-								<SelectItem value="increase">Price Increase Review</SelectItem>
-								<SelectItem value="terminate">Terminate / Expire</SelectItem>
+								{RenewalStrategy.map(({ value, label }) => {
+									return (
+										<SelectItem key={value} value={value}>
+											{label}
+										</SelectItem>
+									);
+								})}
 							</SelectContent>
 						</Select>
 					</div>
