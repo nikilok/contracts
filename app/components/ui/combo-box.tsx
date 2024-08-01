@@ -17,15 +17,18 @@ import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 export function ComboBox({
 	options = [],
 	placeholder = "",
+	onAdd,
 }: {
 	options: {
 		value: string;
 		label: string;
 	}[];
 	placeholder: string;
+	onAdd: (name: string) => void;
 }) {
 	const [open, setOpen] = useState(false);
 	const [value, setValue] = useState("");
+	const [rawValue, setRawValue] = useState("");
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
@@ -46,8 +49,22 @@ export function ComboBox({
 			</PopoverTrigger>
 			<PopoverContent className="w-[270px] p-0">
 				<Command>
-					<CommandInput placeholder={placeholder} className="h-9" />
-					<CommandEmpty>No option found.</CommandEmpty>
+					<CommandInput
+						onInput={(input) => {
+							setRawValue(input.currentTarget.value);
+						}}
+						placeholder={placeholder}
+						className="h-9"
+					/>
+					<CommandEmpty>
+						<Button
+							onClick={() => {
+								onAdd(rawValue);
+							}}
+						>
+							Add Instead
+						</Button>
+					</CommandEmpty>
 					<CommandGroup>
 						{options.map((option) => (
 							<CommandItem

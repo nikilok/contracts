@@ -21,6 +21,7 @@ import {
 } from "@/app/components/ui/select";
 import { Switch } from "@/app/components/ui/switch";
 import { Textarea } from "@/app/components/ui/textarea";
+import { addSupplier } from "@/app/lib/data";
 import {
 	Calendar as CalendarDaysIcon,
 	Notebook,
@@ -43,6 +44,10 @@ export default function Form({
 	const status = params.get("status");
 	const [date, setDate] = useState<Date | undefined>();
 	const [currency, setCurrency] = useState<string | undefined>();
+
+	const onAddSupplier = (name: string) => {
+		addSupplier(name);
+	};
 
 	return (
 		<form>
@@ -72,7 +77,11 @@ export default function Form({
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="supplier-name">Supplier Name</Label>
-						<ComboBox placeholder="Select supplier" options={suppliers} />
+						<ComboBox
+							onAdd={onAddSupplier}
+							placeholder="Select supplier"
+							options={suppliers}
+						/>
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="service-description">Service Description</Label>
