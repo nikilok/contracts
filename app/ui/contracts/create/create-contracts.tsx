@@ -3,6 +3,7 @@
 import { Button } from "@/app/components/ui/button";
 import { Calendar } from "@/app/components/ui/calendar";
 import { CardContent, CardFooter } from "@/app/components/ui/card";
+import { ComboBox } from "@/app/components/ui/combo-box";
 import { DateRangePicker } from "@/app/components/ui/date-range-picker";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
@@ -67,18 +68,14 @@ export default function Form() {
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="supplier-name">Supplier Name</Label>
-						<Select>
-							<SelectTrigger>
-								<SelectValue placeholder="Select supplier" />
-							</SelectTrigger>
-							<SelectContent>
-								<SelectItem value="supplier1">Supplier 1</SelectItem>
-								<SelectItem value="supplier2">Supplier 2</SelectItem>
-								<SelectItem value="supplier3">Supplier 3</SelectItem>
-								<SelectItem value="supplier4">Supplier 4</SelectItem>
-								<SelectItem value="supplier5">Supplier 5</SelectItem>
-							</SelectContent>
-						</Select>
+						<ComboBox
+							placeholder="Select supplier"
+							options={[
+								{ value: "Supplier 1", label: "Supplier 1" },
+								{ value: "Supplier 2", label: "Supplier 2" },
+								{ value: "Supplier 3", label: "Supplier 3" },
+							]}
+						/>
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="service-description">Service Description</Label>
