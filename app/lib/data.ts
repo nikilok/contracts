@@ -12,7 +12,7 @@ export async function getSuppliers() {
 
 		return data.map((row) => ({ value: row.name, label: row.name }));
 	} catch (err) {
-		throw new Error("Database error: failed to get invoice pending");
+		throw new Error("Database error: failed to get suppliers");
 	}
 }
 
@@ -27,6 +27,6 @@ export async function addSupplier(name: string) {
 
 		revalidatePath("/dashboard/create");
 	} catch (err) {
-		throw new Error("Database error: failed to get invoice pending");
+		throw new Error("Database error: failed to add supplier");
 	}
 }
