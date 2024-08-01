@@ -30,7 +30,11 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-export default function Form() {
+export default function Form({
+	suppliers,
+}: {
+	suppliers: { value: string; label: string }[];
+}) {
 	const [contractReviewPeriod, setContractReviewPeriod] = useState("30");
 	const [infoSecComplete, setInfoSecComplete] = useState(false);
 	const [piiComplete, setPiiComplete] = useState(false);
@@ -68,14 +72,7 @@ export default function Form() {
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="supplier-name">Supplier Name</Label>
-						<ComboBox
-							placeholder="Select supplier"
-							options={[
-								{ value: "Supplier 1", label: "Supplier 1" },
-								{ value: "Supplier 2", label: "Supplier 2" },
-								{ value: "Supplier 3", label: "Supplier 3" },
-							]}
-						/>
+						<ComboBox placeholder="Select supplier" options={suppliers} />
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="service-description">Service Description</Label>

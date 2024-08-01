@@ -4,19 +4,22 @@ const prisma = new PrismaClient();
 
 async function main() {
   // ... you will write your Prisma Client queries here
-  // await prisma.sample.create({
-  //   data: {
-  //     email: "michael@prisma.com",
-  //     name: "Michael",
-  //   },
-  // });
-  // const allRevenues = await prisma.sample.findMany({
-  //   select: {
-  //     email: true,
-  //     name: true,
-  //   },
-  // });
-  // console.log("🚀 ~ main ~ allRevenues:", allRevenues);
+  await prisma.suppliers.createMany({
+    data: [
+      {
+        name: "Jamie Wixon LLC",
+      },
+      {
+        name: "Draxo Plc Lmt.",
+      },
+    ],
+  });
+  const allSuppliers = await prisma.suppliers.findMany({
+    select: {
+      name: true,
+    },
+  });
+  console.log("🚀 ~ main ~ allSuppliers:", allSuppliers);
 }
 
 main()
