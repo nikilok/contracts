@@ -18,13 +18,13 @@ export default async function Page() {
 		<main className="py-8 px-2">
 			{suppliers.length > 0 ? (
 				<Card className="w-full max-w-4xl m-auto">
-					<CardHeader>
+					<CardHeader className="bg-slate-100 sticky z-50 top-[64px] overload-hidden">
 						<CardTitle>Create Contract</CardTitle>
 						<CardDescription>
 							Please fill out the form to submit a new contract request.
 						</CardDescription>
 					</CardHeader>
-					<Separator className="mb-4" />
+					<Separator className="mb-4 sticky top-[154px]" />
 					<Suspense fallback="loading...">
 						<Form suppliers={suppliers} />
 					</Suspense>
