@@ -1,6 +1,7 @@
 "use client";
 
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
+import { PlusSquare } from "lucide-react";
 
 import { cn } from "@/app/lib/utils";
 import { useState } from "react";
@@ -62,7 +63,7 @@ export function ComboBox({
 								onAdd(rawValue);
 							}}
 						>
-							Add Instead
+							Add {rawValue}
 						</Button>
 					</CommandEmpty>
 					<CommandGroup>
@@ -84,6 +85,17 @@ export function ComboBox({
 								/>
 							</CommandItem>
 						))}
+						{rawValue && (
+							<div className="flex justify-center">
+								<Button
+									onClick={() => {
+										onAdd(rawValue);
+									}}
+								>
+									Add {rawValue}
+								</Button>
+							</div>
+						)}
 					</CommandGroup>
 				</Command>
 			</PopoverContent>
