@@ -385,7 +385,7 @@ export default function Form({
 				<Button tabIndex={0} type="submit" className="gap-1">
 					<RocketIcon className="h-3.5 w-3.5" />
 					<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-						Submit
+						Create Contract
 					</span>
 				</Button>
 			</CardFooter>
