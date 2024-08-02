@@ -19,6 +19,7 @@ export function ComboBox({
 	options = [],
 	placeholder = "",
 	onAdd,
+	onSelect,
 }: {
 	options: {
 		value: string;
@@ -26,6 +27,7 @@ export function ComboBox({
 	}[];
 	placeholder: string;
 	onAdd: (name: string) => void;
+	onSelect: (obj: { value: string; label: string }) => void;
 }) {
 	const [open, setOpen] = useState(false);
 	const [value, setValue] = useState("");
@@ -41,8 +43,9 @@ export function ComboBox({
 					className="w-[calc(100%)] justify-between"
 				>
 					{value
-						? options.find((option) => option.value.toLowerCase() === value)
-								?.label
+						? options.find(
+								(option) => option.label.toLowerCase() === value.toLowerCase(),
+							)?.label
 						: placeholder}
 
 					<CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -70,10 +73,17 @@ export function ComboBox({
 						{options.map((option) => (
 							<CommandItem
 								key={option.value}
-								value={option.value}
+								value={option.label}
 								onSelect={(currentValue) => {
+									const selectedValue = options.find(
+										(option) =>
+											option.label.toLowerCase() === currentValue.toLowerCase(),
+									)?.value;
+									console.log({ label: currentValue, value: selectedValue });
 									setValue(currentValue);
 									setOpen(false);
+									if (selectedValue)
+										onSelect({ label: currentValue, value: selectedValue });
 								}}
 							>
 								{option.label}

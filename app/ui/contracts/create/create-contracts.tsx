@@ -59,6 +59,10 @@ export default function Form({
 		addSupplier(name);
 	};
 
+	const onSelectHandler = (select: { value: string; label: string }) => {
+		console.log("🚀 ~ onSelectHandler ~ select:", select);
+	};
+
 	return (
 		<form>
 			<CardContent className="grid gap-6">
@@ -89,6 +93,7 @@ export default function Form({
 						<Label htmlFor="supplier-name">Supplier Name</Label>
 						<ComboBox
 							onAdd={onAddSupplier}
+							onSelect={onSelectHandler}
 							placeholder="Select supplier"
 							options={suppliers}
 						/>

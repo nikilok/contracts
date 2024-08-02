@@ -10,7 +10,7 @@ export async function getSuppliers() {
 	try {
 		const data = await prisma.suppliers.findMany();
 
-		return data.map((row) => ({ value: row.name, label: row.name }));
+		return data.map(({ id, name }) => ({ value: id, label: name }));
 	} catch (err) {
 		throw new Error("Database error: failed to get suppliers");
 	}

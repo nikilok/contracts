@@ -14,6 +14,37 @@ datasource db {
 }
 
 model Suppliers {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  name String @unique
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  name      String      @unique
+  Contracts Contracts[]
+}
+
+model Contracts {
+  id                        String    @id @default(auto()) @map("_id") @db.ObjectId
+  requestDate               DateTime?
+  supplier                  Suppliers @relation(fields: [supplierId], references: [id])
+  supplierId                String    @db.ObjectId
+  description               String?
+  subCategory               String?
+  serviceOwner              String?
+  contractFrom              DateTime?
+  contractTo                DateTime?
+  contractType              String?
+  requestType               String?
+  annualContractValue       Int?
+  annualContractCurrency    String?
+  savingsValue              Int?
+  serviceCategory           String?
+  riskClassification        String?
+  region                    String?
+  infoSecInScope            Boolean   @default(false)
+  infoSecAssessmentComplete Boolean   @default(false)
+  piiScope                  Boolean   @default(false)
+  privacyAssessmentComplete Boolean   @default(false)
+  sefComplete               Boolean   @default(false)
+  reviewPeriod              Int?
+  renewalStrategy           String?
+  poRequired                Boolean   @default(false)
+  autoRenewal               Boolean   @default(false)
+  isDraft                   Boolean   @default(true)
 }
