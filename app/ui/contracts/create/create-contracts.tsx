@@ -21,6 +21,7 @@ import {
 } from "@/app/components/ui/select";
 import { Switch } from "@/app/components/ui/switch";
 import { Textarea } from "@/app/components/ui/textarea";
+import { submitOrDraftContracts } from "@/app/lib/actions";
 import {
 	ContractTypes,
 	Currency,
@@ -40,6 +41,7 @@ import {
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { useFormState } from "react-dom";
 
 export default function Form({
 	suppliers,
@@ -54,17 +56,25 @@ export default function Form({
 	const status = params.get("status");
 	const [date, setDate] = useState<Date | undefined>();
 	const [currency, setCurrency] = useState<string | undefined>();
+	const [selectType, setSelectType] = useState("");
+	const [isDraft, setIsDraft] = useState<null | boolean>(null);
+
+	const initialState = { message: null, errors: {} };
+	//@ts-expect-error ignore this
+	const [state, dispatch] = useFormState(submitOrDraftContracts, initialState);
 
 	const onAddSupplier = (name: string) => {
 		addSupplier(name);
 	};
 
 	const onSelectHandler = (select: { value: string; label: string }) => {
-		console.log("🚀 ~ onSelectHandler ~ select:", select);
+		setSelectType(select.value);
 	};
 
 	return (
-		<form>
+		<form action={dispatch}>
+			<input type="hidden" name="select-type" value={selectType} />
+			<input type="hidden" name="isDraft" value={`${isDraft}`} />
 			<CardContent className="grid gap-6">
 				<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 					<div className="space-y-2">
@@ -376,13 +386,26 @@ export default function Form({
 						Cancel
 					</Button>
 				</Link>
-				<Button variant="outline" tabIndex={0} type="submit" className="gap-1">
+				<Button
+					variant="outline"
+					tabIndex={0}
+					name="draftContract"
+					onClick={() => setIsDraft(true)}
+					type="submit"
+					className="gap-1"
+				>
 					<Notebook className="h-3.5 w-3.5" />
 					<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
 						Save draft
 					</span>
 				</Button>
-				<Button tabIndex={0} type="submit" className="gap-1">
+				<Button
+					tabIndex={0}
+					name="createContract"
+					type="submit"
+					onClick={() => setIsDraft(false)}
+					className="gap-1"
+				>
 					<RocketIcon className="h-3.5 w-3.5" />
 					<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
 						Create Contract
