@@ -56,8 +56,10 @@ export default function Form({
 	const status = params.get("status");
 	const [date, setDate] = useState<Date | undefined>();
 	const [currency, setCurrency] = useState<string | undefined>();
-	const [selectType, setSelectType] = useState("");
+	const [supplierId, setSupplierId] = useState<string | null>(null);
 	const [isDraft, setIsDraft] = useState<null | boolean>(null);
+	const [contractFrom, setContractFrom] = useState<null | string>(null);
+	const [contractTo, setContractTo] = useState<undefined | string>(undefined);
 
 	const initialState = { message: null, errors: {} };
 	//@ts-expect-error ignore this
@@ -68,13 +70,16 @@ export default function Form({
 	};
 
 	const onSelectHandler = (select: { value: string; label: string }) => {
-		setSelectType(select.value);
+		setSupplierId(select.value);
 	};
 
 	return (
 		<form action={dispatch}>
-			<input type="hidden" name="select-type" value={selectType} />
+			<input type="hidden" name="supplier-id" value={supplierId ?? ""} />
+			<input type="hidden" name="request-date" value={date?.toISOString()} />
 			<input type="hidden" name="isDraft" value={`${isDraft}`} />
+			<input type="hidden" name="contract-from" value={contractFrom ?? ""} />
+			<input type="hidden" name="contract-to" value={contractTo ?? ""} />
 			<CardContent className="grid gap-6">
 				<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 					<div className="space-y-2">
@@ -112,12 +117,13 @@ export default function Form({
 						<Label htmlFor="service-description">Service Description</Label>
 						<Textarea
 							id="service-description"
+							name="service-description"
 							placeholder="Provide a description of the service"
 						/>
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="sub-category">Sub Category</Label>
-						<Select>
+						<Select name="sub-category">
 							<SelectTrigger>
 								<SelectValue placeholder="Select sub-category" />
 							</SelectTrigger>
@@ -134,13 +140,20 @@ export default function Form({
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="service-owner">Service Owner</Label>
-						<Input id="service-owner" placeholder="Enter service owner name" />
+						<Input
+							id="service-owner"
+							name="service-owner"
+							placeholder="Enter service owner name"
+						/>
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="contract-period">Contract Period</Label>
 						<div>
 							<DateRangePicker
-								onUpdate={(values) => console.log(values)}
+								onUpdate={(values) => {
+									setContractFrom(values.range.from.toISOString());
+									setContractTo(values.range.to?.toISOString());
+								}}
 								initialDateFrom={new Date().toLocaleDateString("en-CA")}
 								initialDateTo={new Date().toLocaleDateString("en-CA")}
 								align="start"
@@ -151,7 +164,7 @@ export default function Form({
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="contract-type">Contract Type</Label>
-						<Select>
+						<Select name="contract-type">
 							<SelectTrigger>
 								<SelectValue placeholder="Select contract type" />
 							</SelectTrigger>
@@ -168,7 +181,7 @@ export default function Form({
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="request-type">Request Type</Label>
-						<Select>
+						<Select name="request-type">
 							<SelectTrigger>
 								<SelectValue placeholder="Select request type" />
 							</SelectTrigger>
@@ -188,10 +201,14 @@ export default function Form({
 						<div className="flex items-center gap-2">
 							<Input
 								id="annual-contract-value"
+								name="annual-contract-value"
 								type="number"
 								placeholder="Enter value"
 							/>
-							<Select onValueChange={setCurrency}>
+							<Select
+								name="annual-contract-currency"
+								onValueChange={setCurrency}
+							>
 								<SelectTrigger>
 									<SelectValue placeholder="Currency" />
 								</SelectTrigger>
@@ -213,6 +230,7 @@ export default function Form({
 							<Input
 								className="max-w-[85%]"
 								id="savings"
+								name="savings"
 								type="number"
 								placeholder="Enter value"
 							/>
@@ -223,7 +241,7 @@ export default function Form({
 						<Label htmlFor="service-categorization">
 							Service Categorization
 						</Label>
-						<Select>
+						<Select name="service-categorization">
 							<SelectTrigger>
 								<SelectValue placeholder="Select categorization" />
 							</SelectTrigger>
@@ -240,7 +258,7 @@ export default function Form({
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="risk-classification">Risk Classification</Label>
-						<Select>
+						<Select name="risk-classification">
 							<SelectTrigger>
 								<SelectValue placeholder="Select risk classification" />
 							</SelectTrigger>
@@ -257,7 +275,7 @@ export default function Form({
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="benefiting-region">Benefiting Region</Label>
-						<Select>
+						<Select name="benefiting-region">
 							<SelectTrigger>
 								<SelectValue placeholder="Select benefiting region" />
 							</SelectTrigger>
@@ -277,6 +295,7 @@ export default function Form({
 							<Label htmlFor="infosec-in-scope">Infosec in Scope</Label>
 							<Switch
 								id="infosec-in-scope"
+								name="infosec-in-scope"
 								checked={infoSecComplete}
 								onCheckedChange={setInfoSecComplete}
 								aria-label="Infosec in Scope"
@@ -289,6 +308,7 @@ export default function Form({
 								</Label>
 								<Switch
 									id="infosec-assesment"
+									name="infosec-assesment"
 									aria-label="Infosec Assessment Complete"
 								/>
 							</div>
@@ -299,6 +319,7 @@ export default function Form({
 							<Label htmlFor="pii-in-scope">PII in Scope</Label>
 							<Switch
 								id="pii-in-scope"
+								name="pii-in-scope"
 								checked={piiComplete}
 								onCheckedChange={setPiiComplete}
 								aria-label="PII in Scope"
@@ -311,6 +332,7 @@ export default function Form({
 								</Label>
 								<Switch
 									id="pii-assessment-complete"
+									name="pii-assessment-complete"
 									aria-label="Data privacy assessment complete ?"
 								/>
 							</div>
@@ -318,7 +340,11 @@ export default function Form({
 					</div>
 					<div className="space-x-2">
 						<Label htmlFor="sef-completed">SEF Completed</Label>
-						<Switch id="sef-completed" aria-label="SEF Completed" />
+						<Switch
+							id="sef-completed"
+							name="sef-completed"
+							aria-label="SEF Completed"
+						/>
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="contract-review-period">
@@ -327,6 +353,7 @@ export default function Form({
 						<div className="flex items-center gap-2">
 							<Select
 								value={contractReviewPeriod}
+								name="contract-review-period"
 								onValueChange={setContractReviewPeriod}
 							>
 								<SelectTrigger>
@@ -343,6 +370,7 @@ export default function Form({
 							{contractReviewPeriod === "custom" && (
 								<Input
 									id="contract-review-period"
+									name="custom-review-period"
 									type="number"
 									placeholder="Custom period"
 									defaultValue="190"
@@ -352,7 +380,7 @@ export default function Form({
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="renewal-strategy">Renewal Strategy</Label>
-						<Select>
+						<Select name="renewal-strategy">
 							<SelectTrigger>
 								<SelectValue placeholder="Select renewal strategy" />
 							</SelectTrigger>
@@ -369,11 +397,19 @@ export default function Form({
 					</div>
 					<div className="space-x-2">
 						<Label htmlFor="po-required">PO Required?</Label>
-						<Switch id="po-required" aria-label="PO Required" />
+						<Switch
+							id="po-required"
+							name="po-required"
+							aria-label="PO Required"
+						/>
 					</div>
 					<div className="space-x-2">
 						<Label htmlFor="auto-renewal">Auto Renewal?</Label>
-						<Switch id="auto-renewal" aria-label="Auto Renewal" />
+						<Switch
+							id="auto-renewal"
+							name="auto-renewal"
+							aria-label="Auto Renewal"
+						/>
 					</div>
 				</div>
 			</CardContent>

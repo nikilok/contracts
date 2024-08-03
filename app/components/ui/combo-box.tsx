@@ -79,7 +79,6 @@ export function ComboBox({
 										(option) =>
 											option.label.toLowerCase() === currentValue.toLowerCase(),
 									)?.value;
-									console.log({ label: currentValue, value: selectedValue });
 									setValue(currentValue);
 									setOpen(false);
 									if (selectedValue)
