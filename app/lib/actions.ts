@@ -11,41 +11,44 @@ const ContractsFormSchema = (isDraft: boolean) =>
 	z
 		.object({
 			requestDate: isDraft ? z.string().optional() : z.string(),
-			supplierId: z.string(),
-			description: isDraft ? z.string().min(4).optional() : z.string().min(4),
+			supplierId: z.string().min(3),
+			serviceDescription: isDraft
+				? z.string().min(4).optional()
+				: z.string().min(4),
 			subCategory: isDraft ? z.coerce.number().optional() : z.coerce.number(),
-			serviceOwner: isDraft ? z.string().min(3).optional() : z.string().min(3),
-			contractFrom: isDraft ? z.coerce.date().optional() : z.coerce.date(),
-			contractTo: isDraft ? z.coerce.date().optional() : z.coerce.date(),
+			serviceOwner: isDraft ? z.string().optional() : z.string().min(3),
+			contractFrom: isDraft ? z.string().optional() : z.coerce.date(),
+			contractTo: isDraft ? z.string().optional() : z.coerce.date(),
 			contractType: isDraft ? z.coerce.number().optional() : z.coerce.number(),
 			requestType: isDraft ? z.coerce.number().optional() : z.coerce.number(),
 			annualContractValue: z.coerce.number().optional(),
-			annualContractCurrency: z.enum(["usd", "gbp", "eur"]).optional(),
+			annualContractCurrency: z.enum(["usd", "gbp", "eur", ""]).optional(),
 			savingsValue: z.coerce.number().optional(),
-			serviceCategory: isDraft
+			serviceCategorization: isDraft
 				? z.coerce.number().optional()
 				: z.coerce.number(),
 			riskClassification: isDraft
 				? z.coerce.number().optional()
 				: z.coerce.number(),
 			region: z.string(),
-			infoSecInScope: z.enum(["on", "null"]).optional(),
-			infoSecAssessmentComplete: z.enum(["on", "null"]).optional(),
-			piiScope: z.enum(["on", "null"]).optional(),
-			privacyAssessmentComplete: z.enum(["on", "null"]).optional(),
-			sefComplete: z.enum(["on", "null"]).optional(),
+			infoSecScope: z.enum(["on"]).nullable(),
+			infoSecAssessmentComplete: z.enum(["on"]).nullable(),
+			piiScope: z.enum(["on"]).nullable(),
+			dataPrivacyAssessmentComplete: z.enum(["on"]).nullable(),
+			sefComplete: z.enum(["on"]).nullable(),
 			reviewPeriod: isDraft ? z.coerce.number().optional() : z.coerce.number(),
 			renewalStrategy: isDraft
 				? z.coerce.number().optional()
 				: z.coerce.number(),
-			poRequired: z.enum(["on", "null"]).optional(),
-			autoRenewal: z.enum(["on", "null"]).optional(),
+			poRequired: z.enum(["on"]).nullable(),
+			autoRenewal: z.enum(["on"]).nullable(),
 			isDraft: z.enum(["true", "false"]),
 		})
 		.refine((data) => {
 			return !(
 				data.annualContractValue !== null &&
-				data.annualContractCurrency !== null
+				data.annualContractCurrency !== null &&
+				!isDraft
 			);
 		}, "Annual currency must have a value, when currency is added");
 
@@ -88,11 +91,14 @@ export async function submitOrDraftContracts(
 
 	// If form validation fails, return errors early. Otherwise, continue.
 	if (!validatedFields.success) {
-		return {
+		const errors = {
 			errors: validatedFields.error.flatten().fieldErrors,
-			message: "Missing Fields. Failed to Create Invoice.",
+			message: "Missing Fields. Failed to Create Contract.",
 		};
+		console.log("🚀 ~ errors:", errors);
+		return errors;
 	}
+	console.log("proceed to db write");
 
 	try {
 		await prisma.contracts.create({
