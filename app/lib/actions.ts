@@ -7,50 +7,81 @@ import type { State } from "../types";
 
 const prisma = new PrismaClient();
 
-const ContractsFormSchema = (isDraft: boolean) =>
+const getFormSchema = (isDraft: boolean) =>
 	z
 		.object({
-			requestDate: isDraft ? z.string().optional() : z.string(),
+			requestDate: isDraft ? z.string().optional() : z.coerce.date(),
 			supplierId: z.string().min(3),
-			serviceDescription: isDraft
-				? z.string().min(4).optional()
-				: z.string().min(4),
-			subCategory: isDraft ? z.coerce.number().optional() : z.coerce.number(),
+			serviceDescription: isDraft ? z.string().optional() : z.string().min(4),
+			subCategory: isDraft
+				? z.coerce.number().optional()
+				: z.coerce.number().gt(0),
 			serviceOwner: isDraft ? z.string().optional() : z.string().min(3),
 			contractFrom: isDraft ? z.string().optional() : z.coerce.date(),
 			contractTo: isDraft ? z.string().optional() : z.coerce.date(),
 			contractType: isDraft ? z.coerce.number().optional() : z.coerce.number(),
-			requestType: isDraft ? z.coerce.number().optional() : z.coerce.number(),
+			requestType: isDraft
+				? z.coerce.number().optional()
+				: z.coerce.number().gt(0),
 			annualContractValue: z.coerce.number().optional(),
-			annualContractCurrency: z.enum(["usd", "gbp", "eur", ""]).optional(),
+			annualContractCurrency: z.string().optional(),
 			savingsValue: z.coerce.number().optional(),
 			serviceCategorization: isDraft
 				? z.coerce.number().optional()
-				: z.coerce.number(),
+				: z.coerce.number().gt(0),
 			riskClassification: isDraft
 				? z.coerce.number().optional()
-				: z.coerce.number(),
-			region: z.string(),
+				: z.coerce.number().gt(0),
+			region: isDraft ? z.coerce.number().optional() : z.coerce.number().gt(0),
 			infoSecScope: z.enum(["on"]).nullable(),
 			infoSecAssessmentComplete: z.enum(["on"]).nullable(),
 			piiScope: z.enum(["on"]).nullable(),
 			dataPrivacyAssessmentComplete: z.enum(["on"]).nullable(),
 			sefComplete: z.enum(["on"]).nullable(),
-			reviewPeriod: isDraft ? z.coerce.number().optional() : z.coerce.number(),
+			reviewPeriod: isDraft
+				? z.coerce.number().optional()
+				: z.coerce.number().gt(0),
+			customReviewPeriod: z.coerce.number().optional(),
 			renewalStrategy: isDraft
 				? z.coerce.number().optional()
-				: z.coerce.number(),
+				: z.coerce.number().gt(0),
 			poRequired: z.enum(["on"]).nullable(),
 			autoRenewal: z.enum(["on"]).nullable(),
 			isDraft: z.enum(["true", "false"]),
 		})
-		.refine((data) => {
-			return !(
-				data.annualContractValue !== null &&
-				data.annualContractCurrency !== null &&
-				!isDraft
-			);
-		}, "Annual currency must have a value, when currency is added");
+		.refine(
+			(data) => {
+				if (isDraft) return true;
+				if ((data.annualContractValue ?? 0) > 0) {
+					if ((data.annualContractCurrency ?? "")?.length > 0) {
+						return true;
+					}
+				}
+
+				return false;
+			},
+			{
+				message: "Annual currency must have a value, when currency is added",
+				path: ["confirm"],
+			},
+		)
+		.refine(
+			(data) => {
+				if (data.reviewPeriod !== 1) {
+					return true;
+				}
+				if (data.reviewPeriod === 1) {
+					if ((data.customReviewPeriod ?? 0) > 0) {
+						return true;
+					}
+				}
+				return false;
+			},
+			{
+				message: "Custom review period, must be greater than 0",
+				path: ["confirm"],
+			},
+		);
 
 export async function submitOrDraftContracts(
 	prevState: State,
@@ -69,6 +100,7 @@ export async function submitOrDraftContracts(
 		contractType: formData.get("contract-type"),
 		requestType: formData.get("request-type"),
 		annualContractValue: formData.get("annual-contract-value"),
+		customReviewPeriod: formData.get("custom-review-period"),
 		annualContractCurrency: formData.get("annual-contract-currency"),
 		savings: formData.get("savings"),
 		serviceCategorization: formData.get("service-categorization"),
@@ -80,17 +112,16 @@ export async function submitOrDraftContracts(
 		dataPrivacyAssessmentComplete: formData.get("pii-assessment-complete"),
 		sefComplete: formData.get("sef-completed"),
 		reviewPeriod: formData.get("contract-review-period"),
-		customReviewPeriod: formData.get("custom-review-period"),
 		renewalStrategy: formData.get("renewal-strategy"),
 		poRequired: formData.get("po-required"),
 		autoRenewal: formData.get("auto-renewal"),
 	} as Record<string, string>;
 
-	// console.info("🚀 ~ rawData:", rawData);
-	const validatedFields = ContractsFormSchema(isDraft).safeParse(rawData);
+	const validatedFields = getFormSchema(isDraft).safeParse(rawData);
 
 	// If form validation fails, return errors early. Otherwise, continue.
 	if (!validatedFields.success) {
+		console.log("🚀 ~ validatedFields:", validatedFields.error);
 		const errors = {
 			errors: validatedFields.error.flatten().fieldErrors,
 			message: "Missing Fields. Failed to Create Contract.",
@@ -98,43 +129,53 @@ export async function submitOrDraftContracts(
 		console.log("🚀 ~ errors:", errors);
 		return errors;
 	}
-	console.log("proceed to db write");
+	const dataForDB: Record<string, string> = {};
 
+	for (const [key, value] of Object.entries(rawData)) {
+		if (value?.length > 0) {
+			dataForDB[key] = value;
+		}
+	}
+	console.log("🚀 ~ dataForDB:", dataForDB);
 	try {
 		await prisma.contracts.create({
 			data: {
-				requestDate: new Date(rawData.requestDate),
-				supplierId: rawData.supplierId,
-				description: rawData.serviceDescription,
-				subCategory: rawData.subCategory,
-				serviceOwner: rawData.serviceOwner,
-				contractFrom: rawData.contractFrom,
-				contractTo: rawData.contractTo,
-				contractType: rawData.contractType,
-				requestType: rawData.requestType,
-				annualContractValue: Number.parseInt(rawData.annualContractValue),
-				annualContractCurrency: rawData.annualContractCurrency,
-				savingsValue: Number.parseInt(rawData.savings),
-				serviceCategory: rawData.serviceCategorization,
-				riskClassification: rawData.riskClassification,
-				region: rawData.region,
-				infoSecInScope: rawData.infoSecScope === "on",
-				infoSecAssessmentComplete: rawData.infoSecAssessmentComplete === "on",
-				piiScope: rawData.piiScope === "on",
+				requestDate:
+					dataForDB.requestDate?.length > 0
+						? new Date(dataForDB.requestDate)
+						: null,
+				supplierId: dataForDB.supplierId,
+				description: dataForDB.serviceDescription,
+				subCategory: dataForDB.subCategory,
+				serviceOwner: dataForDB.serviceOwner,
+				contractFrom: dataForDB.contractFrom,
+				contractTo: dataForDB.contractTo,
+				contractType: dataForDB.contractType,
+				requestType: dataForDB.requestType,
+				annualContractValue: Number.parseInt(dataForDB.annualContractValue),
+				annualContractCurrency: dataForDB.annualContractCurrency ?? null,
+				savingsValue: Number.parseInt(dataForDB.savings),
+				serviceCategory: dataForDB.serviceCategorization,
+				riskClassification: dataForDB.riskClassification,
+				region: dataForDB.region,
+				infoSecInScope: dataForDB.infoSecScope === "on",
+				infoSecAssessmentComplete: dataForDB.infoSecAssessmentComplete === "on",
+				piiScope: dataForDB.piiScope === "on",
 				privacyAssessmentComplete:
-					rawData.dataPrivacyAssessmentComplete === "on",
-				sefComplete: rawData.sefComplete === "on",
+					dataForDB.dataPrivacyAssessmentComplete === "on",
+				sefComplete: dataForDB.sefComplete === "on",
 				reviewPeriod:
-					rawData.reviewPeriod === "custom"
-						? Number.parseInt(rawData.customReviewPeriod)
-						: Number.parseInt(rawData.reviewPeriod),
-				renewalStrategy: rawData.renewalStrategy,
-				poRequired: rawData.poRequired === "on",
-				autoRenewal: rawData.autoRenewal === "on",
-				isDraft: rawData.isDraft === "true",
+					dataForDB.reviewPeriod === "1"
+						? Number.parseInt(dataForDB.customReviewPeriod)
+						: Number.parseInt(dataForDB.reviewPeriod),
+				renewalStrategy: dataForDB.renewalStrategy,
+				poRequired: dataForDB.poRequired === "on",
+				autoRenewal: dataForDB.autoRenewal === "on",
+				isDraft: dataForDB.isDraft === "true",
 			},
 		});
 	} catch (err) {
+		console.log("🚀 ~ err:", err);
 		// return { message: "Database error: Failed to update invoice" };
 		throw new Error("Database error: Failed to create contract");
 	}

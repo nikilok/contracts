@@ -48,7 +48,7 @@ export default function Form({
 }: {
 	suppliers: { value: string; label: string }[];
 }) {
-	const [contractReviewPeriod, setContractReviewPeriod] = useState("30");
+	const [contractReviewPeriod, setContractReviewPeriod] = useState("0");
 	const [infoSecComplete, setInfoSecComplete] = useState(false);
 	const [piiComplete, setPiiComplete] = useState(false);
 	const searchParams = useSearchParams();
@@ -360,14 +360,15 @@ export default function Form({
 									<SelectValue placeholder="Select period" />
 								</SelectTrigger>
 								<SelectContent>
+									<SelectItem value="0">Please Select</SelectItem>
 									<SelectItem value="30">30 days</SelectItem>
 									<SelectItem value="60">60 days</SelectItem>
 									<SelectItem value="90">90 days</SelectItem>
 									<SelectItem value="180">180 days</SelectItem>
-									<SelectItem value="custom">Custom</SelectItem>
+									<SelectItem value="1">Custom</SelectItem>
 								</SelectContent>
 							</Select>
-							{contractReviewPeriod === "custom" && (
+							{contractReviewPeriod === "1" && (
 								<Input
 									id="contract-review-period"
 									name="custom-review-period"
