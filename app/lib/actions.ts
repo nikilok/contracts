@@ -67,14 +67,15 @@ const getFormSchema = (isDraft: boolean) =>
 		})
 		.refine(
 			(data) => {
-				if (isDraft) return true;
-				if ((data.annualContractValue ?? 0) > 0) {
-					if ((data.annualContractCurrency ?? "")?.length > 0) {
-						return true;
-					}
+				if (
+					!isDraft &&
+					(data.annualContractValue ?? 0) > 0 &&
+					(data.annualContractCurrency ?? "") === ""
+				) {
+					return false;
 				}
 
-				return false;
+				return true;
 			},
 			{
 				message: "Annual currency must have a value, when currency is added",
@@ -83,15 +84,14 @@ const getFormSchema = (isDraft: boolean) =>
 		)
 		.refine(
 			(data) => {
-				if (data.reviewPeriod !== 1) {
-					return true;
+				if (
+					!isDraft &&
+					data.reviewPeriod === 1 &&
+					(data.customReviewPeriod ?? 0) === 0
+				) {
+					return false;
 				}
-				if (data.reviewPeriod === 1) {
-					if ((data.customReviewPeriod ?? 0) > 0) {
-						return true;
-					}
-				}
-				return false;
+				return true;
 			},
 			{
 				message: "Custom review period, must be greater than 0",
