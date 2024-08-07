@@ -1,10 +1,6 @@
 export type HeaderLink = { name: string; href: string };
 
 export type State = {
-	errors?: {
-		customerId?: string[];
-		amount?: string[];
-		status?: string[];
-	};
+	errors?: Record<string, string[]>;
 	message?: string | null;
 };

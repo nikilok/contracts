@@ -137,12 +137,11 @@ export async function submitOrDraftContracts(
 
 	// If form validation fails, return errors early. Otherwise, continue.
 	if (!validatedFields.success) {
-		console.log("🚀 ~ validatedFields:", validatedFields.error);
 		const errors = {
 			errors: validatedFields.error.flatten().fieldErrors,
 			message: "Missing Fields. Failed to Create Contract.",
 		};
-		console.log("🚀 ~ errors:", errors);
+		console.error("🚀 ~ errors:", errors);
 		return errors;
 	}
 	const dataForDB: Record<string, string> = {};
@@ -152,7 +151,6 @@ export async function submitOrDraftContracts(
 			dataForDB[key] = value;
 		}
 	}
-	console.log("🚀 ~ dataForDB:", dataForDB);
 	try {
 		await prisma.contracts.create({
 			data: {
@@ -191,7 +189,7 @@ export async function submitOrDraftContracts(
 			},
 		});
 	} catch (err) {
-		console.log("🚀 ~ err:", err);
+		console.error("🚀 ~ err:", err);
 		// return { message: "Database error: Failed to update invoice" };
 		throw new Error("Database error: Failed to create contract");
 	}
