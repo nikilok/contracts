@@ -11,14 +11,26 @@ const getFormSchema = (isDraft: boolean) =>
 	z
 		.object({
 			requestDate: isDraft ? z.string().optional() : z.coerce.date(),
-			supplierId: z.string().min(3),
+			supplierId: z.string().min(3, "Select a supplier"),
 			serviceDescription: isDraft ? z.string().optional() : z.string().min(4),
 			subCategory: isDraft
 				? z.coerce.number().optional()
 				: z.coerce.number().gt(0, "Select a valid option"),
 			serviceOwner: isDraft ? z.string().optional() : z.string().min(3),
-			contractFrom: isDraft ? z.string().optional() : z.coerce.date(),
-			contractTo: isDraft ? z.string().optional() : z.coerce.date(),
+			contractFrom: isDraft
+				? z.string().optional()
+				: z.coerce.date({
+						errorMap: () => ({
+							message: "Invalid from date",
+						}),
+					}),
+			contractTo: isDraft
+				? z.string().optional()
+				: z.coerce.date({
+						errorMap: () => ({
+							message: "Invalid to date",
+						}),
+					}),
 			contractType: isDraft
 				? z.coerce.number().optional()
 				: z.coerce.number().gt(0, "Select a valid option"),
