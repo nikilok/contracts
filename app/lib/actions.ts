@@ -19,7 +19,9 @@ const getFormSchema = (isDraft: boolean) =>
 			serviceOwner: isDraft ? z.string().optional() : z.string().min(3),
 			contractFrom: isDraft ? z.string().optional() : z.coerce.date(),
 			contractTo: isDraft ? z.string().optional() : z.coerce.date(),
-			contractType: isDraft ? z.coerce.number().optional() : z.coerce.number(),
+			contractType: isDraft
+				? z.coerce.number().optional()
+				: z.coerce.number().gt(0),
 			requestType: isDraft
 				? z.coerce.number().optional()
 				: z.coerce.number().gt(0),
@@ -62,7 +64,7 @@ const getFormSchema = (isDraft: boolean) =>
 			},
 			{
 				message: "Annual currency must have a value, when currency is added",
-				path: ["confirm"],
+				path: ["annualContractValue"],
 			},
 		)
 		.refine(
@@ -79,7 +81,7 @@ const getFormSchema = (isDraft: boolean) =>
 			},
 			{
 				message: "Custom review period, must be greater than 0",
-				path: ["confirm"],
+				path: ["reviewPeriod"],
 			},
 		);
 

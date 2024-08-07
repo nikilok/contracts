@@ -103,6 +103,11 @@ export default function Form({
 								/>
 							</PopoverContent>
 						</Popover>
+						{state?.errors?.requestDate?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="supplier-name">Supplier Name</Label>
@@ -112,6 +117,11 @@ export default function Form({
 							placeholder="Select supplier"
 							options={suppliers}
 						/>
+						{state?.errors?.supplierId?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="service-description">Service Description</Label>
@@ -120,6 +130,12 @@ export default function Form({
 							name="service-description"
 							placeholder="Provide a description of the service"
 						/>
+
+						{state?.errors?.serviceDescription?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="sub-category">Sub Category</Label>
@@ -137,6 +153,11 @@ export default function Form({
 								})}
 							</SelectContent>
 						</Select>
+						{state?.errors?.subCategory?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="service-owner">Service Owner</Label>
@@ -145,6 +166,11 @@ export default function Form({
 							name="service-owner"
 							placeholder="Enter service owner name"
 						/>
+						{state?.errors?.serviceOwner?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="contract-period">Contract Period</Label>
@@ -161,6 +187,16 @@ export default function Form({
 								showCompare={false}
 							/>
 						</div>
+						{state?.errors?.contractFrom?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
+						{state?.errors?.contractTo?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="contract-type">Contract Type</Label>
@@ -178,6 +214,11 @@ export default function Form({
 								})}
 							</SelectContent>
 						</Select>
+						{state?.errors?.contractType?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="request-type">Request Type</Label>
@@ -195,6 +236,11 @@ export default function Form({
 								})}
 							</SelectContent>
 						</Select>
+						{state?.errors?.requestType?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="annual-contract-value">Annual Contract Value</Label>
@@ -223,6 +269,16 @@ export default function Form({
 								</SelectContent>
 							</Select>
 						</div>
+						{state?.errors?.annualContractValue?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
+						{state?.errors?.annualContractCurrency?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="savings">Savings</Label>
@@ -236,6 +292,11 @@ export default function Form({
 							/>
 							<span className="uppercase text-xs opacity-50">{currency}</span>
 						</div>
+						{state?.errors?.savingsValue?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="service-categorization">
@@ -255,6 +316,11 @@ export default function Form({
 								})}
 							</SelectContent>
 						</Select>
+						{state?.errors?.serviceCategorization?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="risk-classification">Risk Classification</Label>
@@ -272,6 +338,11 @@ export default function Form({
 								})}
 							</SelectContent>
 						</Select>
+						{state?.errors?.riskClassification?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="benefiting-region">Benefiting Region</Label>
@@ -289,6 +360,11 @@ export default function Form({
 								})}
 							</SelectContent>
 						</Select>
+						{state?.errors?.region?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
 					</div>
 					<div className="flex flex-col gap-2">
 						<div className="space-x-2">
@@ -313,6 +389,11 @@ export default function Form({
 								/>
 							</div>
 						)}
+						{state?.errors?.infoSecScope?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
 					</div>
 					<div className="flex flex-col gap-2">
 						<div className="space-x-2">
@@ -337,6 +418,11 @@ export default function Form({
 								/>
 							</div>
 						)}
+						{state?.errors?.infoSecAssessmentComplete?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
 					</div>
 					<div className="space-x-2">
 						<Label htmlFor="sef-completed">SEF Completed</Label>
@@ -345,6 +431,11 @@ export default function Form({
 							name="sef-completed"
 							aria-label="SEF Completed"
 						/>
+						{state?.errors?.sefComplete?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="contract-review-period">
@@ -378,6 +469,11 @@ export default function Form({
 								/>
 							)}
 						</div>
+						{state?.errors?.reviewPeriod?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="renewal-strategy">Renewal Strategy</Label>
@@ -395,6 +491,11 @@ export default function Form({
 								})}
 							</SelectContent>
 						</Select>
+						{state?.errors?.renewalStrategy?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
 					</div>
 					<div className="space-x-2">
 						<Label htmlFor="po-required">PO Required?</Label>
