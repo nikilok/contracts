@@ -372,6 +372,30 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent align={align} className="w-auto">
+				<div className="flex justify-end gap-2 py-2 pr-4">
+					<Button
+						onClick={() => {
+							setIsOpen(false);
+							resetValues();
+						}}
+						variant="ghost"
+					>
+						Cancel
+					</Button>
+					<Button
+						onClick={() => {
+							setIsOpen(false);
+							if (
+								!areRangesEqual(range, openedRangeRef.current) ||
+								!areRangesEqual(rangeCompare, openedRangeCompareRef.current)
+							) {
+								onUpdate?.({ range, rangeCompare });
+							}
+						}}
+					>
+						Update
+					</Button>
+				</div>
 				<div className="flex py-2">
 					<div className="flex">
 						<div className="flex flex-col">
@@ -541,30 +565,6 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
 							</div>
 						</div>
 					)}
-				</div>
-				<div className="flex justify-end gap-2 py-2 pr-4">
-					<Button
-						onClick={() => {
-							setIsOpen(false);
-							resetValues();
-						}}
-						variant="ghost"
-					>
-						Cancel
-					</Button>
-					<Button
-						onClick={() => {
-							setIsOpen(false);
-							if (
-								!areRangesEqual(range, openedRangeRef.current) ||
-								!areRangesEqual(rangeCompare, openedRangeCompareRef.current)
-							) {
-								onUpdate?.({ range, rangeCompare });
-							}
-						}}
-					>
-						Update
-					</Button>
 				</div>
 			</PopoverContent>
 		</Popover>

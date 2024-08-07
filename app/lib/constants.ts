@@ -52,6 +52,7 @@ export const Regions = [
 ];
 
 export const RenewalStrategy = [
+	{ value: "6", label: "TBD" },
 	{ value: "1", label: "RFP/Tender" },
 	{ value: "2", label: "Direct Renewal" },
 	{ value: "3", label: "Market Benchmark" },
