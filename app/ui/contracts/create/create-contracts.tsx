@@ -292,11 +292,6 @@ export default function Form({
 							/>
 							<span className="uppercase text-xs opacity-50">{currency}</span>
 						</div>
-						{state?.errors?.savingsValue?.map((error: string) => (
-							<p className="mt-2 text-sm text-red-500" key={error}>
-								{error}
-							</p>
-						))}
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="service-categorization">
@@ -389,11 +384,6 @@ export default function Form({
 								/>
 							</div>
 						)}
-						{state?.errors?.infoSecScope?.map((error: string) => (
-							<p className="mt-2 text-sm text-red-500" key={error}>
-								{error}
-							</p>
-						))}
 					</div>
 					<div className="flex flex-col gap-2">
 						<div className="space-x-2">
@@ -418,11 +408,6 @@ export default function Form({
 								/>
 							</div>
 						)}
-						{state?.errors?.infoSecAssessmentComplete?.map((error: string) => (
-							<p className="mt-2 text-sm text-red-500" key={error}>
-								{error}
-							</p>
-						))}
 					</div>
 					<div className="space-x-2">
 						<Label htmlFor="sef-completed">SEF Completed</Label>
@@ -431,11 +416,6 @@ export default function Form({
 							name="sef-completed"
 							aria-label="SEF Completed"
 						/>
-						{state?.errors?.sefComplete?.map((error: string) => (
-							<p className="mt-2 text-sm text-red-500" key={error}>
-								{error}
-							</p>
-						))}
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="contract-review-period">

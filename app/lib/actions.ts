@@ -15,26 +15,28 @@ const getFormSchema = (isDraft: boolean) =>
 			serviceDescription: isDraft ? z.string().optional() : z.string().min(4),
 			subCategory: isDraft
 				? z.coerce.number().optional()
-				: z.coerce.number().gt(0),
+				: z.coerce.number().gt(0, "Select a valid option"),
 			serviceOwner: isDraft ? z.string().optional() : z.string().min(3),
 			contractFrom: isDraft ? z.string().optional() : z.coerce.date(),
 			contractTo: isDraft ? z.string().optional() : z.coerce.date(),
 			contractType: isDraft
 				? z.coerce.number().optional()
-				: z.coerce.number().gt(0),
+				: z.coerce.number().gt(0, "Select a valid option"),
 			requestType: isDraft
 				? z.coerce.number().optional()
-				: z.coerce.number().gt(0),
+				: z.coerce.number().gt(0, "Select a valid option"),
 			annualContractValue: z.coerce.number().optional(),
 			annualContractCurrency: z.string().optional(),
 			savingsValue: z.coerce.number().optional(),
 			serviceCategorization: isDraft
 				? z.coerce.number().optional()
-				: z.coerce.number().gt(0),
+				: z.coerce.number().gt(0, "Select a valid option"),
 			riskClassification: isDraft
 				? z.coerce.number().optional()
-				: z.coerce.number().gt(0),
-			region: isDraft ? z.coerce.number().optional() : z.coerce.number().gt(0),
+				: z.coerce.number().gt(0, "Select a valid option"),
+			region: isDraft
+				? z.coerce.number().optional()
+				: z.coerce.number().gt(0, "Select a valid option"),
 			infoSecScope: z.enum(["on"]).nullable(),
 			infoSecAssessmentComplete: z.enum(["on"]).nullable(),
 			piiScope: z.enum(["on"]).nullable(),
@@ -42,11 +44,11 @@ const getFormSchema = (isDraft: boolean) =>
 			sefComplete: z.enum(["on"]).nullable(),
 			reviewPeriod: isDraft
 				? z.coerce.number().optional()
-				: z.coerce.number().gt(0),
+				: z.coerce.number().gt(0, "Select a valid option"),
 			customReviewPeriod: z.coerce.number().optional(),
 			renewalStrategy: isDraft
 				? z.coerce.number().optional()
-				: z.coerce.number().gt(0),
+				: z.coerce.number().gt(0, "Select a valid option"),
 			poRequired: z.enum(["on"]).nullable(),
 			autoRenewal: z.enum(["on"]).nullable(),
 			isDraft: z.enum(["true", "false"]),
