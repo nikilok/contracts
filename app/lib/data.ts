@@ -2,6 +2,8 @@
 
 import { PrismaClient } from "@prisma/client";
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
+import type { Contract, Status } from "../types";
+import { ITEMS_PER_PAGE } from "./constants";
 
 const prisma = new PrismaClient();
 
@@ -28,5 +30,158 @@ export async function addSupplier(name: string) {
 		revalidatePath("/dashboard/create");
 	} catch (err) {
 		throw new Error("Database error: failed to add supplier");
+	}
+}
+
+export async function getContracts({
+	query = "",
+	currentPage = 1,
+	status = "active",
+}: { query?: string; currentPage: number; status: Status }): Promise<
+	Contract[]
+> {
+	noStore();
+	const currentDate = new Date().toISOString();
+	try {
+		switch (status) {
+			case "active": {
+				const data = await prisma.contracts.findMany({
+					select: {
+						id: true,
+						requestDate: true,
+						supplierId: true,
+						supplier: {
+							select: {
+								name: true,
+							},
+						},
+						description: true,
+						subCategory: true,
+						serviceOwner: true,
+						contractFrom: true,
+						contractTo: true,
+						contractType: true,
+						requestType: true,
+						annualContractValue: true,
+						annualContractCurrency: true,
+						savingsValue: true,
+						serviceCategory: true,
+						riskClassification: true,
+						region: true,
+						infoSecInScope: true,
+						infoSecAssessmentComplete: true,
+						piiScope: true,
+						privacyAssessmentComplete: true,
+						sefComplete: true,
+						reviewPeriod: true,
+						renewalStrategy: true,
+						poRequired: true,
+						autoRenewal: true,
+					},
+					where: {
+						AND: [
+							{
+								contractFrom: {
+									lte: currentDate,
+								},
+							},
+							{
+								contractTo: {
+									gte: currentDate,
+								},
+							},
+							{
+								isDraft: false,
+							},
+						],
+						OR: [
+							{
+								supplier: {
+									name: {
+										contains: query,
+										mode: "insensitive",
+									},
+								},
+							},
+							{
+								description: {
+									contains: query,
+									mode: "insensitive",
+								},
+							},
+						],
+					},
+					skip: (currentPage - 1) * ITEMS_PER_PAGE,
+					take: ITEMS_PER_PAGE,
+				});
+				return data as unknown as Contract[];
+			}
+			default:
+				return [];
+		}
+	} catch (err) {
+		console.error("Db error getting contracts", err);
+		throw new Error("Db error getting contracts");
+	}
+}
+
+export async function getContractsPageCount({
+	query = "",
+	status = "active",
+}: { query?: string; status: Status }): Promise<{
+	count: number;
+	totalPages: number;
+}> {
+	noStore();
+	const currentDate = new Date().toISOString();
+	try {
+		switch (status) {
+			case "active": {
+				const count = await prisma.contracts.count({
+					where: {
+						AND: [
+							{
+								contractFrom: {
+									lte: currentDate,
+								},
+							},
+							{
+								contractTo: {
+									gte: currentDate,
+								},
+							},
+							{
+								isDraft: false,
+							},
+						],
+						OR: [
+							{
+								supplier: {
+									name: {
+										contains: query,
+										mode: "insensitive",
+									},
+								},
+							},
+							{
+								description: {
+									contains: query,
+									mode: "insensitive",
+								},
+							},
+						],
+					},
+				});
+				return {
+					count,
+					totalPages: Math.ceil((count ?? 1) / ITEMS_PER_PAGE),
+				};
+			}
+			default:
+				return { count: 1, totalPages: 1 };
+		}
+	} catch (err) {
+		console.error("Db error getting contracts count", err);
+		throw new Error("Database error: failed to get contracts count");
 	}
 }
