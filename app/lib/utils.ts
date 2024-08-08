@@ -37,3 +37,10 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
 		totalPages,
 	];
 };
+
+export const getLabel = (
+	obj: { value: string; label: string }[],
+	value: string,
+): string => {
+	return obj.find((item) => item.value === value)?.label ?? "";
+};

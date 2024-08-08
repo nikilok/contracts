@@ -59,3 +59,5 @@ export const RenewalStrategy = [
 	{ value: "4", label: "Price Increase Review" },
 	{ value: "5", label: "Terminate / Expire" },
 ];
+
+export const ITEMS_PER_PAGE = 5;
