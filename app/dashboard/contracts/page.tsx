@@ -1,4 +1,3 @@
-import { Badge } from "@/app/components/ui/badge";
 import { Button } from "@/app/components/ui/button";
 import {
 	Card,
@@ -12,19 +11,10 @@ import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
 	DropdownMenuContent,
-	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/app/components/ui/dropdown-menu";
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@/app/components/ui/table";
 import { Tabs, TabsContent } from "@/app/components/ui/tabs";
 import { ITEMS_PER_PAGE } from "@/app/lib/constants";
 import { getContractsPageCount } from "@/app/lib/data";
@@ -33,7 +23,7 @@ import { Paging } from "@/app/ui/contracts/paging";
 import TabList from "@/app/ui/contracts/tab-list";
 import ContractsTable from "@/app/ui/contracts/table";
 import { InvoicesTableSkeleton } from "@/app/ui/skeletons";
-import { File, ListFilter, MoreHorizontal, PlusCircle } from "lucide-react";
+import { File, ListFilter, PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 

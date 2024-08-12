@@ -7,10 +7,11 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/app/components/ui/dropdown-menu";
-import { Input } from "@/app/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/app/components/ui/sheet";
-import { CircleUser, Menu, Package2, Search } from "lucide-react";
+import { CircleUser, Menu } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
+import HeaderSearch from "./header-search";
 import NavLinks from "./navLinks";
 
 const links = [
@@ -43,16 +44,9 @@ export default function Header() {
 				</SheetContent>
 			</Sheet>
 			<div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-				<form className="ml-auto flex-1 sm:flex-initial">
-					<div className="relative">
-						<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-						<Input
-							type="search"
-							placeholder="Search Contracts..."
-							className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
-						/>
-					</div>
-				</form>
+				<Suspense fallback="loading...">
+					<HeaderSearch placeholder="Search Contracts..." />
+				</Suspense>
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<Button variant="secondary" size="icon" className="rounded-full">
