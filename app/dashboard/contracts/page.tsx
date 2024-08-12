@@ -953,6 +953,46 @@ export default async function Page({
 						</CardFooter>
 					</Card>
 				</TabsContent>
+				<TabsContent value="draft">
+					<Card x-chunk="dashboard-06-chunk-0">
+						<CardHeader>
+							<CardTitle>Draft Contracts</CardTitle>
+							<CardDescription>
+								Manage all your draft contracts here.
+							</CardDescription>
+						</CardHeader>
+						<CardContent>
+							<Suspense
+								key={query + currentPage}
+								fallback={<InvoicesTableSkeleton />}
+							>
+								<ContractsTable
+									query={query}
+									currentPage={currentPage}
+									status={status}
+								/>
+							</Suspense>
+						</CardContent>
+						<CardFooter>
+							<div className="text-xs text-muted-foreground">
+								Showing{" "}
+								<strong>
+									{fromPage} - {toPage}{" "}
+								</strong>
+								of <strong>{count}</strong> contracts
+							</div>
+						</CardFooter>
+						<CardFooter>
+							<div className="relative w-full">
+								<div className="absolute inset-x-0 -bottom-20 h-8 left-0">
+									<div className="flex justify-center">
+										<Paging totalPages={totalPages} />
+									</div>
+								</div>
+							</div>
+						</CardFooter>
+					</Card>
+				</TabsContent>
 			</Tabs>
 		</main>
 	);
