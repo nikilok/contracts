@@ -28,7 +28,7 @@ export default function HeaderSearch({ placeholder }: { placeholder: string }) {
 				<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
 				<Input
 					type="search"
-					className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
+					className="shadow-inner pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
 					placeholder={placeholder}
 					onChange={(e) => handleSearch(e.target.value)}
 					defaultValue={searchParams.get("query")?.toString()}
