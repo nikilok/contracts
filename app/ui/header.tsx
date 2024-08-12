@@ -10,6 +10,7 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from "@/app/components/ui/sheet";
 import { CircleUser, Menu } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
 import HeaderSearch from "./header-search";
 import NavLinks from "./navLinks";
 
@@ -43,7 +44,9 @@ export default function Header() {
 				</SheetContent>
 			</Sheet>
 			<div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-				<HeaderSearch placeholder="Search Contracts..." />
+				<Suspense fallback="loading...">
+					<HeaderSearch placeholder="Search Contracts..." />
+				</Suspense>
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<Button variant="secondary" size="icon" className="rounded-full">
