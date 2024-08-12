@@ -1,9 +1,10 @@
 "use server";
 
-import { PrismaClient } from "@prisma/client";
+import { type Prisma, PrismaClient } from "@prisma/client";
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import type { Contract, Status } from "../types";
 import { ITEMS_PER_PAGE } from "./constants";
+import type { DefaultArgs } from "@prisma/client/runtime/library";
 
 const prisma = new PrismaClient();
 
@@ -42,42 +43,43 @@ export async function getContracts({
 > {
 	noStore();
 	const currentDate = new Date().toISOString();
+	const select: Prisma.ContractsSelect<DefaultArgs> = {
+		id: true,
+		requestDate: true,
+		supplierId: true,
+		supplier: {
+			select: {
+				name: true,
+			},
+		},
+		description: true,
+		subCategory: true,
+		serviceOwner: true,
+		contractFrom: true,
+		contractTo: true,
+		contractType: true,
+		requestType: true,
+		annualContractValue: true,
+		annualContractCurrency: true,
+		savingsValue: true,
+		serviceCategory: true,
+		riskClassification: true,
+		region: true,
+		infoSecInScope: true,
+		infoSecAssessmentComplete: true,
+		piiScope: true,
+		privacyAssessmentComplete: true,
+		sefComplete: true,
+		reviewPeriod: true,
+		renewalStrategy: true,
+		poRequired: true,
+		autoRenewal: true,
+	};
 	try {
 		switch (status) {
 			case "active": {
 				const data = await prisma.contracts.findMany({
-					select: {
-						id: true,
-						requestDate: true,
-						supplierId: true,
-						supplier: {
-							select: {
-								name: true,
-							},
-						},
-						description: true,
-						subCategory: true,
-						serviceOwner: true,
-						contractFrom: true,
-						contractTo: true,
-						contractType: true,
-						requestType: true,
-						annualContractValue: true,
-						annualContractCurrency: true,
-						savingsValue: true,
-						serviceCategory: true,
-						riskClassification: true,
-						region: true,
-						infoSecInScope: true,
-						infoSecAssessmentComplete: true,
-						piiScope: true,
-						privacyAssessmentComplete: true,
-						sefComplete: true,
-						reviewPeriod: true,
-						renewalStrategy: true,
-						poRequired: true,
-						autoRenewal: true,
-					},
+					select,
 					where: {
 						AND: [
 							{
@@ -118,38 +120,7 @@ export async function getContracts({
 			}
 			case "expired": {
 				const data = await prisma.contracts.findMany({
-					select: {
-						id: true,
-						requestDate: true,
-						supplierId: true,
-						supplier: {
-							select: {
-								name: true,
-							},
-						},
-						description: true,
-						subCategory: true,
-						serviceOwner: true,
-						contractFrom: true,
-						contractTo: true,
-						contractType: true,
-						requestType: true,
-						annualContractValue: true,
-						annualContractCurrency: true,
-						savingsValue: true,
-						serviceCategory: true,
-						riskClassification: true,
-						region: true,
-						infoSecInScope: true,
-						infoSecAssessmentComplete: true,
-						piiScope: true,
-						privacyAssessmentComplete: true,
-						sefComplete: true,
-						reviewPeriod: true,
-						renewalStrategy: true,
-						poRequired: true,
-						autoRenewal: true,
-					},
+					select,
 					where: {
 						AND: [
 							{
@@ -185,38 +156,7 @@ export async function getContracts({
 			}
 			case "draft": {
 				const data = await prisma.contracts.findMany({
-					select: {
-						id: true,
-						requestDate: true,
-						supplierId: true,
-						supplier: {
-							select: {
-								name: true,
-							},
-						},
-						description: true,
-						subCategory: true,
-						serviceOwner: true,
-						contractFrom: true,
-						contractTo: true,
-						contractType: true,
-						requestType: true,
-						annualContractValue: true,
-						annualContractCurrency: true,
-						savingsValue: true,
-						serviceCategory: true,
-						riskClassification: true,
-						region: true,
-						infoSecInScope: true,
-						infoSecAssessmentComplete: true,
-						piiScope: true,
-						privacyAssessmentComplete: true,
-						sefComplete: true,
-						reviewPeriod: true,
-						renewalStrategy: true,
-						poRequired: true,
-						autoRenewal: true,
-					},
+					select,
 					where: {
 						AND: [
 							{
@@ -247,38 +187,7 @@ export async function getContracts({
 			}
 			case "all": {
 				const data = await prisma.contracts.findMany({
-					select: {
-						id: true,
-						requestDate: true,
-						supplierId: true,
-						supplier: {
-							select: {
-								name: true,
-							},
-						},
-						description: true,
-						subCategory: true,
-						serviceOwner: true,
-						contractFrom: true,
-						contractTo: true,
-						contractType: true,
-						requestType: true,
-						annualContractValue: true,
-						annualContractCurrency: true,
-						savingsValue: true,
-						serviceCategory: true,
-						riskClassification: true,
-						region: true,
-						infoSecInScope: true,
-						infoSecAssessmentComplete: true,
-						piiScope: true,
-						privacyAssessmentComplete: true,
-						sefComplete: true,
-						reviewPeriod: true,
-						renewalStrategy: true,
-						poRequired: true,
-						autoRenewal: true,
-					},
+					select,
 					where: {
 						OR: [
 							{
