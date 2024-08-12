@@ -116,6 +116,73 @@ export async function getContracts({
 				});
 				return data as unknown as Contract[];
 			}
+			case "expired": {
+				const data = await prisma.contracts.findMany({
+					select: {
+						id: true,
+						requestDate: true,
+						supplierId: true,
+						supplier: {
+							select: {
+								name: true,
+							},
+						},
+						description: true,
+						subCategory: true,
+						serviceOwner: true,
+						contractFrom: true,
+						contractTo: true,
+						contractType: true,
+						requestType: true,
+						annualContractValue: true,
+						annualContractCurrency: true,
+						savingsValue: true,
+						serviceCategory: true,
+						riskClassification: true,
+						region: true,
+						infoSecInScope: true,
+						infoSecAssessmentComplete: true,
+						piiScope: true,
+						privacyAssessmentComplete: true,
+						sefComplete: true,
+						reviewPeriod: true,
+						renewalStrategy: true,
+						poRequired: true,
+						autoRenewal: true,
+					},
+					where: {
+						AND: [
+							{
+								contractTo: {
+									lt: currentDate,
+								},
+							},
+							{
+								isDraft: false,
+							},
+						],
+						OR: [
+							{
+								supplier: {
+									name: {
+										contains: query,
+										mode: "insensitive",
+									},
+								},
+							},
+							{
+								description: {
+									contains: query,
+									mode: "insensitive",
+								},
+							},
+						],
+					},
+					skip: (currentPage - 1) * ITEMS_PER_PAGE,
+					take: ITEMS_PER_PAGE,
+				});
+				return data as unknown as Contract[];
+			}
 			case "draft": {
 				const data = await prisma.contracts.findMany({
 					select: {
@@ -156,6 +223,63 @@ export async function getContracts({
 								isDraft: true,
 							},
 						],
+						OR: [
+							{
+								supplier: {
+									name: {
+										contains: query,
+										mode: "insensitive",
+									},
+								},
+							},
+							{
+								description: {
+									contains: query,
+									mode: "insensitive",
+								},
+							},
+						],
+					},
+					skip: (currentPage - 1) * ITEMS_PER_PAGE,
+					take: ITEMS_PER_PAGE,
+				});
+				return data as unknown as Contract[];
+			}
+			case "all": {
+				const data = await prisma.contracts.findMany({
+					select: {
+						id: true,
+						requestDate: true,
+						supplierId: true,
+						supplier: {
+							select: {
+								name: true,
+							},
+						},
+						description: true,
+						subCategory: true,
+						serviceOwner: true,
+						contractFrom: true,
+						contractTo: true,
+						contractType: true,
+						requestType: true,
+						annualContractValue: true,
+						annualContractCurrency: true,
+						savingsValue: true,
+						serviceCategory: true,
+						riskClassification: true,
+						region: true,
+						infoSecInScope: true,
+						infoSecAssessmentComplete: true,
+						piiScope: true,
+						privacyAssessmentComplete: true,
+						sefComplete: true,
+						reviewPeriod: true,
+						renewalStrategy: true,
+						poRequired: true,
+						autoRenewal: true,
+					},
+					where: {
 						OR: [
 							{
 								supplier: {
@@ -245,6 +369,68 @@ export async function getContractsPageCount({
 						AND: [
 							{
 								isDraft: true,
+							},
+						],
+						OR: [
+							{
+								supplier: {
+									name: {
+										contains: query,
+										mode: "insensitive",
+									},
+								},
+							},
+							{
+								description: {
+									contains: query,
+									mode: "insensitive",
+								},
+							},
+						],
+					},
+				});
+				return {
+					count,
+					totalPages: Math.ceil((count ?? 1) / ITEMS_PER_PAGE),
+				};
+			}
+			case "all": {
+				const count = await prisma.contracts.count({
+					where: {
+						OR: [
+							{
+								supplier: {
+									name: {
+										contains: query,
+										mode: "insensitive",
+									},
+								},
+							},
+							{
+								description: {
+									contains: query,
+									mode: "insensitive",
+								},
+							},
+						],
+					},
+				});
+				return {
+					count,
+					totalPages: Math.ceil((count ?? 1) / ITEMS_PER_PAGE),
+				};
+			}
+			case "expired": {
+				const count = await prisma.contracts.count({
+					where: {
+						AND: [
+							{
+								contractTo: {
+									lt: currentDate,
+								},
+							},
+							{
+								isDraft: false,
 							},
 						],
 						OR: [
