@@ -42,5 +42,8 @@ export const getLabel = (
 	obj: { value: string; label: string }[],
 	value: string,
 ): string => {
-	return obj.find((item) => item.value === value)?.label ?? "";
+	return obj.find((item) => item.value === value)?.label?.toLowerCase() ?? "";
 };
+
+export const getCurrency = (currency = "USD") =>
+	new Intl.NumberFormat("en-US", { style: "currency", currency });
