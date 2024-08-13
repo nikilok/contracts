@@ -16,14 +16,13 @@ import {
 } from "@/app/components/ui/table";
 import {
 	ContractTypes,
-	Currency,
 	RenewalStrategy,
 	RequestType,
 	RiskClassification,
 	SubCategory,
 } from "@/app/lib/constants";
 import { getContracts } from "@/app/lib/data";
-import { getLabel, getSymbol } from "@/app/lib/utils";
+import { getCurrency, getLabel } from "@/app/lib/utils";
 import type { Status } from "@/app/types";
 import { MoreHorizontal } from "lucide-react";
 
@@ -101,7 +100,9 @@ export default async function ContractsTable({
 
 								<TableCell className="hidden md:table-cell">
 									{row.annualContractValue
-										? `${row.annualContractValue} ${getSymbol(Currency, row.annualContractCurrency)}`
+										? getCurrency(row.annualContractCurrency).format(
+												row.annualContractValue,
+											)
 										: null}
 								</TableCell>
 								<TableCell className="hidden md:table-cell">
@@ -127,7 +128,9 @@ export default async function ContractsTable({
 								</TableCell>
 								<TableCell className="hidden md:table-cell">
 									{row.savingsValue
-										? `${row.savingsValue} ${getSymbol(Currency, row.annualContractCurrency)}`
+										? getCurrency(row.annualContractCurrency).format(
+												row.annualContractValue,
+											)
 										: null}
 								</TableCell>
 								<TableCell className="hidden md:table-cell">

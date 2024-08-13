@@ -23,9 +23,9 @@ export const RequestType = [
 ];
 
 export const Currency = [
-	{ value: "usd", label: "USD", symbol: "$" },
-	{ value: "gbp", label: "GBP", symbol: "£" },
-	{ value: "eur", label: "EUR", symbol: "€" },
+	{ value: "usd", label: "USD" },
+	{ value: "gbp", label: "GBP" },
+	{ value: "eur", label: "EUR" },
 ];
 
 export const ServiceCategorization = [
