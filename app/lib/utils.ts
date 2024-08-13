@@ -42,7 +42,7 @@ export const getLabel = (
 	obj: { value: string; label: string }[],
 	value: string,
 ): string => {
-	return obj.find((item) => item.value === value)?.label?.toLowerCase() ?? "";
+	return obj.find((item) => item.value === value)?.label ?? "";
 };
 
 export const getCurrency = (currency = "USD") =>
