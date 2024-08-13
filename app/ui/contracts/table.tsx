@@ -24,7 +24,7 @@ import {
 import { getContracts } from "@/app/lib/data";
 import { getCurrency, getLabel } from "@/app/lib/utils";
 import type { Status } from "@/app/types";
-import { Check, MoreHorizontal } from "lucide-react";
+import { Check, MoreHorizontal, Rabbit } from "lucide-react";
 
 export default async function ContractsTable({
 	query,
@@ -40,6 +40,19 @@ export default async function ContractsTable({
 		status,
 		query,
 	});
+	if (data.length === 0) {
+		return (
+			<main className="w-auto flex-col mx-auto justify-center text-center pt-2">
+				<Rabbit
+					className="w-full"
+					size={148}
+					color="#000000"
+					absoluteStrokeWidth
+				/>
+				<h1 className="text-2xl">No items found here.</h1>
+			</main>
+		);
+	}
 	return (
 		<>
 			<div className="sm:block md:hidden lg:hidden">
