@@ -25,7 +25,7 @@ export type Contract = {
 	requestType: string;
 	annualContractValue: number;
 	annualContractCurrency: string;
-	savingsValue: string;
+	savingsValue: number;
 	serviceCategory: string;
 	riskClassification: string;
 	region: string;
