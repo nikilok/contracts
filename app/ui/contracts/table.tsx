@@ -132,7 +132,7 @@ export default async function ContractsTable({
 								<TableCell className="hidden md:table-cell">
 									{row.savingsValue
 										? getCurrency(row.annualContractCurrency).format(
-												row.annualContractValue,
+												row.savingsValue,
 											)
 										: null}
 								</TableCell>
