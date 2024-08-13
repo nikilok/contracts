@@ -49,7 +49,7 @@ export default async function ContractsTable({
 					color="#000000"
 					absoluteStrokeWidth
 				/>
-				<h1 className="text-2xl">No items found here.</h1>
+				<h1 className="text-2xl">No contracts found here.</h1>
 			</main>
 		);
 	}
