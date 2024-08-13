@@ -48,7 +48,7 @@ export default async function ContractsTable({
 			<div className="hidden sm:hidden md:block 2xl:hidden">
 				<h3>table view coming soon...</h3>
 			</div>
-			<Table className="hidden sm:hidden md:hidden lg:hidden 2xl:block">
+			<Table className="hidden sm:hidden md:hidden lg:hidden 2xl:block pt-2">
 				<TableHeader>
 					<TableRow>
 						<TableHead>Name</TableHead>

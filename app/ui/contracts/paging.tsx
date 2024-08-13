@@ -25,7 +25,7 @@ export function Paging({ totalPages = 0 }: { totalPages: number }) {
 	};
 
 	return (
-		<Pagination className="p-4 bg-transparent">
+		<Pagination className="p-3 bg-card/50 backdrop-blur-md rounded-[100px] w-auto">
 			<PaginationContent>
 				<PaginationItem>
 					<PaginationPrevious
