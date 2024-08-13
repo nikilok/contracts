@@ -24,7 +24,7 @@ import {
 import { getContracts } from "@/app/lib/data";
 import { getCurrency, getLabel } from "@/app/lib/utils";
 import type { Status } from "@/app/types";
-import { MoreHorizontal } from "lucide-react";
+import { Check, MoreHorizontal } from "lucide-react";
 
 export default async function ContractsTable({
 	query,
@@ -115,7 +115,7 @@ export default async function ContractsTable({
 									{new Date(row.contractTo).toLocaleDateString()}
 								</TableCell>
 								<TableCell className="hidden md:table-cell">
-									{row.autoRenewal.toString()}
+									{row.autoRenewal && <Check />}
 								</TableCell>
 								<TableCell className="hidden md:table-cell">
 									{getLabel(SubCategory, row.subCategory)}
@@ -137,7 +137,7 @@ export default async function ContractsTable({
 										: null}
 								</TableCell>
 								<TableCell className="hidden md:table-cell">
-									{row.poRequired.toString()}
+									{row.poRequired && <Check />}
 								</TableCell>
 								<TableCell className="hidden md:table-cell">
 									{getLabel(RenewalStrategy, row.renewalStrategy)}
@@ -146,10 +146,10 @@ export default async function ContractsTable({
 									{row.reviewPeriod?.toString()}
 								</TableCell>
 								<TableCell className="hidden md:table-cell">
-									{row.sefComplete.toString()}
+									{row.sefComplete && <Check />}
 								</TableCell>
 								<TableCell className="hidden md:table-cell">
-									{row.privacyAssessmentComplete.toString()}
+									{row.privacyAssessmentComplete && <Check />}
 								</TableCell>
 								<TableCell className="hidden md:table-cell">
 									{getLabel(RiskClassification, row.riskClassification)}
