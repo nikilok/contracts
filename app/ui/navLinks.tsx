@@ -29,7 +29,7 @@ export default function NavLinks({
 						className={clsx("hover:text-foreground text-nowrap", {
 							"text-muted-foreground opacity-70 border-b-[3px] border-transparent":
 								pathname !== href,
-							"font-bold text-foreground h-[64px] bold flex items-center border-b-[3px] border-slate-600 text-slate-700":
+							"font-bold text-foreground h-[64px] bold flex items-center border-b-[3px] border-current":
 								pathname === href,
 						})}
 					>

@@ -1,10 +1,10 @@
 "use server";
 
 import { type Prisma, PrismaClient } from "@prisma/client";
+import type { DefaultArgs } from "@prisma/client/runtime/library";
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import type { Contract, Status } from "../types";
 import { ITEMS_PER_PAGE } from "./constants";
-import type { DefaultArgs } from "@prisma/client/runtime/library";
 
 const prisma = new PrismaClient();
 
