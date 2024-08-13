@@ -42,10 +42,13 @@ export default async function ContractsTable({
 	});
 	return (
 		<>
-			<div className="block md:hidden">
+			<div className="sm:block md:hidden lg:hidden">
 				<h3>mobile view coming soon..</h3>
 			</div>
-			<Table className="hidden md:table-cell">
+			<div className="hidden sm:hidden md:block 2xl:hidden">
+				<h3>table view coming soon...</h3>
+			</div>
+			<Table className="hidden sm:hidden md:hidden lg:hidden 2xl:block">
 				<TableHeader>
 					<TableRow>
 						<TableHead>Name</TableHead>
