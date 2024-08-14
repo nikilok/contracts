@@ -534,7 +534,7 @@ export default function Form({
 						Cancel
 					</Button>
 				</Link>
-				{isDraft && (
+				{Boolean(contract.isDraft) && (
 					<Button
 						variant="outline"
 						tabIndex={0}
