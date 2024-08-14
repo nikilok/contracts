@@ -13,7 +13,6 @@ export default async function Page({ params }: { params: { id: string } }) {
 	const id = params.id;
 	const suppliers = await getSuppliers();
 	const contract = await getContract(id);
-	console.log("🚀 ~ Page ~ contract:", contract);
 
 	return (
 		<main className="py-8 px-2">

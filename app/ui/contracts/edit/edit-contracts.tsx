@@ -51,7 +51,6 @@ export default function Form({
 	suppliers: { value: string; label: string }[];
 	contract: Contract;
 }) {
-	console.log("🚀 ~ contract:", contract);
 	const [infoSecComplete, setInfoSecComplete] = useState(
 		Boolean(contract.infoSecInScope),
 	);
@@ -158,10 +157,7 @@ export default function Form({
 					</div>
 					<div className="space-y-2">
 						<Label htmlFor="sub-category">Sub Category</Label>
-						<Select
-							name="sub-category"
-							defaultValue={contract.subCategory ?? null}
-						>
+						<Select name="sub-category" defaultValue={contract.subCategory}>
 							<SelectTrigger>
 								<SelectValue placeholder="Select sub-category" />
 							</SelectTrigger>
@@ -254,7 +250,7 @@ export default function Form({
 						<Label htmlFor="request-type">Request Type</Label>
 						<Select
 							name="request-type"
-							defaultValue={contract.requestType ?? null}
+							defaultValue={contract.requestType ?? ""}
 						>
 							<SelectTrigger>
 								<SelectValue placeholder="Select request type" />

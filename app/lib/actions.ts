@@ -4,13 +4,13 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 // import { redirect } from "next/navigation";
 import type { State } from "../types";
+import { replaceZeroWithEmptyString } from "./utils";
 
 const prisma = new PrismaClient();
 
 const getFormSchema = (isDraft: boolean) =>
 	z
 		.object({
-			id: z.string(),
 			requestDate: isDraft ? z.string().optional() : z.coerce.date(),
 			supplierId: z.string().min(3, "Select a supplier"),
 			serviceDescription: isDraft ? z.string().optional() : z.string().min(4),
@@ -66,7 +66,6 @@ const getFormSchema = (isDraft: boolean) =>
 			autoRenewal: z.enum(["on"]).nullable(),
 			isDraft: z.enum(["true", "false"]),
 		})
-		.omit({ id: true })
 		.refine(
 			(data) => {
 				if (
@@ -109,7 +108,6 @@ export async function submitOrDraftContracts(
 	const rawData = getRawData(formData);
 
 	const validatedFields = getFormSchema(isDraft).safeParse(rawData);
-	console.log("🚀 ~ validatedFields:", validatedFields);
 
 	// If form validation fails, return errors early. Otherwise, continue.
 	if (!validatedFields.success) {
@@ -172,20 +170,22 @@ function transformForDB(rawData: Record<string, string>): {
 			rawData.requestDate?.length > 0 ? new Date(rawData.requestDate) : null,
 		supplierId: rawData.supplierId,
 		description: rawData.serviceDescription,
-		subCategory: rawData.subCategory.length > 0 ? rawData.subCategory : "",
+		subCategory: replaceZeroWithEmptyString(rawData.subCategory),
 		serviceOwner: rawData.serviceOwner,
 		contractFrom:
 			rawData.contractFrom?.length > 0 ? new Date(rawData.contractFrom) : null,
 		contractTo:
 			rawData.contractTo?.length > 0 ? new Date(rawData.contractTo) : null,
-		contractType: rawData.contractType.length > 0 ? rawData.contractType : "",
-		requestType: rawData.requestType,
+		contractType: replaceZeroWithEmptyString(rawData.contractType),
+		requestType: replaceZeroWithEmptyString(rawData.requestType),
 		annualContractValue: Number.parseInt(rawData.annualContractValue),
-		annualContractCurrency: rawData.annualContractCurrency ?? null,
+		annualContractCurrency: replaceZeroWithEmptyString(
+			rawData.annualContractCurrency,
+		),
 		savingsValue: Number.parseInt(rawData.savings),
-		serviceCategory: rawData.serviceCategorization,
-		riskClassification: rawData.riskClassification,
-		region: rawData.region,
+		serviceCategory: replaceZeroWithEmptyString(rawData.serviceCategorization),
+		riskClassification: replaceZeroWithEmptyString(rawData.riskClassification),
+		region: replaceZeroWithEmptyString(rawData.region),
 		infoSecInScope: rawData.infoSecScope === "on",
 		infoSecAssessmentComplete: rawData.infoSecAssessmentComplete === "on",
 		piiScope: rawData.piiScope === "on",
@@ -195,7 +195,7 @@ function transformForDB(rawData: Record<string, string>): {
 			rawData.reviewPeriod === "1"
 				? Number.parseInt(rawData.customReviewPeriod)
 				: Number.parseInt(rawData.reviewPeriod),
-		renewalStrategy: rawData.renewalStrategy,
+		renewalStrategy: replaceZeroWithEmptyString(rawData.renewalStrategy),
 		poRequired: rawData.poRequired === "on",
 		autoRenewal: rawData.autoRenewal === "on",
 		isDraft: rawData.isDraft === "true",
@@ -209,7 +209,6 @@ export async function updateContract(
 ) {
 	const isDraft = formData.get("isDraft") === "true";
 	const rawData = getRawData(formData);
-	console.log("🚀 ~ rawData:", rawData);
 
 	const validatedFields = getFormSchema(isDraft).safeParse(rawData);
 
