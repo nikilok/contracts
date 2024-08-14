@@ -1,7 +1,6 @@
 "use client";
 
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
-import { PlusSquare } from "lucide-react";
 
 import { cn } from "@/app/lib/utils";
 import { useState } from "react";
@@ -13,6 +12,7 @@ import {
 	CommandInput,
 	CommandItem,
 } from "./command";
+import { Label } from "./label";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 
 export function ComboBox({
@@ -20,36 +20,54 @@ export function ComboBox({
 	placeholder = "",
 	onAdd,
 	onSelect,
+	disabled = false,
+	defaultValue = "",
 }: {
 	options: {
 		value: string;
 		label: string;
 	}[];
+	disabled?: boolean;
 	placeholder: string;
+	defaultValue?: string | null;
 	onAdd: (name: string) => void;
 	onSelect: (obj: { value: string; label: string }) => void;
 }) {
 	const [open, setOpen] = useState(false);
-	const [value, setValue] = useState("");
+	const [value, setValue] = useState(defaultValue);
 	const [rawValue, setRawValue] = useState("");
 
 	return (
-		<Popover open={open} onOpenChange={setOpen}>
+		<Popover open={open} onOpenChange={!disabled ? setOpen : () => {}}>
 			<PopoverTrigger asChild>
-				<Button
-					variant="outline"
-					role="combobox"
-					aria-expanded={open}
-					className="w-[calc(100%)] justify-between"
-				>
-					{value
-						? options.find(
-								(option) => option.label.toLowerCase() === value.toLowerCase(),
-							)?.label
-						: placeholder}
+				{!disabled ? (
+					<Button
+						variant="outline"
+						role="combobox"
+						aria-expanded={open}
+						className="w-[calc(100%)] justify-between"
+					>
+						{value
+							? options.find(
+									(option) =>
+										option.value.toLowerCase() === value.toLowerCase(),
+								)?.label
+							: placeholder}
 
-					<CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-				</Button>
+						<CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+					</Button>
+				) : (
+					<p>
+						<Label>
+							{value
+								? options.find(
+										(option) =>
+											option.value.toLowerCase() === value.toLowerCase(),
+									)?.label
+								: placeholder}
+						</Label>
+					</p>
+				)}
 			</PopoverTrigger>
 			<PopoverContent className="w-[270px] p-0">
 				<Command>
@@ -79,7 +97,7 @@ export function ComboBox({
 										(option) =>
 											option.label.toLowerCase() === currentValue.toLowerCase(),
 									)?.value;
-									setValue(currentValue);
+									setValue(selectedValue ?? "");
 									setOpen(false);
 									if (selectedValue)
 										onSelect({ label: currentValue, value: selectedValue });
