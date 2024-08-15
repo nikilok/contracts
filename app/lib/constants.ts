@@ -68,4 +68,4 @@ export const RenewalStrategy = [
 	{ value: "5", label: "Terminate / Expire" },
 ];
 
-export const ITEMS_PER_PAGE = 10;
+export const ITEMS_PER_PAGE = 5;

@@ -17,11 +17,12 @@ import {
 } from "@/app/components/ui/dropdown-menu";
 import { Tabs, TabsContent } from "@/app/components/ui/tabs";
 import { ITEMS_PER_PAGE } from "@/app/lib/constants";
-import { getContractsPageCount } from "@/app/lib/data";
+import { getContracts, getContractsPageCount } from "@/app/lib/data";
 import type { Status } from "@/app/types";
+import { columns } from "@/app/ui/contracts/columns";
+import DataTable from "@/app/ui/contracts/data-table";
 import { Paging } from "@/app/ui/contracts/paging";
 import TabList from "@/app/ui/contracts/tab-list";
-import ContractsTable from "@/app/ui/contracts/table";
 import { InvoicesTableSkeleton } from "@/app/ui/skeletons";
 import { File, ListFilter, PlusCircle } from "lucide-react";
 import Link from "next/link";
@@ -46,6 +47,12 @@ export default async function Page({
 		count <= currentPage * ITEMS_PER_PAGE
 			? count
 			: currentPage * ITEMS_PER_PAGE;
+
+	const data = await getContracts({
+		currentPage,
+		status,
+		query,
+	});
 
 	return (
 		<main className="grid flex-1 items-start gap-4 p-4 sm:px-6 md:gap-8">
@@ -101,11 +108,12 @@ export default async function Page({
 								key={query + currentPage}
 								fallback={<InvoicesTableSkeleton />}
 							>
-								<ContractsTable
+								{/* <ContractsTable
 									query={query}
 									currentPage={currentPage}
 									status={status}
-								/>
+								/> */}
+								<DataTable columns={columns} data={data} />
 							</Suspense>
 						</CardContent>
 						<CardFooter>
@@ -139,11 +147,12 @@ export default async function Page({
 								key={query + currentPage}
 								fallback={<InvoicesTableSkeleton />}
 							>
-								<ContractsTable
+								{/* <ContractsTable
 									query={query}
 									currentPage={currentPage}
 									status={status}
-								/>
+								/> */}
+								<DataTable columns={columns} data={data} />
 							</Suspense>
 						</CardContent>
 						<CardFooter>
@@ -179,11 +188,12 @@ export default async function Page({
 								key={query + currentPage}
 								fallback={<InvoicesTableSkeleton />}
 							>
-								<ContractsTable
+								{/* <ContractsTable
 									query={query}
 									currentPage={currentPage}
 									status={status}
-								/>
+								/> */}
+								<DataTable columns={columns} data={data} />
 							</Suspense>
 						</CardContent>
 						<CardFooter>
@@ -219,11 +229,12 @@ export default async function Page({
 								key={query + currentPage}
 								fallback={<InvoicesTableSkeleton />}
 							>
-								<ContractsTable
+								{/* <ContractsTable
 									query={query}
 									currentPage={currentPage}
 									status={status}
-								/>
+								/> */}
+								<DataTable columns={columns} data={data} />
 							</Suspense>
 						</CardContent>
 						<CardFooter>
