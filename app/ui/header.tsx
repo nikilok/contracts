@@ -66,7 +66,9 @@ export default function Header() {
 							<DropdownMenuItem>Support</DropdownMenuItem>
 							<DropdownMenuSeparator />
 							<DropdownMenuItem>
-								<Link href="/">Logout</Link>
+								<Link href="/" className="w-full">
+									Logout
+								</Link>
 							</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>

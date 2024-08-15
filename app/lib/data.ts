@@ -34,6 +34,39 @@ export async function addSupplier(name: string) {
 	}
 }
 
+const select: Prisma.ContractsSelect<DefaultArgs> = {
+	id: true,
+	requestDate: true,
+	supplierId: true,
+	supplier: {
+		select: {
+			name: true,
+		},
+	},
+	description: true,
+	subCategory: true,
+	serviceOwner: true,
+	contractFrom: true,
+	contractTo: true,
+	contractType: true,
+	requestType: true,
+	annualContractValue: true,
+	annualContractCurrency: true,
+	savingsValue: true,
+	serviceCategory: true,
+	riskClassification: true,
+	region: true,
+	infoSecInScope: true,
+	infoSecAssessmentComplete: true,
+	piiScope: true,
+	privacyAssessmentComplete: true,
+	sefComplete: true,
+	reviewPeriod: true,
+	renewalStrategy: true,
+	poRequired: true,
+	autoRenewal: true,
+	isDraft: true,
+};
 export async function getContracts({
 	query = "",
 	currentPage = 1,
@@ -43,38 +76,6 @@ export async function getContracts({
 > {
 	noStore();
 	const currentDate = new Date().toISOString();
-	const select: Prisma.ContractsSelect<DefaultArgs> = {
-		id: true,
-		requestDate: true,
-		supplierId: true,
-		supplier: {
-			select: {
-				name: true,
-			},
-		},
-		description: true,
-		subCategory: true,
-		serviceOwner: true,
-		contractFrom: true,
-		contractTo: true,
-		contractType: true,
-		requestType: true,
-		annualContractValue: true,
-		annualContractCurrency: true,
-		savingsValue: true,
-		serviceCategory: true,
-		riskClassification: true,
-		region: true,
-		infoSecInScope: true,
-		infoSecAssessmentComplete: true,
-		piiScope: true,
-		privacyAssessmentComplete: true,
-		sefComplete: true,
-		reviewPeriod: true,
-		renewalStrategy: true,
-		poRequired: true,
-		autoRenewal: true,
-	};
 	try {
 		switch (status) {
 			case "active": {
@@ -371,5 +372,21 @@ export async function getContractsPageCount({
 	} catch (err) {
 		console.error("Db error getting contracts count", err);
 		throw new Error("Database error: failed to get contracts count");
+	}
+}
+
+export async function getContract(id: string): Promise<Contract> {
+	noStore();
+	try {
+		const data = await prisma.contracts.findUnique({
+			select,
+			where: {
+				id,
+			},
+		});
+
+		return data as unknown as Contract;
+	} catch (err) {
+		throw new Error("Database error: failed to get suppliers");
 	}
 }

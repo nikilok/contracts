@@ -1,4 +1,5 @@
 export const ContractTypes = [
+	{ value: "0", label: "Please Select" },
 	{ value: "1", label: "MSA" },
 	{ value: "2", label: "SOW" },
 	{ value: "3", label: "Addendum" },
@@ -7,6 +8,7 @@ export const ContractTypes = [
 ];
 
 export const SubCategory = [
+	{ value: "0", label: "Please Select" },
 	{ value: "1", label: "HR Technology" },
 	{ value: "2", label: "Benefits" },
 	{ value: "3", label: "Payroll" },
@@ -16,6 +18,7 @@ export const SubCategory = [
 ];
 
 export const RequestType = [
+	{ value: "0", label: "Please Select" },
 	{ value: "1", label: "New Contract" },
 	{ value: "2", label: "RFP" },
 	{ value: "3", label: "Contract Renewal" },
@@ -23,12 +26,14 @@ export const RequestType = [
 ];
 
 export const Currency = [
+	{ value: "0", label: "Please Select" },
 	{ value: "usd", label: "USD" },
 	{ value: "gbp", label: "GBP" },
 	{ value: "eur", label: "EUR" },
 ];
 
 export const ServiceCategorization = [
+	{ value: "0", label: "Please Select" },
 	{ value: "1", label: "Non Outsourcing-Standard Service" },
 	{ value: "2", label: "Material" },
 	{ value: "3", label: "Material Outsourcing" },
@@ -36,12 +41,14 @@ export const ServiceCategorization = [
 ];
 
 export const RiskClassification = [
+	{ value: "0", label: "Please Select" },
 	{ value: "1", label: "Non Critical" },
 	{ value: "2", label: "Critical" },
 	{ value: "3", label: "Supportive" },
 ];
 
 export const Regions = [
+	{ value: "0", label: "Please Select" },
 	{ value: "1", label: "Global" },
 	{ value: "2", label: "UK" },
 	{ value: "3", label: "US" },
@@ -52,6 +59,7 @@ export const Regions = [
 ];
 
 export const RenewalStrategy = [
+	{ value: "0", label: "Please Select" },
 	{ value: "6", label: "TBD" },
 	{ value: "1", label: "RFP/Tender" },
 	{ value: "2", label: "Direct Renewal" },

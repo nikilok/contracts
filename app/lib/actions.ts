@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 // import { redirect } from "next/navigation";
 import type { State } from "../types";
+import { replaceZeroWithEmptyString } from "./utils";
 
 const prisma = new PrismaClient();
 
@@ -104,7 +105,147 @@ export async function submitOrDraftContracts(
 	formData: FormData,
 ) {
 	const isDraft = formData.get("isDraft") === "true";
-	const rawData = {
+	const rawData = getRawData(formData);
+
+	const validatedFields = getFormSchema(isDraft).safeParse(rawData);
+
+	// If form validation fails, return errors early. Otherwise, continue.
+	if (!validatedFields.success) {
+		const errors = {
+			errors: validatedFields.error.flatten().fieldErrors,
+			message: "Missing Fields. Failed to Create Contract.",
+		};
+		console.error("🚀 ~ errors:", errors);
+		return errors;
+	}
+
+	try {
+		await prisma.contracts.create({
+			data: transformForDB(rawData),
+		});
+	} catch (err) {
+		console.error("🚀 ~ err:", err);
+		// return { message: "Database error: Failed to update invoice" };
+		throw new Error("Database error: Failed to create contract");
+	}
+
+	if (isDraft) {
+		redirect("/dashboard/contracts?status=draft");
+	}
+
+	if (!isDraft) {
+		redirect("/dashboard/contracts");
+	}
+}
+
+function transformForDB(rawData: Record<string, string>): {
+	requestDate: Date | null;
+	supplierId: string;
+	description: string;
+	subCategory: string;
+	serviceOwner: string;
+	contractFrom: Date | null;
+	contractTo: Date | null;
+	contractType: string;
+	requestType: string;
+	annualContractValue: number;
+	annualContractCurrency: string;
+	savingsValue: number;
+	serviceCategory: string;
+	riskClassification: string;
+	region: string;
+	infoSecInScope: boolean;
+	infoSecAssessmentComplete: boolean;
+	piiScope: boolean;
+	privacyAssessmentComplete: boolean;
+	sefComplete: boolean;
+	reviewPeriod: number;
+	renewalStrategy: string;
+	poRequired: boolean;
+	autoRenewal: boolean;
+	isDraft: boolean;
+} {
+	return {
+		requestDate:
+			rawData.requestDate?.length > 0 ? new Date(rawData.requestDate) : null,
+		supplierId: rawData.supplierId,
+		description: rawData.serviceDescription,
+		subCategory: replaceZeroWithEmptyString(rawData.subCategory),
+		serviceOwner: rawData.serviceOwner,
+		contractFrom:
+			rawData.contractFrom?.length > 0 ? new Date(rawData.contractFrom) : null,
+		contractTo:
+			rawData.contractTo?.length > 0 ? new Date(rawData.contractTo) : null,
+		contractType: replaceZeroWithEmptyString(rawData.contractType),
+		requestType: replaceZeroWithEmptyString(rawData.requestType),
+		annualContractValue: Number.parseInt(rawData.annualContractValue),
+		annualContractCurrency: replaceZeroWithEmptyString(
+			rawData.annualContractCurrency,
+		),
+		savingsValue: Number.parseInt(rawData.savings),
+		serviceCategory: replaceZeroWithEmptyString(rawData.serviceCategorization),
+		riskClassification: replaceZeroWithEmptyString(rawData.riskClassification),
+		region: replaceZeroWithEmptyString(rawData.region),
+		infoSecInScope: rawData.infoSecScope === "on",
+		infoSecAssessmentComplete: rawData.infoSecAssessmentComplete === "on",
+		piiScope: rawData.piiScope === "on",
+		privacyAssessmentComplete: rawData.dataPrivacyAssessmentComplete === "on",
+		sefComplete: rawData.sefComplete === "on",
+		reviewPeriod:
+			rawData.reviewPeriod === "1"
+				? Number.parseInt(rawData.customReviewPeriod)
+				: Number.parseInt(rawData.reviewPeriod),
+		renewalStrategy: replaceZeroWithEmptyString(rawData.renewalStrategy),
+		poRequired: rawData.poRequired === "on",
+		autoRenewal: rawData.autoRenewal === "on",
+		isDraft: rawData.isDraft === "true",
+	};
+}
+
+export async function updateContract(
+	id: string,
+	prevState: State,
+	formData: FormData,
+) {
+	const isDraft = formData.get("isDraft") === "true";
+	const rawData = getRawData(formData);
+
+	const validatedFields = getFormSchema(isDraft).safeParse(rawData);
+
+	// If form validation fails, return errors early. Otherwise, continue.
+	if (!validatedFields.success) {
+		const errors = {
+			errors: validatedFields.error.flatten().fieldErrors,
+			message: "Missing Fields. Failed to Create Contract.",
+		};
+		console.error("🚀 ~ errors:", errors);
+		return errors;
+	}
+
+	try {
+		await prisma.contracts.update({
+			where: {
+				id,
+			},
+			data: transformForDB(rawData),
+		});
+	} catch (err) {
+		console.error("🚀 ~ err:", err);
+		// return { message: "Database error: Failed to update invoice" };
+		throw new Error("Database error: Failed to create contract");
+	}
+
+	if (isDraft) {
+		redirect("/dashboard/contracts?status=draft");
+	}
+
+	if (!isDraft) {
+		redirect("/dashboard/contracts");
+	}
+}
+
+function getRawData(formData: FormData) {
+	return {
 		supplierId: formData.get("supplier-id"),
 		isDraft: formData.get("isDraft"),
 		requestDate: formData.get("request-date"),
@@ -132,73 +273,4 @@ export async function submitOrDraftContracts(
 		poRequired: formData.get("po-required"),
 		autoRenewal: formData.get("auto-renewal"),
 	} as Record<string, string>;
-
-	const validatedFields = getFormSchema(isDraft).safeParse(rawData);
-
-	// If form validation fails, return errors early. Otherwise, continue.
-	if (!validatedFields.success) {
-		const errors = {
-			errors: validatedFields.error.flatten().fieldErrors,
-			message: "Missing Fields. Failed to Create Contract.",
-		};
-		console.error("🚀 ~ errors:", errors);
-		return errors;
-	}
-	const dataForDB: Record<string, string> = {};
-
-	for (const [key, value] of Object.entries(rawData)) {
-		if (value?.length > 0) {
-			dataForDB[key] = value;
-		}
-	}
-	try {
-		await prisma.contracts.create({
-			data: {
-				requestDate:
-					dataForDB.requestDate?.length > 0
-						? new Date(dataForDB.requestDate)
-						: null,
-				supplierId: dataForDB.supplierId,
-				description: dataForDB.serviceDescription,
-				subCategory: dataForDB.subCategory,
-				serviceOwner: dataForDB.serviceOwner,
-				contractFrom: dataForDB.contractFrom,
-				contractTo: dataForDB.contractTo,
-				contractType: dataForDB.contractType,
-				requestType: dataForDB.requestType,
-				annualContractValue: Number.parseInt(dataForDB.annualContractValue),
-				annualContractCurrency: dataForDB.annualContractCurrency ?? null,
-				savingsValue: Number.parseInt(dataForDB.savings),
-				serviceCategory: dataForDB.serviceCategorization,
-				riskClassification: dataForDB.riskClassification,
-				region: dataForDB.region,
-				infoSecInScope: dataForDB.infoSecScope === "on",
-				infoSecAssessmentComplete: dataForDB.infoSecAssessmentComplete === "on",
-				piiScope: dataForDB.piiScope === "on",
-				privacyAssessmentComplete:
-					dataForDB.dataPrivacyAssessmentComplete === "on",
-				sefComplete: dataForDB.sefComplete === "on",
-				reviewPeriod:
-					dataForDB.reviewPeriod === "1"
-						? Number.parseInt(dataForDB.customReviewPeriod)
-						: Number.parseInt(dataForDB.reviewPeriod),
-				renewalStrategy: dataForDB.renewalStrategy,
-				poRequired: dataForDB.poRequired === "on",
-				autoRenewal: dataForDB.autoRenewal === "on",
-				isDraft: dataForDB.isDraft === "true",
-			},
-		});
-	} catch (err) {
-		console.error("🚀 ~ err:", err);
-		// return { message: "Database error: Failed to update invoice" };
-		throw new Error("Database error: Failed to create contract");
-	}
-
-	if (isDraft) {
-		redirect("/dashboard/contracts?status=draft");
-	}
-
-	if (!isDraft) {
-		redirect("/dashboard/contracts");
-	}
 }
