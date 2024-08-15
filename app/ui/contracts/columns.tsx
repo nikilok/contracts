@@ -63,7 +63,7 @@ export const columns: ColumnDef<Contract>[] = [
 	},
 	{
 		accessorKey: "description",
-		header: "Service description",
+		header: "Service Description",
 		size: 220,
 	},
 	{
@@ -158,7 +158,7 @@ export const columns: ColumnDef<Contract>[] = [
 	},
 	{
 		accessorKey: "requestType",
-		header: "Contract Type",
+		header: "Request Type",
 		cell: ({ row }) => {
 			const value = `${row.getValue("requestType")}`;
 			return <TableCell>{getLabel(RequestType, value)}</TableCell>;
