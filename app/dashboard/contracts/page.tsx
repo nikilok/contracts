@@ -41,7 +41,10 @@ export default async function Page({
 	const status = searchParams?.status ?? "active";
 	const query = searchParams?.query ?? "";
 
-	const { count, totalPages } = await getContractsPageCount({ query, status });
+	const { count, totalPages } = await getContractsPageCount({
+		query,
+		status,
+	});
 	const fromPage = (currentPage - 1) * ITEMS_PER_PAGE + 1;
 	const toPage =
 		count <= currentPage * ITEMS_PER_PAGE
@@ -85,7 +88,12 @@ export default async function Page({
 								Export
 							</span>
 						</Button>
-						<Link href={{ pathname: "/dashboard/create", query: { status } }}>
+						<Link
+							href={{
+								pathname: "/dashboard/create",
+								query: { status },
+							}}
+						>
 							<Button size="sm" className="h-7 gap-1">
 								<PlusCircle className="h-3.5 w-3.5" />
 								<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">

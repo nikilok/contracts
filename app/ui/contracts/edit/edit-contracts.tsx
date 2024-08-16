@@ -528,7 +528,10 @@ export default function Form({
 			<CardFooter className="flex justify-end gap-3">
 				<Link
 					tabIndex={-1}
-					href={{ pathname: "/dashboard/contracts", query: { status } }}
+					href={{
+						pathname: "/dashboard/contracts",
+						query: { status },
+					}}
 				>
 					<Button tabIndex={-1} variant="link">
 						Cancel

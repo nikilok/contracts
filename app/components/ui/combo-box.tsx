@@ -100,7 +100,10 @@ export function ComboBox({
 									setValue(selectedValue ?? "");
 									setOpen(false);
 									if (selectedValue)
-										onSelect({ label: currentValue, value: selectedValue });
+										onSelect({
+											label: currentValue,
+											value: selectedValue,
+										});
 								}}
 							>
 								{option.label}

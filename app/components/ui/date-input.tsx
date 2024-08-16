@@ -121,7 +121,11 @@ const DateInput: React.FC<DateInputProps> = ({ value, onChange }) => {
 
 				if (field === "day") {
 					if (date[field] === new Date(date.year, date.month, 0).getDate()) {
-						newDate = { ...newDate, day: 1, month: (date.month % 12) + 1 };
+						newDate = {
+							...newDate,
+							day: 1,
+							month: (date.month % 12) + 1,
+						};
 						if (newDate.month === 1) newDate.year += 1;
 					} else {
 						newDate.day += 1;
@@ -161,7 +165,11 @@ const DateInput: React.FC<DateInputProps> = ({ value, onChange }) => {
 
 				if (field === "month") {
 					if (date[field] === 1) {
-						newDate = { ...newDate, month: 12, year: date.year - 1 };
+						newDate = {
+							...newDate,
+							month: 12,
+							year: date.year - 1,
+						};
 					} else {
 						newDate.month -= 1;
 					}
