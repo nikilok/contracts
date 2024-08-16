@@ -6,7 +6,7 @@
 		"dev": "next dev",
 		"build": "prisma generate && next build",
 		"start": "next start",
-		"lint": "npx @biomejs/biome check --write ./app/**/*",
+		"lint": "npx @biomejs/biome check --write ./app",
 		"update-schema": "prisma db push",
 		"seedMongo": "node ./prisma/scripts/prisma.js",
 		"migrate": "npx prisma migrate dev --name init"

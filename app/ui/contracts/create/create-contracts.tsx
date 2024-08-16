@@ -62,11 +62,8 @@ export default function Form({
 	const [contractTo, setContractTo] = useState<undefined | string>(undefined);
 
 	const initialState = { message: null, errors: {} };
-	const [state, dispatch] = useFormState(
-		//@ts-expect-error ignore this for now.
-		submitOrDraftContracts,
-		initialState,
-	);
+	//@ts-expect-error ignore this for now.
+	const [state, dispatch] = useFormState(submitOrDraftContracts, initialState);
 
 	const onAddSupplier = (name: string) => {
 		addSupplier(name);
