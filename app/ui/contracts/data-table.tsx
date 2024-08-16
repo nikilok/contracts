@@ -70,7 +70,6 @@ export default async function DataTable<TData, TValue>({
 										style={{
 											minWidth: `${header.getSize()}px`,
 										}}
-										// className={`min-w-[${header.getSize()}px]`}
 									>
 										{header.isPlaceholder
 											? null

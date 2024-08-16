@@ -141,6 +141,18 @@ export const columns: ColumnDef<Contract>[] = [
 		},
 	},
 	{
+		header: "Notify SO Date",
+		cell: ({ row }) => {
+			const data = row.original;
+			const contractTo = new Date(data.contractTo ?? 0);
+			const daysToNotify = Number.parseInt(data.reviewPeriod ?? 0);
+			const notifyDate = contractTo.setDate(
+				contractTo.getDate() - daysToNotify,
+			);
+			return <TableCell>{new Date(notifyDate).toLocaleDateString()}</TableCell>;
+		},
+	},
+	{
 		accessorKey: "renewalStrategy",
 		header: "Renewal Strategy",
 		cell: ({ row }) => {
@@ -162,18 +174,6 @@ export const columns: ColumnDef<Contract>[] = [
 		cell: ({ row }) => {
 			const value = `${row.getValue("requestType")}`;
 			return <TableCell>{getLabel(RequestType, value)}</TableCell>;
-		},
-	},
-	{
-		header: "Notify SO Date",
-		cell: ({ row }) => {
-			const data = row.original;
-			const contractTo = new Date(data.contractTo ?? 0);
-			const daysToNotify = Number.parseInt(data.reviewPeriod ?? 0);
-			const notifyDate = contractTo.setDate(
-				contractTo.getDate() - daysToNotify,
-			);
-			return <TableCell>{new Date(notifyDate).toLocaleDateString()}</TableCell>;
 		},
 	},
 	{
