@@ -165,8 +165,16 @@ export const columns: ColumnDef<Contract>[] = [
 		},
 	},
 	{
-		accessorKey: "",
 		header: "Notify SO Date",
+		cell: ({ row }) => {
+			const data = row.original;
+			const contractTo = new Date(data.contractTo ?? 0);
+			const daysToNotify = Number.parseInt(data.reviewPeriod ?? 0);
+			const notifyDate = contractTo.setDate(
+				contractTo.getDate() - daysToNotify,
+			);
+			return <TableCell>{new Date(notifyDate).toLocaleDateString()}</TableCell>;
+		},
 	},
 	{
 		accessorKey: "autoRenewal",
