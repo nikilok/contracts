@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/app/components/ui/button";
-import { Loader, Notebook, Rocket, RocketIcon } from "lucide-react";
+import { LoaderCircle, Notebook, Rocket } from "lucide-react";
 import { useFormStatus } from "react-dom";
 
 export function EditUpdateButton({
@@ -47,7 +47,7 @@ export function EditSaveDraftButton({
 			className="gap-1"
 		>
 			{pending && isDraft ? (
-				<Loader className="h-3.5" />
+				<LoaderCircle className="animate-spinner h-3.5 w-3.5" />
 			) : (
 				<Notebook className="h-3.5 w-3.5" />
 			)}
@@ -74,7 +74,7 @@ export function CreateDraftButton({
 			className="gap-1"
 		>
 			{pending && isDraft ? (
-				<Loader className="h-3.5" />
+				<LoaderCircle className="animate-spinner h-3.5 w-3.5" />
 			) : (
 				<Notebook className="h-3.5 w-3.5" />
 			)}

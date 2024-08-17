@@ -82,11 +82,20 @@ const config = {
 						opacity: "0.5",
 					},
 				},
+				spin: {
+					"0%": {
+						transform: "rotate(0deg)",
+					},
+					"100%": {
+						transform: "translate(360deg)",
+					},
+				},
 			},
 			animation: {
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out",
 				"rocket-launch": "rocket-launch 1.8s ease-out infinite",
+				spinner: "spin 1.8s ease-out infinite",
 			},
 		},
 	},

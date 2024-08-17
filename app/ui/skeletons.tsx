@@ -1,7 +1,6 @@
+import { LoaderCircle } from "lucide-react";
 import { Table } from "../components/ui/table";
 import { ITEMS_PER_PAGE } from "../lib/constants";
-import { columns } from "./contracts/columns";
-import DataTable from "./contracts/data-table";
 
 export function TableRowSkeleton() {
 	return (
@@ -63,5 +62,19 @@ export function InvoicesTableSkeleton() {
 				))}
 			</tbody>
 		</Table>
+	);
+}
+
+export default function GenericLoader() {
+	return (
+		<main className="flex justify-center items-center h-[calc(100vh)]">
+			<div className="w-10 h-10 flex justify-center items-center bg-slate-800/80 rounded-md">
+				<LoaderCircle
+					size={48}
+					color="#ffffff"
+					className="animate-spinner h-3.5 w-3.5"
+				/>
+			</div>
+		</main>
 	);
 }
