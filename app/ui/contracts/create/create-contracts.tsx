@@ -42,6 +42,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useFormState } from "react-dom";
+import { CreateButton, CreateDraftButton } from "../buttons";
 
 export default function Form({
 	suppliers,
@@ -436,10 +437,10 @@ export default function Form({
 									<SelectItem value="60">60 days</SelectItem>
 									<SelectItem value="90">90 days</SelectItem>
 									<SelectItem value="180">180 days</SelectItem>
-									<SelectItem value="1">Custom</SelectItem>
+									<SelectItem value="-1">Custom</SelectItem>
 								</SelectContent>
 							</Select>
-							{contractReviewPeriod === "1" && (
+							{contractReviewPeriod === "-1" && (
 								<Input
 									id="contract-review-period"
 									name="custom-review-period"
@@ -507,31 +508,8 @@ export default function Form({
 						Cancel
 					</Button>
 				</Link>
-				<Button
-					variant="outline"
-					tabIndex={0}
-					name="draftContract"
-					onClick={() => setIsDraft(true)}
-					type="submit"
-					className="gap-1"
-				>
-					<Notebook className="h-3.5 w-3.5" />
-					<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-						Save draft
-					</span>
-				</Button>
-				<Button
-					tabIndex={0}
-					name="createContract"
-					type="submit"
-					onClick={() => setIsDraft(false)}
-					className="gap-1"
-				>
-					<RocketIcon className="h-3.5 w-3.5" />
-					<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-						Create Contract
-					</span>
-				</Button>
+				<CreateDraftButton setIsDraft={setIsDraft} isDraft={isDraft} />
+				<CreateButton setIsDraft={setIsDraft} isDraft={isDraft} />
 			</CardFooter>
 		</form>
 	);

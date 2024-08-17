@@ -43,6 +43,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useFormState } from "react-dom";
+import { EditSaveDraftButton, EditUpdateButton } from "../buttons";
 
 export default function Form({
 	suppliers,
@@ -538,32 +539,9 @@ export default function Form({
 					</Button>
 				</Link>
 				{Boolean(contract.isDraft) && (
-					<Button
-						variant="outline"
-						tabIndex={0}
-						name="draftContract"
-						onClick={() => setIsDraft(true)}
-						type="submit"
-						className="gap-1"
-					>
-						<Notebook className="h-3.5 w-3.5" />
-						<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-							Save draft
-						</span>
-					</Button>
+					<EditSaveDraftButton setIsDraft={setIsDraft} isDraft={isDraft} />
 				)}
-				<Button
-					tabIndex={0}
-					name="createContract"
-					type="submit"
-					onClick={() => setIsDraft(false)}
-					className="gap-1"
-				>
-					<RocketIcon className="h-3.5 w-3.5" />
-					<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-						Update Contract
-					</span>
-				</Button>
+				<EditUpdateButton setIsDraft={setIsDraft} isDraft={isDraft} />
 			</CardFooter>
 		</form>
 	);
