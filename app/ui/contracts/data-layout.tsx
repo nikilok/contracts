@@ -38,7 +38,7 @@ export default async function DataLayout({
 				<h3>mobile view coming soon..</h3>
 			</div>
 			<div className="hidden sm:hidden md:block lg:hidden">
-				<h3>table view coming soon..</h3>
+				<h3>tablet view coming soon..</h3>
 			</div>
 			<DataTable columns={columns} data={data} />
 		</>
