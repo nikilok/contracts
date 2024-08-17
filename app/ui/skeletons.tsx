@@ -1,3 +1,4 @@
+import { Table } from "../components/ui/table";
 import { ITEMS_PER_PAGE } from "../lib/constants";
 import { columns } from "./contracts/columns";
 import DataTable from "./contracts/data-table";
@@ -54,11 +55,13 @@ export function InvoicesMobileSkeleton() {
 }
 export function InvoicesTableSkeleton() {
 	return (
-		<tbody className="hidden sm:hidden md:hidden lg:block xl:block pt-2 w-[calc(90vw)] overflow-x-auto bg-transparent">
-			{Array.from({ length: ITEMS_PER_PAGE }, (_, index) => (
-				// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-				<TableRowSkeleton key={index} />
-			))}
-		</tbody>
+		<Table>
+			<tbody className="hidden sm:hidden md:hidden lg:block xl:block pt-2 w-[calc(90vw)] overflow-x-auto bg-transparent">
+				{Array.from({ length: ITEMS_PER_PAGE }, (_, index) => (
+					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+					<TableRowSkeleton key={index} />
+				))}
+			</tbody>
+		</Table>
 	);
 }
