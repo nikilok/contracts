@@ -58,19 +58,26 @@ export default function DataTable<TData, TValue>({
 												header.column.columnDef.header,
 												header.getContext(),
 											)}
-									<div className="absolute -right-[-2px] top-0 w-[1px] h-[calc(100%)] bg-slate-300" />
 									<div
 										{...{
 											onDoubleClick: () => header.column.resetSize(),
 											onMouseDown: header.getResizeHandler(),
 											onTouchStart: header.getResizeHandler(),
 											className: clsx({
-												"z-1 absolute top-[26.5%] right-0 w-[5px] h-[calc(40%)] rounded border-[1px] border-slate-300 bg-white hover:cursor-col-resize resizer":
+												"hover:cursor-col-resize resizer":
 													header.column.getCanResize(),
 												isResizing: header.column.getIsResizing(),
 											}),
 										}}
-									/>
+									>
+										<div className="absolute -right-[-2px] top-0 w-[1px] h-[calc(100%)] bg-slate-300" />
+										<div
+											className={clsx({
+												"z-1 absolute top-[26.5%] right-0 w-[5px] h-[calc(40%)] rounded border-[1px] border-slate-300 bg-white ":
+													header.column.getCanResize(),
+											})}
+										/>
+									</div>
 								</TableHead>
 							);
 						})}

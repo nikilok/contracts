@@ -124,6 +124,7 @@ export const columns: ColumnDef<Contract>[] = [
 	{
 		accessorKey: "contractFrom",
 		header: "Contract From",
+		enableResizing: false,
 		cell: ({ row }) => {
 			return (
 				<TableCell>
@@ -135,6 +136,7 @@ export const columns: ColumnDef<Contract>[] = [
 	{
 		accessorKey: "contractTo",
 		header: "Contract Expiry",
+		enableResizing: false,
 		cell: ({ row }) => {
 			return (
 				<TableCell>
@@ -145,6 +147,7 @@ export const columns: ColumnDef<Contract>[] = [
 	},
 	{
 		header: "Notify SO Date",
+		enableResizing: false,
 		cell: ({ row }) => {
 			const data = row.original;
 			const contractTo = new Date(data.contractTo ?? 0);
@@ -182,6 +185,7 @@ export const columns: ColumnDef<Contract>[] = [
 	{
 		accessorKey: "autoRenewal",
 		header: "Auto Renewal",
+		enableResizing: false,
 		cell: ({ row }) => {
 			const value = Boolean(row.getValue("autoRenewal"));
 			return <TableCell>{value && <Check />}</TableCell>;
@@ -190,6 +194,7 @@ export const columns: ColumnDef<Contract>[] = [
 	{
 		accessorKey: "sefComplete",
 		header: "SEF Complete",
+		enableResizing: false,
 		cell: ({ row }) => {
 			const value = Boolean(row.getValue("sefComplete"));
 			return <TableCell>{value && <Check />}</TableCell>;
@@ -198,6 +203,7 @@ export const columns: ColumnDef<Contract>[] = [
 	{
 		accessorKey: "poRequired",
 		header: "Covered under PO",
+		enableResizing: false,
 		cell: ({ row }) => {
 			const value = Boolean(row.getValue("poRequired"));
 			return <TableCell>{value && <Check />}</TableCell>;
@@ -206,6 +212,7 @@ export const columns: ColumnDef<Contract>[] = [
 	{
 		accessorKey: "infoSecInScope",
 		header: "InfoSec Scope",
+		enableResizing: false,
 		cell: ({ row }) => {
 			const value = Boolean(row.getValue("infoSecInScope"));
 			return <TableCell>{value && <Check />}</TableCell>;
@@ -214,6 +221,7 @@ export const columns: ColumnDef<Contract>[] = [
 	{
 		accessorKey: "infoSecAssessmentComplete",
 		header: "InfoSec review complete",
+		enableResizing: false,
 		cell: ({ row }) => {
 			const value = Boolean(row.getValue("infoSecAssessmentComplete"));
 			return <TableCell>{value && <Check />}</TableCell>;
@@ -222,6 +230,7 @@ export const columns: ColumnDef<Contract>[] = [
 	{
 		accessorKey: "piiScope",
 		header: "PII Scope",
+		enableResizing: false,
 		cell: ({ row }) => {
 			const value = Boolean(row.getValue("piiScope"));
 			return <TableCell>{value && <Check />}</TableCell>;
@@ -230,6 +239,7 @@ export const columns: ColumnDef<Contract>[] = [
 	{
 		accessorKey: "privacyAssessmentComplete",
 		header: "DP Review Complete",
+		enableResizing: false,
 		cell: ({ row }) => {
 			const value = Boolean(row.getValue("privacyAssessmentComplete"));
 			return <TableCell>{value && <Check />}</TableCell>;
