@@ -192,7 +192,7 @@ function transformForDB(rawData: Record<string, string>): {
 		privacyAssessmentComplete: rawData.dataPrivacyAssessmentComplete === "on",
 		sefComplete: rawData.sefComplete === "on",
 		reviewPeriod:
-			rawData.reviewPeriod === "1"
+			rawData.reviewPeriod === "-1"
 				? Number.parseInt(rawData.customReviewPeriod)
 				: Number.parseInt(rawData.reviewPeriod),
 		renewalStrategy: replaceZeroWithEmptyString(rawData.renewalStrategy),

@@ -70,10 +70,23 @@ const config = {
 					from: { height: "var(--radix-accordion-content-height)" },
 					to: { height: "0" },
 				},
+				"rocket-launch": {
+					"0%": {
+						transform: "translate(0, 0)",
+						color: "#e32400",
+						opacity: "1",
+					},
+					"100%": {
+						transform: "translate(40px, -40px)",
+						width: "10px",
+						opacity: "0.5",
+					},
+				},
 			},
 			animation: {
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out",
+				"rocket-launch": "rocket-launch 1.8s ease-out infinite",
 			},
 		},
 	},
