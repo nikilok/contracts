@@ -26,6 +26,7 @@ import Link from "next/link";
 export const columns: ColumnDef<Contract>[] = [
 	{
 		id: "action",
+		enableResizing: false,
 		cell: ({ row }) => {
 			const data = row.original;
 
@@ -60,11 +61,13 @@ export const columns: ColumnDef<Contract>[] = [
 		accessorKey: "supplier.name",
 		header: "Supplier Name",
 		size: 120,
+		minSize: 120,
 	},
 	{
 		accessorKey: "description",
 		header: "Service Description",
 		size: 220,
+		minSize: 120,
 	},
 	{
 		accessorKey: "subCategory",
@@ -86,11 +89,11 @@ export const columns: ColumnDef<Contract>[] = [
 		accessorKey: "serviceOwner",
 		header: "Service Owner",
 		size: 120,
+		minSize: 120,
 	},
 	{
 		accessorKey: "annualContractCurrency",
 		header: "Current Annual Spend",
-		// size: 220,
 		cell: ({ row }) => {
 			const data = row.original;
 			return (
