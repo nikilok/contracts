@@ -63,6 +63,7 @@ const getFormSchema = (isDraft: boolean) =>
 				? z.coerce.number().optional()
 				: z.coerce.number().gt(0, "Select a valid option"),
 			poRequired: z.enum(["on"]).nullable(),
+			everGreen: z.enum(["on"]).nullable(),
 			autoRenewal: z.enum(["on"]).nullable(),
 			isDraft: z.enum(["true", "false"]),
 		})
@@ -162,6 +163,7 @@ function transformForDB(rawData: Record<string, string>): {
 	reviewPeriod: number;
 	renewalStrategy: string;
 	poRequired: boolean;
+	everGreen: boolean;
 	autoRenewal: boolean;
 	isDraft: boolean;
 } {
@@ -197,6 +199,7 @@ function transformForDB(rawData: Record<string, string>): {
 				: Number.parseInt(rawData.reviewPeriod),
 		renewalStrategy: replaceZeroWithEmptyString(rawData.renewalStrategy),
 		poRequired: rawData.poRequired === "on",
+		everGreen: rawData.everGreen === "on",
 		autoRenewal: rawData.autoRenewal === "on",
 		isDraft: rawData.isDraft === "true",
 	};
@@ -271,6 +274,7 @@ function getRawData(formData: FormData) {
 		reviewPeriod: formData.get("contract-review-period"),
 		renewalStrategy: formData.get("renewal-strategy"),
 		poRequired: formData.get("po-required"),
+		everGreen: formData.get("ever-green"),
 		autoRenewal: formData.get("auto-renewal"),
 	} as Record<string, string>;
 }

@@ -37,6 +37,7 @@ export type Contract = {
 	reviewPeriod: string;
 	renewalStrategy: string;
 	poRequired: string;
+	everGreen: string;
 	autoRenewal: string;
 	isDraft: string;
 };

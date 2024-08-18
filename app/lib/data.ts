@@ -64,6 +64,7 @@ const select: Prisma.ContractsSelect<DefaultArgs> = {
 	reviewPeriod: true,
 	renewalStrategy: true,
 	poRequired: true,
+	everGreen: true,
 	autoRenewal: true,
 	isDraft: true,
 };
