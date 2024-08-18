@@ -20,6 +20,7 @@ import {
 import { getCurrency, getLabel } from "@/app/lib/utils";
 import type { Contract } from "@/app/types";
 import type { ColumnDef } from "@tanstack/react-table";
+import { intlFormatDistance } from "date-fns";
 import { Check, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 
@@ -122,7 +123,21 @@ export const columns: ColumnDef<Contract>[] = [
 		},
 	},
 	{
+		header: "Contract Term",
+		enableResizing: true,
+		size: 120,
+		cell: ({ row }) => {
+			const data = row.original;
+			const baseDate = new Date();
+			const dateTo = new Date(data.contractTo ?? 0);
+			const isEverGreen = Boolean(data.everGreen);
+			const contractTerm = intlFormatDistance(dateTo, baseDate);
+			return <TableCell>{isEverGreen ? "ever green" : contractTerm}</TableCell>;
+		},
+	},
+	{
 		accessorKey: "contractFrom",
+		enableHiding: true,
 		header: "Contract From",
 		enableResizing: false,
 		cell: ({ row }) => {

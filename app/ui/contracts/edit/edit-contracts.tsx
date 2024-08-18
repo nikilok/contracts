@@ -516,6 +516,15 @@ export default function Form({
 						/>
 					</div>
 					<div className="space-x-2">
+						<Label htmlFor="ever-green">Ever Green?</Label>
+						<Switch
+							id="ever-green"
+							defaultChecked={Boolean(contract.everGreen)}
+							name="ever-green"
+							aria-label="Ever Green"
+						/>
+					</div>
+					<div className="space-x-2">
 						<Label htmlFor="auto-renewal">Auto Renewal?</Label>
 						<Switch
 							id="auto-renewal"

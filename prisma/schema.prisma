@@ -47,4 +47,5 @@ model Contracts {
   poRequired                Boolean   @default(false)
   autoRenewal               Boolean   @default(false)
   isDraft                   Boolean   @default(true)
+  everGreen                 Boolean   @default(false)
 }
