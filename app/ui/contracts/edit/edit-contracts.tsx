@@ -516,12 +516,12 @@ export default function Form({
 						/>
 					</div>
 					<div className="space-x-2">
-						<Label htmlFor="ever-green">Ever Green?</Label>
+						<Label htmlFor="ever-green">Evergreen</Label>
 						<Switch
 							id="ever-green"
 							defaultChecked={Boolean(contract.everGreen)}
 							name="ever-green"
-							aria-label="Ever Green"
+							aria-label="Evergreen"
 						/>
 					</div>
 					<div className="space-x-2">

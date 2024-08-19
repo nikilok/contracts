@@ -31,23 +31,42 @@ async function main() {
   //     contractTo: new Date(2024, 11, 1),
   //   },
   // });
-
-//   await prisma.contracts.update({
-//     where: {
-//       id: "66acb9247807916521107a2b",
-//     },
-//     data: {
-//       // requestDate: new Date(),
-//       // description: "This is some new description text",
-//       annualContractValue: 90000,
-//       annualContractCurrency: "usd",
-//       // subCategory: "1",
-//       // serviceOwner: "Alex Van",
-//       // contractFrom: new Date(1981, 11, 1), // 1 Dec 1981 - 11 = Dec (0 based)
-//       // contractTo: new Date(2024, 11, 1),
-//     },
-//   });
-// }
+  // const ids = await prisma.contracts.findMany({
+  //   select: {
+  //     id: true,
+  //   },
+  //   where: {
+  //     everGreen: true,
+  //   },
+  // });
+  // const idList = ids.map((row) => row.id);
+  // console.log("🚀 ~ main ~ idList:", idList);
+  // await prisma.contracts.updateMany({
+  //   where: {
+  //     id: {
+  //       notIn: idList,
+  //     },
+  //   },
+  //   data: {
+  //     everGreen: false,
+  //   },
+  // });
+  //   await prisma.contracts.update({
+  //     where: {
+  //       id: "66acb9247807916521107a2b",
+  //     },
+  //     data: {
+  //       // requestDate: new Date(),
+  //       // description: "This is some new description text",
+  //       annualContractValue: 90000,
+  //       annualContractCurrency: "usd",
+  //       // subCategory: "1",
+  //       // serviceOwner: "Alex Van",
+  //       // contractFrom: new Date(1981, 11, 1), // 1 Dec 1981 - 11 = Dec (0 based)
+  //       // contractTo: new Date(2024, 11, 1),
+  //     },
+  //   });
+}
 
 main()
   .then(async () => {

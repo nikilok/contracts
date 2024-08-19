@@ -90,12 +90,19 @@ export async function getContracts({
 								},
 							},
 							{
-								contractTo: {
-									gte: currentDate,
-								},
+								isDraft: false,
 							},
 							{
-								isDraft: false,
+								OR: [
+									{
+										contractTo: {
+											gte: currentDate,
+										},
+									},
+									{
+										everGreen: true,
+									},
+								],
 							},
 						],
 						OR: [
@@ -132,6 +139,9 @@ export async function getContracts({
 							},
 							{
 								isDraft: false,
+							},
+							{
+								everGreen: false,
 							},
 						],
 						OR: [
@@ -243,12 +253,19 @@ export async function getContractsPageCount({
 								},
 							},
 							{
-								contractTo: {
-									gte: currentDate,
-								},
+								isDraft: false,
 							},
 							{
-								isDraft: false,
+								OR: [
+									{
+										contractTo: {
+											gte: currentDate,
+										},
+									},
+									{
+										everGreen: true,
+									},
+								],
 							},
 						],
 						OR: [
@@ -342,6 +359,9 @@ export async function getContractsPageCount({
 							},
 							{
 								isDraft: false,
+							},
+							{
+								everGreen: false,
 							},
 						],
 						OR: [
