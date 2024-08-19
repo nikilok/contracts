@@ -81,7 +81,7 @@ const getFormSchema = (isDraft: boolean) =>
 				return true;
 			},
 			{
-				message: "Annual currency must have a value, when currency is added",
+				message: "Please select a currency",
 				path: ["annualContractValue", "annualContractCurrency"],
 			},
 		)
