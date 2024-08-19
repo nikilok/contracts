@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 // import { redirect } from "next/navigation";
-import type { Contract, ContractDB, State } from "../types";
+import type { ContractDB, State } from "../types";
 import { replaceZeroWithEmptyString } from "./utils";
 
 const prisma = new PrismaClient();
