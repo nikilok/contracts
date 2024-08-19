@@ -19,6 +19,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/app/components/ui/select";
+import { Separator } from "@/app/components/ui/separator";
 import { Switch } from "@/app/components/ui/switch";
 import { Textarea } from "@/app/components/ui/textarea";
 import { submitOrDraftContracts } from "@/app/lib/actions";
@@ -33,7 +34,6 @@ import {
 	SubCategory,
 } from "@/app/lib/constants";
 import { addSupplier } from "@/app/lib/data";
-import { Separator } from "@/app/components/ui/separator";
 import { Calendar as CalendarDaysIcon } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
