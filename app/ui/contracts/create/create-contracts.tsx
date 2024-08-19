@@ -33,6 +33,7 @@ import {
 	SubCategory,
 } from "@/app/lib/constants";
 import { addSupplier } from "@/app/lib/data";
+import { Separator } from "@/components/ui/separator";
 import {
 	Calendar as CalendarDaysIcon,
 	Notebook,
@@ -532,6 +533,7 @@ export default function Form({
 						/>
 					</div>
 				</div>
+				<Separator className="bg-slate-900/30" />
 			</CardContent>
 			<CardFooter className="flex justify-end gap-3">
 				<Link

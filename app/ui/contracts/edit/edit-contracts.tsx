@@ -19,6 +19,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/app/components/ui/select";
+import { Separator } from "@/app/components/ui/separator";
 import { Switch } from "@/app/components/ui/switch";
 import { Textarea } from "@/app/components/ui/textarea";
 import { updateContract } from "@/app/lib/actions";
@@ -565,6 +566,7 @@ export default function Form({
 						/>
 					</div>
 				</div>
+				<Separator className="bg-slate-900/30" />
 			</CardContent>
 			<CardFooter className="flex justify-end gap-3">
 				<Link
