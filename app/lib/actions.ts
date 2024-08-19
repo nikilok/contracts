@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 // import { redirect } from "next/navigation";
-import type { State } from "../types";
+import type { ContractDB, State } from "../types";
 import { replaceZeroWithEmptyString } from "./utils";
 
 const prisma = new PrismaClient();
@@ -140,35 +140,7 @@ export async function submitOrDraftContracts(
 	}
 }
 
-function transformForDB(rawData: Record<string, string>): {
-	requestDate: Date | null;
-	requestCompleteDate: Date | null;
-	supplierId: string;
-	description: string;
-	subCategory: string;
-	serviceOwner: string;
-	contractFrom: Date | null;
-	contractTo: Date | null;
-	contractType: string;
-	requestType: string;
-	annualContractValue: number;
-	annualContractCurrency: string;
-	savingsValue: number;
-	serviceCategory: string;
-	riskClassification: string;
-	region: string;
-	infoSecInScope: boolean;
-	infoSecAssessmentComplete: boolean;
-	piiScope: boolean;
-	privacyAssessmentComplete: boolean;
-	sefComplete: boolean;
-	reviewPeriod: number;
-	renewalStrategy: string;
-	poRequired: boolean;
-	everGreen: boolean;
-	autoRenewal: boolean;
-	isDraft: boolean;
-} {
+function transformForDB(rawData: Record<string, string>): ContractDB {
 	return {
 		requestDate:
 			rawData.requestDate?.length > 0 ? new Date(rawData.requestDate) : null,

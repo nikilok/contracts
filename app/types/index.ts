@@ -42,3 +42,33 @@ export type Contract = {
 	autoRenewal: string;
 	isDraft: string;
 };
+
+export type ContractDB = {
+	requestDate?: Date | null;
+	requestCompleteDate?: Date | null;
+	supplierId: string;
+	description?: string;
+	subCategory?: string;
+	serviceOwner?: string;
+	contractFrom?: Date | null;
+	contractTo?: Date | null;
+	contractType?: string;
+	requestType?: string;
+	annualContractValue?: number;
+	annualContractCurrency?: string;
+	savingsValue?: number;
+	serviceCategory?: string;
+	riskClassification?: string;
+	region?: string;
+	infoSecInScope: boolean;
+	infoSecAssessmentComplete: boolean;
+	piiScope: boolean;
+	privacyAssessmentComplete: boolean;
+	sefComplete: boolean;
+	reviewPeriod?: number;
+	renewalStrategy?: string;
+	poRequired: boolean;
+	everGreen: boolean;
+	autoRenewal: boolean;
+	isDraft: boolean;
+};
