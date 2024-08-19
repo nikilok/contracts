@@ -33,12 +33,8 @@ import {
 	SubCategory,
 } from "@/app/lib/constants";
 import { addSupplier } from "@/app/lib/data";
-import { Separator } from "@/components/ui/separator";
-import {
-	Calendar as CalendarDaysIcon,
-	Notebook,
-	RocketIcon,
-} from "lucide-react";
+import { Separator } from "@/app/components/ui/separator";
+import { Calendar as CalendarDaysIcon } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
