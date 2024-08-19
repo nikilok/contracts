@@ -79,13 +79,13 @@ const config = {
 				"rocket-launch": {
 					"0%": {
 						transform: "translate(0, 0)",
-						color: "#e32400",
 						opacity: "1",
 					},
 					"100%": {
 						transform: "translate(40px, -40px)",
 						width: "10px",
 						opacity: "0.5",
+						color: "black",
 					},
 				},
 				spin: {
