@@ -37,6 +37,7 @@ export async function addSupplier(name: string) {
 const select: Prisma.ContractsSelect<DefaultArgs> = {
 	id: true,
 	requestDate: true,
+	requestCompleteDate: true,
 	supplierId: true,
 	supplier: {
 		select: {

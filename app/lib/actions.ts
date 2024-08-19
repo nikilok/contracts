@@ -12,6 +12,7 @@ const getFormSchema = (isDraft: boolean) =>
 	z
 		.object({
 			requestDate: isDraft ? z.string().optional() : z.coerce.date(),
+			requestCompleteDate: isDraft ? z.string().optional() : z.coerce.date(),
 			supplierId: z.string().min(3, "Select a supplier"),
 			serviceDescription: isDraft ? z.string().optional() : z.string().min(4),
 			subCategory: isDraft
@@ -70,9 +71,9 @@ const getFormSchema = (isDraft: boolean) =>
 		.refine(
 			(data) => {
 				if (
-					!isDraft &&
-					(data.annualContractValue ?? 0) > 0 &&
-					(data.annualContractCurrency ?? "") === ""
+					((data.annualContractValue || 0) > 0 ||
+						(data.savingsValue || 0) > 0) &&
+					(data.annualContractCurrency || "") === ""
 				) {
 					return false;
 				}
@@ -81,7 +82,7 @@ const getFormSchema = (isDraft: boolean) =>
 			},
 			{
 				message: "Annual currency must have a value, when currency is added",
-				path: ["annualContractValue"],
+				path: ["annualContractValue", "annualContractCurrency"],
 			},
 		)
 		.refine(
@@ -141,6 +142,7 @@ export async function submitOrDraftContracts(
 
 function transformForDB(rawData: Record<string, string>): {
 	requestDate: Date | null;
+	requestCompleteDate: Date | null;
 	supplierId: string;
 	description: string;
 	subCategory: string;
@@ -170,6 +172,10 @@ function transformForDB(rawData: Record<string, string>): {
 	return {
 		requestDate:
 			rawData.requestDate?.length > 0 ? new Date(rawData.requestDate) : null,
+		requestCompleteDate:
+			rawData.requestCompleteDate?.length > 0
+				? new Date(rawData.requestCompleteDate)
+				: null,
 		supplierId: rawData.supplierId,
 		description: rawData.serviceDescription,
 		subCategory: replaceZeroWithEmptyString(rawData.subCategory),
@@ -184,7 +190,7 @@ function transformForDB(rawData: Record<string, string>): {
 		annualContractCurrency: replaceZeroWithEmptyString(
 			rawData.annualContractCurrency,
 		),
-		savingsValue: Number.parseInt(rawData.savings),
+		savingsValue: Number.parseInt(rawData.savingsValue),
 		serviceCategory: replaceZeroWithEmptyString(rawData.serviceCategorization),
 		riskClassification: replaceZeroWithEmptyString(rawData.riskClassification),
 		region: replaceZeroWithEmptyString(rawData.region),
@@ -252,6 +258,7 @@ function getRawData(formData: FormData) {
 		supplierId: formData.get("supplier-id"),
 		isDraft: formData.get("isDraft"),
 		requestDate: formData.get("request-date"),
+		requestCompleteDate: formData.get("request-complete-date"),
 		serviceDescription: formData.get("service-description"),
 		subCategory: formData.get("sub-category"),
 		serviceOwner: formData.get("service-owner"),
@@ -262,7 +269,7 @@ function getRawData(formData: FormData) {
 		annualContractValue: formData.get("annual-contract-value"),
 		customReviewPeriod: formData.get("custom-review-period"),
 		annualContractCurrency: formData.get("annual-contract-currency"),
-		savings: formData.get("savings"),
+		savingsValue: formData.get("savings"),
 		serviceCategorization: formData.get("service-categorization"),
 		riskClassification: formData.get("risk-classification"),
 		region: formData.get("benefiting-region"),

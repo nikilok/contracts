@@ -14,6 +14,7 @@ export type Supplier = {
 export type Contract = {
 	id: string;
 	requestDate: string;
+	requestCompleteDate: string;
 	supplier: Supplier;
 	supplierId: string;
 	description: string;
