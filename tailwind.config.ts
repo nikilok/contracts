@@ -20,6 +20,7 @@ const config = {
 		extend: {
 			backgroundImage: {
 				"background-texture": "url('/assets/f53.jpg')",
+				"background-texture-chrome": "url('/assets/chrome-back.png')",
 			},
 			colors: {
 				border: "hsl(var(--border))",
@@ -62,6 +63,11 @@ const config = {
 				sm: "calc(var(--radius) - 4px)",
 			},
 			keyframes: {
+				"background-motion": {
+					"0%": { "background-position": "right" },
+					"50%": { "background-position": "right bottom" },
+					"100%": { "background-position": "right" },
+				},
 				"accordion-down": {
 					from: { height: "0" },
 					to: { height: "var(--radix-accordion-content-height)" },
@@ -96,6 +102,7 @@ const config = {
 				"accordion-up": "accordion-up 0.2s ease-out",
 				"rocket-launch": "rocket-launch 1.8s ease-out infinite",
 				spinner: "spin 1.8s ease-out infinite",
+				"background-motion": "background-motion 165.8s ease-out infinite",
 			},
 		},
 	},
