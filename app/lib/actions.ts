@@ -73,7 +73,7 @@ const getFormSchema = (isDraft: boolean) =>
 				if (
 					((data.annualContractValue || 0) > 0 ||
 						(data.savingsValue || 0) > 0) &&
-					(data.annualContractCurrency || "") === ""
+					(data.annualContractCurrency || "0") === "0"
 				) {
 					return false;
 				}
