@@ -487,8 +487,8 @@ export default function Form({
 						/>
 					</div>
 					<div className="space-x-2">
-						<Label htmlFor="ever-green">Ever Green?</Label>
-						<Switch id="ever-green" name="ever-green" aria-label="Ever Green" />
+						<Label htmlFor="ever-green">Evergreen</Label>
+						<Switch id="ever-green" name="ever-green" aria-label="Evergreen" />
 					</div>
 					<div className="space-x-2">
 						<Label htmlFor="auto-renewal">Auto Renewal?</Label>

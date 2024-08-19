@@ -132,7 +132,7 @@ export const columns: ColumnDef<Contract>[] = [
 			const dateTo = new Date(data.contractTo ?? 0);
 			const isEverGreen = Boolean(data.everGreen);
 			const contractTerm = intlFormatDistance(dateTo, baseDate);
-			return <TableCell>{isEverGreen ? "ever green" : contractTerm}</TableCell>;
+			return <TableCell>{isEverGreen ? "evergreen" : contractTerm}</TableCell>;
 		},
 	},
 	{
