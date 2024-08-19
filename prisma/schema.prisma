@@ -22,6 +22,7 @@ model Suppliers {
 model Contracts {
   id                        String    @id @default(auto()) @map("_id") @db.ObjectId
   requestDate               DateTime?
+  requestCompleteDate       DateTime?
   supplier                  Suppliers @relation(fields: [supplierId], references: [id])
   supplierId                String    @db.ObjectId
   description               String?

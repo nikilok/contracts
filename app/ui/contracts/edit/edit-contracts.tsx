@@ -34,11 +34,7 @@ import {
 } from "@/app/lib/constants";
 import { addSupplier } from "@/app/lib/data";
 import type { Contract } from "@/app/types";
-import {
-	Calendar as CalendarDaysIcon,
-	Notebook,
-	RocketIcon,
-} from "lucide-react";
+import { Calendar as CalendarDaysIcon } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -61,6 +57,9 @@ export default function Form({
 	const status = params.get("status");
 	const [date, setDate] = useState<Date | undefined>(
 		new Date(contract.requestDate),
+	);
+	const [completeDate, setCompleteDate] = useState<Date | undefined>(
+		new Date(contract.requestCompleteDate),
 	);
 	const [currency, setCurrency] = useState<string | undefined>();
 	const [supplierId, setSupplierId] = useState<string | null>(
@@ -93,6 +92,11 @@ export default function Form({
 		<form action={dispatch}>
 			<input type="hidden" name="supplier-id" value={supplierId ?? ""} />
 			<input type="hidden" name="request-date" value={date?.toISOString()} />
+			<input
+				type="hidden"
+				name="request-complete-date"
+				value={completeDate?.toISOString()}
+			/>
 			<input type="hidden" name="isDraft" value={`${isDraft}`} />
 			<input type="hidden" name="contract-from" value={contractFrom ?? ""} />
 			<input type="hidden" name="contract-to" value={contractTo ?? ""} />
@@ -120,6 +124,33 @@ export default function Form({
 							</PopoverContent>
 						</Popover>
 						{state?.errors?.requestDate?.map((error: string) => (
+							<p className="mt-2 text-sm text-red-500" key={error}>
+								{error}
+							</p>
+						))}
+					</div>
+					<div className="space-y-2">
+						<Label>Request Complete Date</Label>
+						<Popover>
+							<PopoverTrigger asChild>
+								<Button
+									variant="outline"
+									className="w-full justify-start font-normal"
+								>
+									<CalendarDaysIcon className="mr-2 h-4 w-4" />
+									{completeDate ? completeDate?.toDateString() : "Pick a date"}
+								</Button>
+							</PopoverTrigger>
+							<PopoverContent className="w-auto p-0" align="start">
+								<Calendar
+									mode="single"
+									selected={completeDate}
+									onSelect={setCompleteDate}
+									className="rounded-md border shadow"
+								/>
+							</PopoverContent>
+						</Popover>
+						{state?.errors?.requestCompleteDate?.map((error: string) => (
 							<p className="mt-2 text-sm text-red-500" key={error}>
 								{error}
 							</p>

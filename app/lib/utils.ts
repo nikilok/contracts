@@ -46,7 +46,10 @@ export const getLabel = (
 };
 
 export const getCurrency = (currency = "USD") =>
-	new Intl.NumberFormat("en-US", { style: "currency", currency });
+	new Intl.NumberFormat("en-US", {
+		style: "currency",
+		currency: currency || "gbp",
+	});
 
 export const replaceZeroWithEmptyString = (num: string) => {
 	return Number.parseInt(num) === 0 ? "" : num;
