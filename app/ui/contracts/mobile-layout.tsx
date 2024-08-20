@@ -128,20 +128,19 @@ export default function MobileLayout({
 									Delete
 								</span>
 							</Button>
-							<Button size="sm" variant="ghost" className="h-7 gap-1">
-								<Edit className="h-3.5 w-3.5" />
-								<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-									<Link
-										href={{
-											pathname: `/dashboard/${row.id}/edit`,
-											query: { status: "active" },
-										}}
-										className="w-full"
-									>
+							<Link
+								href={{
+									pathname: `/dashboard/${row.id}/edit`,
+									query: { status: "active" },
+								}}
+							>
+								<Button size="sm" variant="ghost" className="h-7 gap-1">
+									<Edit className="h-3.5 w-3.5" />
+									<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
 										Update
-									</Link>
-								</span>
-							</Button>
+									</span>
+								</Button>
+							</Link>
 						</div>
 					</div>
 				);
