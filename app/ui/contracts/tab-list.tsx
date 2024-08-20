@@ -20,13 +20,11 @@ export default function TabList() {
 			<Link href={createPageURL("active")}>
 				<TabsTrigger value="active">Active </TabsTrigger>
 			</Link>
-			<Link href={createPageURL("expired")}>
+			<Link href={createPageURL("expired")} className="hidden sm:flex">
 				<TabsTrigger value="expired">Expired</TabsTrigger>
 			</Link>
 			<Link href={createPageURL("draft")}>
-				<TabsTrigger value="draft" className="hidden sm:flex">
-					Draft
-				</TabsTrigger>
+				<TabsTrigger value="draft">Draft</TabsTrigger>
 			</Link>
 		</TabsList>
 	);

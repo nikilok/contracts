@@ -3,6 +3,7 @@ import type { Status } from "@/app/types";
 import { Rabbit } from "lucide-react";
 import { columns } from "./columns";
 import DataTable from "./data-table";
+import MobileLayout from "./mobile-layout";
 
 export default async function DataLayout({
 	currentPage,
@@ -35,7 +36,7 @@ export default async function DataLayout({
 	return (
 		<>
 			<div className="sm:block md:hidden lg:hidden">
-				<h3>mobile view coming soon..</h3>
+				<MobileLayout data={data} />
 			</div>
 			<div className="hidden sm:hidden md:block lg:hidden">
 				<h3>tablet view coming soon..</h3>
