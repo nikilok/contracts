@@ -173,16 +173,14 @@ export function ContractMobileSkeleton({
 }
 export function ContractTableSkeleton() {
 	return (
-		<div>
-			<>
-				<div className="sm:block md:hidden lg:hidden">
-					<ContractMobileSkeleton device="mobile" />
-				</div>
-				<div className="hidden md:block lg:block xl:hidden">
-					<ContractMobileSkeleton device="tablet" />
-				</div>
-			</>
-			<Table>
+		<>
+			<div className="sm:block md:hidden lg:hidden">
+				<ContractMobileSkeleton device="mobile" />
+			</div>
+			<div className="hidden md:block lg:block xl:hidden">
+				<ContractMobileSkeleton device="tablet" />
+			</div>
+			<Table className="hidden xl:block pt-2 w-[calc(90vw)] overflow-x-auto">
 				<tbody className="hidden sm:hidden md:hidden lg:block xl:block pt-2 w-[calc(90vw)] overflow-x-auto bg-transparent">
 					{Array.from({ length: ITEMS_PER_PAGE }, (_, index) => (
 						// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
@@ -190,7 +188,7 @@ export function ContractTableSkeleton() {
 					))}
 				</tbody>
 			</Table>
-		</div>
+		</>
 	);
 }
 
