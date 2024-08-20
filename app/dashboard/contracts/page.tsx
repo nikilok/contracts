@@ -22,7 +22,7 @@ import type { Status } from "@/app/types";
 import DataLayout from "@/app/ui/contracts/data-layout";
 import { Paging } from "@/app/ui/contracts/paging";
 import TabList from "@/app/ui/contracts/tab-list";
-import { InvoicesTableSkeleton } from "@/app/ui/skeletons";
+import { ContractTableSkeleton } from "@/app/ui/skeletons";
 import { File, ListFilter, PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -107,7 +107,7 @@ export default async function Page({
 						<CardContent>
 							<Suspense
 								key={query + currentPage}
-								fallback={<InvoicesTableSkeleton />}
+								fallback={<ContractTableSkeleton />}
 							>
 								<DataLayout
 									currentPage={currentPage}
@@ -145,7 +145,7 @@ export default async function Page({
 						<CardContent>
 							<Suspense
 								key={query + currentPage}
-								fallback={<InvoicesTableSkeleton />}
+								fallback={<ContractTableSkeleton />}
 							>
 								<DataLayout
 									currentPage={currentPage}
@@ -185,7 +185,7 @@ export default async function Page({
 						<CardContent>
 							<Suspense
 								key={query + currentPage}
-								fallback={<InvoicesTableSkeleton />}
+								fallback={<ContractTableSkeleton />}
 							>
 								<DataLayout
 									currentPage={currentPage}
@@ -225,7 +225,7 @@ export default async function Page({
 						<CardContent>
 							<Suspense
 								key={query + currentPage}
-								fallback={<InvoicesTableSkeleton />}
+								fallback={<ContractTableSkeleton />}
 							>
 								<DataLayout
 									currentPage={currentPage}
