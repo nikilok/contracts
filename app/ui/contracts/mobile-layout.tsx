@@ -7,11 +7,15 @@ import {
 } from "@/app/lib/constants";
 import { getCurrency, getLabel } from "@/app/lib/utils";
 import type { Contract } from "@/app/types";
+import clsx from "clsx";
 import { intlFormatDistance } from "date-fns";
 
-export default function MobileLayout({ data }: { data: Contract[] }) {
+export default function MobileLayout({
+	data,
+	device,
+}: { data: Contract[]; device: "mobile" | "tablet" }) {
 	return (
-		<div className="md:hidden mt-4">
+		<div className="mt-4">
 			{data?.map((row) => {
 				const baseDate = new Date();
 				const dateTo = new Date(row.contractTo ?? 0);
@@ -35,7 +39,12 @@ export default function MobileLayout({ data }: { data: Contract[] }) {
 								<p className="text-sm text-gray-500">{row.description}</p>
 							</div>
 						</div>
-						<div className="grid grid-cols-2 gap-4 py-4">
+						<div
+							className={clsx("grid gap-4 py-4", {
+								"grid-cols-2": device === "mobile",
+								"grid-cols-4": device === "tablet",
+							})}
+						>
 							<div className="flex flex-col">
 								<p className="text-xs">Annual Contract</p>
 								<p className="font-medium">

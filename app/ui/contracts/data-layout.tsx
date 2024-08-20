@@ -36,10 +36,10 @@ export default async function DataLayout({
 	return (
 		<>
 			<div className="sm:block md:hidden lg:hidden">
-				<MobileLayout data={data} />
+				<MobileLayout data={data} device="mobile" />
 			</div>
 			<div className="hidden sm:hidden md:block lg:hidden">
-				<h3>tablet view coming soon..</h3>
+				<MobileLayout data={data} device="tablet" />
 			</div>
 			<DataTable columns={columns} data={data} />
 		</>
