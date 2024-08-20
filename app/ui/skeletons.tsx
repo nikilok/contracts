@@ -1,4 +1,8 @@
-import { LoaderCircle } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import clsx from "clsx";
+import { Edit, LoaderCircle, Trash } from "lucide-react";
+import { Button } from "../components/ui/button";
+import { Skeleton } from "../components/ui/skeleton";
 import { Table } from "../components/ui/table";
 import { ITEMS_PER_PAGE } from "../lib/constants";
 
@@ -29,39 +33,164 @@ export function TableRowSkeleton() {
 		</tr>
 	);
 }
-export function InvoicesMobileSkeleton() {
+export function ContractMobileSkeleton({
+	device = "mobile",
+}: { device: "mobile" | "tablet" }) {
 	return (
-		<div className="mb-2 w-full rounded-md bg-white p-4">
-			<div className="flex items-center justify-between border-b border-gray-100 pb-8">
-				<div className="flex items-center">
-					<div className="mr-2 h-8 w-8 rounded-full bg-gray-100" />
-					<div className="h-6 w-16 rounded bg-gray-100" />
+		<div className="mt-4">
+			{Array.from({ length: ITEMS_PER_PAGE }, (_, index) => (
+				<div
+					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+					key={index}
+					className="mb-2 w-full rounded-md bg-white p-4 shadow-md"
+				>
+					<div className="flex items-center justify-between border-b pb-4">
+						<div>
+							<div className="mb-2 flex items-center">
+								<div className="flex items-center gap-3">
+									<Skeleton className="h-6 w-[200px]" />
+								</div>
+							</div>
+							<p className="text-sm text-gray-500">
+								<Skeleton className="h-4 w-[150px]" />
+							</p>
+						</div>
+					</div>
+					<div
+						className={clsx("grid gap-4 py-4", {
+							"grid-cols-2": device === "mobile",
+							"grid-cols-4": device === "tablet",
+						})}
+					>
+						<div className="flex flex-col">
+							<p className="text-xs">
+								<Skeleton className="h-3 w-[70px]" />
+							</p>
+							<p className="font-medium">
+								<Skeleton className="h-5 w-[150px]" />
+							</p>
+						</div>
+						<div className="flex flex-col">
+							<p className="text-xs">
+								<Skeleton className="h-3 w-[70px]" />
+							</p>
+							<p className="font-medium">
+								<Skeleton className="h-5 w-[150px]" />
+							</p>
+						</div>
+						<div className="flex flex-col">
+							<p className="text-xs">
+								<Skeleton className="h-3 w-[70px]" />
+							</p>
+							<p className="font-medium">
+								<Skeleton className="h-5 w-[150px]" />
+							</p>
+						</div>
+						<div className="flex flex-col">
+							<p className="text-xs">
+								<Skeleton className="h-3 w-[70px]" />
+							</p>
+							<p className="font-medium">
+								<Skeleton className="h-5 w-[150px]" />
+							</p>
+						</div>
+						<div className="flex flex-col">
+							<p className="text-xs">
+								<Skeleton className="h-3 w-[70px]" />
+							</p>
+							<p className="font-medium">
+								<Skeleton className="h-5 w-[150px]" />
+							</p>
+						</div>
+						<div className="flex flex-col">
+							<p className="text-xs">
+								<Skeleton className="h-3 w-[70px]" />
+							</p>
+							<p className="font-medium">
+								<Skeleton className="h-5 w-[150px]" />
+							</p>
+						</div>
+						<div className="flex flex-col">
+							<p className="text-xs">
+								<Skeleton className="h-3 w-[70px]" />
+							</p>
+							<p className="font-medium">
+								<Skeleton className="h-5 w-[150px]" />
+							</p>
+						</div>
+						<div className="flex flex-col">
+							<p className="text-xs">
+								<Skeleton className="h-3 w-[70px]" />
+							</p>
+							<p className="font-medium">
+								<Skeleton className="h-5 w-[150px]" />
+							</p>
+						</div>
+						<div className="flex flex-col">
+							<p className="text-xs">
+								<Skeleton className="h-3 w-[70px]" />
+							</p>
+							<p className="font-medium">
+								<Skeleton className="h-5 w-[150px]" />
+							</p>
+						</div>
+						<div className="flex flex-col">
+							<p className="text-xs">
+								<Skeleton className="h-3 w-[70px]" />
+							</p>
+							<p className="font-medium">
+								<Skeleton className="h-5 w-[150px]" />
+							</p>
+						</div>
+						<div className="flex flex-col">
+							<p className="text-xs">
+								<Skeleton className="h-3 w-[70px]" />
+							</p>
+							<p className="font-medium">
+								<Skeleton className="h-5 w-[150px]" />
+							</p>
+						</div>
+					</div>
+					<Separator />
+					<div className="flex justify-between pt-2 gap-2">
+						<Button size="sm" variant="ghost" className="h-7 gap-1">
+							<Trash className="h-3.5 w-3.5 text-red-600" />
+							<span className="sr-only sm:not-sr-only text-red-600 sm:whitespace-nowrap">
+								Delete
+							</span>
+						</Button>
+						<Button size="sm" variant="ghost" className="h-7 gap-1">
+							<Edit className="h-3.5 w-3.5" />
+							<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+								Update
+							</span>
+						</Button>
+					</div>
 				</div>
-				<div className="h-6 w-16 rounded bg-gray-100" />
-			</div>
-			<div className="flex w-full items-center justify-between pt-4">
-				<div>
-					<div className="h-6 w-16 rounded bg-gray-100" />
-					<div className="mt-2 h-6 w-24 rounded bg-gray-100" />
-				</div>
-				<div className="flex justify-end gap-2">
-					<div className="h-10 w-10 rounded bg-gray-100" />
-					<div className="h-10 w-10 rounded bg-gray-100" />
-				</div>
-			</div>
+			))}
 		</div>
 	);
 }
-export function InvoicesTableSkeleton() {
+export function ContractTableSkeleton() {
 	return (
-		<Table>
-			<tbody className="hidden sm:hidden md:hidden lg:block xl:block pt-2 w-[calc(90vw)] overflow-x-auto bg-transparent">
-				{Array.from({ length: ITEMS_PER_PAGE }, (_, index) => (
-					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-					<TableRowSkeleton key={index} />
-				))}
-			</tbody>
-		</Table>
+		<div>
+			<>
+				<div className="sm:block md:hidden lg:hidden">
+					<ContractMobileSkeleton device="mobile" />
+				</div>
+				<div className="hidden md:block lg:block xl:hidden">
+					<ContractMobileSkeleton device="tablet" />
+				</div>
+			</>
+			<Table>
+				<tbody className="hidden sm:hidden md:hidden lg:block xl:block pt-2 w-[calc(90vw)] overflow-x-auto bg-transparent">
+					{Array.from({ length: ITEMS_PER_PAGE }, (_, index) => (
+						// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+						<TableRowSkeleton key={index} />
+					))}
+				</tbody>
+			</Table>
+		</div>
 	);
 }
 
