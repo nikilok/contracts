@@ -1,4 +1,5 @@
 import { Label } from "@radix-ui/react-label";
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./components/ui/button";
@@ -7,6 +8,12 @@ import { Input } from "./components/ui/input";
 export default function Page() {
 	return (
 		<div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
+			<Head>
+				<meta
+					name="viewport"
+					content="width=device-width, initial-scale=1, maximum-scale=1"
+				/>
+			</Head>
 			<div className="flex items-center justify-center py-12">
 				<div className="mx-auto grid max-w-[350] gap-6">
 					<div className="grid gap-2 text-center">
