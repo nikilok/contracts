@@ -38,7 +38,7 @@ export default function DataTable<TData, TValue>({
 	});
 
 	return (
-		<Table className="hidden sm:hidden md:hidden lg:block xl:block pt-2 w-[calc(90vw)] overflow-x-auto">
+		<Table className="hidden xl:block pt-2 w-[calc(90vw)] overflow-x-auto">
 			<TableHeader className="select-none">
 				{table.getHeaderGroups().map((headerGroup) => (
 					<TableRow key={headerGroup.id}>

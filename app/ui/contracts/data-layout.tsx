@@ -38,7 +38,7 @@ export default async function DataLayout({
 			<div className="sm:block md:hidden lg:hidden">
 				<MobileLayout data={data} device="mobile" />
 			</div>
-			<div className="hidden sm:hidden md:block lg:hidden">
+			<div className="hidden md:block lg:block xl:hidden">
 				<MobileLayout data={data} device="tablet" />
 			</div>
 			<DataTable columns={columns} data={data} />
