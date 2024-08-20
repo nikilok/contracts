@@ -62,7 +62,7 @@ export default function DataTable<TData, TValue>({
 										{...{
 											onDoubleClick: () => header.column.resetSize(),
 											onMouseDown: header.getResizeHandler(),
-											// onTouchStart: header.getResizeHandler(),
+											onTouchStart: header.getResizeHandler(),
 											className: clsx({
 												"hover:cursor-col-resize resizer":
 													header.column.getCanResize(),
