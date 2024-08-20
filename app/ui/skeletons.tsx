@@ -1,10 +1,10 @@
-import { Separator } from "@/components/ui/separator";
+import { Button } from "@/app/components/ui/button";
+import { Separator } from "@/app/components/ui/separator";
+import { Skeleton } from "@/app/components/ui/skeleton";
+import { Table } from "@/app/components/ui/table";
+import { ITEMS_PER_PAGE } from "@/app/lib/constants";
 import clsx from "clsx";
 import { Edit, LoaderCircle, Trash } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { Skeleton } from "../components/ui/skeleton";
-import { Table } from "../components/ui/table";
-import { ITEMS_PER_PAGE } from "../lib/constants";
 
 export function TableRowSkeleton() {
 	return (
@@ -52,7 +52,7 @@ export function ContractMobileSkeleton({
 								</div>
 							</div>
 							<p className="text-sm text-gray-500">
-								<Skeleton className="h-4 w-[150px]" />
+								<Skeleton className="h-4 w-[100px]" />
 							</p>
 						</div>
 					</div>
@@ -67,7 +67,7 @@ export function ContractMobileSkeleton({
 								<Skeleton className="h-3 w-[70px]" />
 							</p>
 							<p className="font-medium">
-								<Skeleton className="h-5 w-[150px]" />
+								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 						<div className="flex flex-col">
@@ -75,7 +75,7 @@ export function ContractMobileSkeleton({
 								<Skeleton className="h-3 w-[70px]" />
 							</p>
 							<p className="font-medium">
-								<Skeleton className="h-5 w-[150px]" />
+								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 						<div className="flex flex-col">
@@ -83,7 +83,7 @@ export function ContractMobileSkeleton({
 								<Skeleton className="h-3 w-[70px]" />
 							</p>
 							<p className="font-medium">
-								<Skeleton className="h-5 w-[150px]" />
+								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 						<div className="flex flex-col">
@@ -91,7 +91,7 @@ export function ContractMobileSkeleton({
 								<Skeleton className="h-3 w-[70px]" />
 							</p>
 							<p className="font-medium">
-								<Skeleton className="h-5 w-[150px]" />
+								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 						<div className="flex flex-col">
@@ -99,7 +99,7 @@ export function ContractMobileSkeleton({
 								<Skeleton className="h-3 w-[70px]" />
 							</p>
 							<p className="font-medium">
-								<Skeleton className="h-5 w-[150px]" />
+								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 						<div className="flex flex-col">
@@ -107,7 +107,7 @@ export function ContractMobileSkeleton({
 								<Skeleton className="h-3 w-[70px]" />
 							</p>
 							<p className="font-medium">
-								<Skeleton className="h-5 w-[150px]" />
+								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 						<div className="flex flex-col">
@@ -115,7 +115,7 @@ export function ContractMobileSkeleton({
 								<Skeleton className="h-3 w-[70px]" />
 							</p>
 							<p className="font-medium">
-								<Skeleton className="h-5 w-[150px]" />
+								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 						<div className="flex flex-col">
@@ -123,7 +123,7 @@ export function ContractMobileSkeleton({
 								<Skeleton className="h-3 w-[70px]" />
 							</p>
 							<p className="font-medium">
-								<Skeleton className="h-5 w-[150px]" />
+								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 						<div className="flex flex-col">
@@ -131,7 +131,7 @@ export function ContractMobileSkeleton({
 								<Skeleton className="h-3 w-[70px]" />
 							</p>
 							<p className="font-medium">
-								<Skeleton className="h-5 w-[150px]" />
+								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 						<div className="flex flex-col">
@@ -139,7 +139,7 @@ export function ContractMobileSkeleton({
 								<Skeleton className="h-3 w-[70px]" />
 							</p>
 							<p className="font-medium">
-								<Skeleton className="h-5 w-[150px]" />
+								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 						<div className="flex flex-col">
@@ -147,7 +147,7 @@ export function ContractMobileSkeleton({
 								<Skeleton className="h-3 w-[70px]" />
 							</p>
 							<p className="font-medium">
-								<Skeleton className="h-5 w-[150px]" />
+								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 					</div>
