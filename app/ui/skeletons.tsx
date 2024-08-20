@@ -63,89 +63,67 @@ export function ContractMobileSkeleton({
 						})}
 					>
 						<div className="flex flex-col">
-							<p className="text-xs">
-								<Skeleton className="h-3 w-[70px]" />
-							</p>
+							<p className="text-xs">Annual Contract</p>
 							<p className="font-medium">
 								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 						<div className="flex flex-col">
-							<p className="text-xs">
-								<Skeleton className="h-3 w-[70px]" />
-							</p>
+							<p className="text-xs">Savings</p>
 							<p className="font-medium">
 								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 						<div className="flex flex-col">
-							<p className="text-xs">
-								<Skeleton className="h-3 w-[70px]" />
-							</p>
+							<p className="text-xs">Sub Category</p>
 							<p className="font-medium">
 								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 						<div className="flex flex-col">
-							<p className="text-xs">
-								<Skeleton className="h-3 w-[70px]" />
-							</p>
+							<p className="text-xs">Region</p>
 							<p className="font-medium">
 								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 						<div className="flex flex-col">
-							<p className="text-xs">
-								<Skeleton className="h-3 w-[70px]" />
-							</p>
+							<p className="text-xs">Service Owner</p>
 							<p className="font-medium">
 								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 						<div className="flex flex-col">
-							<p className="text-xs">
-								<Skeleton className="h-3 w-[70px]" />
-							</p>
+							<p className="text-xs">Contract Term</p>
 							<p className="font-medium">
 								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 						<div className="flex flex-col">
-							<p className="text-xs">
-								<Skeleton className="h-3 w-[70px]" />
-							</p>
+							<p className="text-xs">Contract To</p>
 							<p className="font-medium">
 								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 						<div className="flex flex-col">
-							<p className="text-xs">
-								<Skeleton className="h-3 w-[70px]" />
-							</p>
+							<p className="text-xs">Notify SO Date</p>
 							<p className="font-medium">
 								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 						<div className="flex flex-col">
-							<p className="text-xs">
-								<Skeleton className="h-3 w-[70px]" />
-							</p>
+							<p className="text-xs">Renewal Strategy</p>
 							<p className="font-medium">
 								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 						<div className="flex flex-col">
-							<p className="text-xs">
-								<Skeleton className="h-3 w-[70px]" />
-							</p>
+							<p className="text-xs">Contract Type</p>
 							<p className="font-medium">
 								<Skeleton className="h-5 w-[100px]" />
 							</p>
 						</div>
 						<div className="flex flex-col">
-							<p className="text-xs">
-								<Skeleton className="h-3 w-[70px]" />
-							</p>
+							<p className="text-xs">Request Type</p>
 							<p className="font-medium">
 								<Skeleton className="h-5 w-[100px]" />
 							</p>
