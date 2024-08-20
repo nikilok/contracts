@@ -1,3 +1,5 @@
+import { Button } from "@/app/components/ui/button";
+import { Separator } from "@/app/components/ui/separator";
 import {
 	ContractTypes,
 	Regions,
@@ -9,6 +11,8 @@ import { getCurrency, getLabel } from "@/app/lib/utils";
 import type { Contract } from "@/app/types";
 import clsx from "clsx";
 import { intlFormatDistance } from "date-fns";
+import { Delete, Edit, Trash } from "lucide-react";
+import Link from "next/link";
 
 export default function MobileLayout({
 	data,
@@ -115,6 +119,29 @@ export default function MobileLayout({
 									{getLabel(RequestType, row.requestType)}
 								</p>
 							</div>
+						</div>
+						<Separator />
+						<div className="flex justify-between pt-2 gap-2">
+							<Button size="sm" variant="ghost" className="h-7 gap-1">
+								<Trash className="h-3.5 w-3.5 text-red-600" />
+								<span className="sr-only sm:not-sr-only text-red-600 sm:whitespace-nowrap">
+									Delete
+								</span>
+							</Button>
+							<Button size="sm" variant="ghost" className="h-7 gap-1">
+								<Edit className="h-3.5 w-3.5" />
+								<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+									<Link
+										href={{
+											pathname: `/dashboard/${row.id}/edit`,
+											query: { status: "active" },
+										}}
+										className="w-full"
+									>
+										Update
+									</Link>
+								</span>
+							</Button>
 						</div>
 					</div>
 				);
