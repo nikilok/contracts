@@ -24,6 +24,11 @@ import { intlFormatDistance } from "date-fns";
 import { Check, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 
+const options: Intl.DateTimeFormatOptions = {
+	year: "numeric",
+	month: "short",
+	day: "numeric",
+};
 export const columns: ColumnDef<Contract>[] = [
 	{
 		id: "action",
@@ -142,11 +147,6 @@ export const columns: ColumnDef<Contract>[] = [
 		header: "Contract From",
 		enableResizing: false,
 		cell: ({ row }) => {
-			const options: Intl.DateTimeFormatOptions = {
-				year: "numeric",
-				month: "short",
-				day: "numeric",
-			};
 			return (
 				<TableCell>
 					{new Date(row.getValue("contractFrom")).toLocaleDateString(
@@ -163,11 +163,6 @@ export const columns: ColumnDef<Contract>[] = [
 		enableResizing: false,
 		size: 150,
 		cell: ({ row }) => {
-			const options: Intl.DateTimeFormatOptions = {
-				year: "numeric",
-				month: "short",
-				day: "numeric",
-			};
 			return (
 				<TableCell>
 					{new Date(row.getValue("contractTo")).toLocaleDateString(
@@ -183,11 +178,6 @@ export const columns: ColumnDef<Contract>[] = [
 		enableResizing: false,
 		size: 150,
 		cell: ({ row }) => {
-			const options: Intl.DateTimeFormatOptions = {
-				year: "numeric",
-				month: "short",
-				day: "numeric",
-			};
 			const data = row.original;
 			const contractTo = new Date(data.contractTo ?? 0);
 			const daysToNotify = Number.parseInt(data.reviewPeriod ?? 0);
