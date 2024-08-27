@@ -18,6 +18,11 @@ export default function MobileLayout({
 	data,
 	device,
 }: { data: Contract[]; device: "mobile" | "tablet" }) {
+	const options: Intl.DateTimeFormatOptions = {
+		year: "numeric",
+		month: "short",
+		day: "numeric",
+	};
 	return (
 		<div className="mt-4">
 			{data?.map((row) => {
@@ -92,13 +97,16 @@ export default function MobileLayout({
 							<div className="flex flex-col">
 								<p className="text-xs">Contract To</p>
 								<p className="font-medium">
-									{new Date(row.contractTo).toLocaleDateString()}
+									{new Date(row.contractTo).toLocaleDateString(
+										"en-US",
+										options,
+									)}
 								</p>
 							</div>
 							<div className="flex flex-col">
 								<p className="text-xs">Notify SO Date</p>
 								<p className="font-medium">
-									{new Date(notifyDate).toLocaleDateString()}
+									{new Date(notifyDate).toLocaleDateString("en-US", options)}
 								</p>
 							</div>
 							<div className="flex flex-col">
