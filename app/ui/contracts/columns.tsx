@@ -138,12 +138,21 @@ export const columns: ColumnDef<Contract>[] = [
 	{
 		accessorKey: "contractFrom",
 		enableHiding: true,
+		size: 150,
 		header: "Contract From",
 		enableResizing: false,
 		cell: ({ row }) => {
+			const options: Intl.DateTimeFormatOptions = {
+				year: "numeric",
+				month: "short",
+				day: "numeric",
+			};
 			return (
 				<TableCell>
-					{new Date(row.getValue("contractFrom")).toLocaleDateString()}
+					{new Date(row.getValue("contractFrom")).toLocaleDateString(
+						"en-US",
+						options,
+					)}
 				</TableCell>
 			);
 		},
@@ -152,10 +161,19 @@ export const columns: ColumnDef<Contract>[] = [
 		accessorKey: "contractTo",
 		header: "Contract Expiry",
 		enableResizing: false,
+		size: 150,
 		cell: ({ row }) => {
+			const options: Intl.DateTimeFormatOptions = {
+				year: "numeric",
+				month: "short",
+				day: "numeric",
+			};
 			return (
 				<TableCell>
-					{new Date(row.getValue("contractTo")).toLocaleDateString()}
+					{new Date(row.getValue("contractTo")).toLocaleDateString(
+						"en-US",
+						options,
+					)}
 				</TableCell>
 			);
 		},
@@ -163,14 +181,24 @@ export const columns: ColumnDef<Contract>[] = [
 	{
 		header: "Notify SO Date",
 		enableResizing: false,
+		size: 150,
 		cell: ({ row }) => {
+			const options: Intl.DateTimeFormatOptions = {
+				year: "numeric",
+				month: "short",
+				day: "numeric",
+			};
 			const data = row.original;
 			const contractTo = new Date(data.contractTo ?? 0);
 			const daysToNotify = Number.parseInt(data.reviewPeriod ?? 0);
 			const notifyDate = contractTo.setDate(
 				contractTo.getDate() - daysToNotify,
 			);
-			return <TableCell>{new Date(notifyDate).toLocaleDateString()}</TableCell>;
+			return (
+				<TableCell>
+					{new Date(notifyDate).toLocaleDateString("en-US", options)}
+				</TableCell>
+			);
 		},
 	},
 	{
