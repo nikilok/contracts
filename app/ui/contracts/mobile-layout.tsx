@@ -11,7 +11,7 @@ import { getCurrency, getLabel } from "@/app/lib/utils";
 import type { Contract } from "@/app/types";
 import clsx from "clsx";
 import { intlFormatDistance } from "date-fns";
-import { Delete, Edit, Trash } from "lucide-react";
+import { Edit, Trash } from "lucide-react";
 import Link from "next/link";
 
 export default function MobileLayout({
@@ -55,7 +55,7 @@ export default function MobileLayout({
 							})}
 						>
 							<div className="flex flex-col">
-								<p className="text-xs">Annual Contract</p>
+								<p className="text-xs text-gray-500">Annual Contract</p>
 								<p className="font-medium">
 									{row.annualContractValue
 										? getCurrency(row.annualContractCurrency).format(
@@ -65,7 +65,7 @@ export default function MobileLayout({
 								</p>
 							</div>
 							<div className="flex flex-col">
-								<p className="text-xs">Savings</p>
+								<p className="text-xs text-gray-500">Savings</p>
 								<p className="font-medium">
 									{row.annualContractValue
 										? getCurrency(row.annualContractCurrency).format(
@@ -75,27 +75,27 @@ export default function MobileLayout({
 								</p>
 							</div>
 							<div className="flex flex-col">
-								<p className="text-xs">Sub Category</p>
+								<p className="text-xs text-gray-500">Sub Category</p>
 								<p className="font-medium">
 									{getLabel(SubCategory, row.subCategory)}
 								</p>
 							</div>
 							<div className="flex flex-col">
-								<p className="text-xs">Region</p>
+								<p className="text-xs text-gray-500">Region</p>
 								<p className="font-medium">{getLabel(Regions, row.region)}</p>
 							</div>
 							<div className="flex flex-col">
-								<p className="text-xs">Service Owner</p>
+								<p className="text-xs text-gray-500">Service Owner</p>
 								<p className="font-medium">{row.serviceOwner}</p>
 							</div>
 							<div className="flex flex-col">
-								<p className="text-xs">Contract Term</p>
+								<p className="text-xs text-gray-500">Contract Term</p>
 								<p className="font-medium">
 									{isEverGreen ? "evergreen" : contractTerm}
 								</p>
 							</div>
 							<div className="flex flex-col">
-								<p className="text-xs">Contract To</p>
+								<p className="text-xs text-gray-500">Contract To</p>
 								<p className="font-medium">
 									{new Date(row.contractTo).toLocaleDateString(
 										"en-US",
@@ -104,25 +104,25 @@ export default function MobileLayout({
 								</p>
 							</div>
 							<div className="flex flex-col">
-								<p className="text-xs">Notify SO Date</p>
+								<p className="text-xs text-gray-500">Notify SO Date</p>
 								<p className="font-medium">
 									{new Date(notifyDate).toLocaleDateString("en-US", options)}
 								</p>
 							</div>
-							<div className="flex flex-col">
+							<div className="flex flex-col text-gray-500">
 								<p className="text-xs">Renewal Strategy</p>
 								<p className="font-medium">
 									{getLabel(RenewalStrategy, row.renewalStrategy)}
 								</p>
 							</div>
 							<div className="flex flex-col">
-								<p className="text-xs">Contract Type</p>
+								<p className="text-xs text-gray-500">Contract Type</p>
 								<p className="font-medium">
 									{getLabel(ContractTypes, row.contractType)}
 								</p>
 							</div>
 							<div className="flex flex-col">
-								<p className="text-xs">Request Type</p>
+								<p className="text-xs text-gray-500">Request Type</p>
 								<p className="font-medium">
 									{getLabel(RequestType, row.requestType)}
 								</p>
