@@ -37,8 +37,7 @@ import { addSupplier } from "@/app/lib/data";
 import { Calendar as CalendarDaysIcon } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, useState } from "react";
 import { CreateButton, CreateDraftButton } from "../buttons";
 
 export default function Form({
@@ -61,8 +60,8 @@ export default function Form({
 	const [contractTo, setContractTo] = useState<undefined | string>(undefined);
 
 	const initialState = { message: null, errors: {} };
-	//@ts-expect-error ignore this for now.
-	const [state, dispatch] = useFormState(submitOrDraftContracts, initialState);
+	//@ts-expect-error ignore this
+	const [state, dispatch] = useActionState(submitOrDraftContracts, initialState);
 
 	const onAddSupplier = (name: string) => {
 		addSupplier(name);

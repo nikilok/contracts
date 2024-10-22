@@ -7,7 +7,7 @@ import {
 	ChevronDownIcon,
 	ChevronUpIcon,
 } from "@radix-ui/react-icons";
-import React, { type FC, useState, useEffect, useRef } from "react";
+import React, { type FC, useState, useEffect, useRef, type JSX } from "react";
 import { Button } from "./button";
 import { Calendar } from "./calendar";
 import { DateInput } from "./date-input";
@@ -117,8 +117,8 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
 	);
 
 	// Refs to store the values of range and rangeCompare when the date picker is opened
-	const openedRangeRef = useRef<DateRange | undefined>();
-	const openedRangeCompareRef = useRef<DateRange | undefined>();
+	const openedRangeRef = useRef<DateRange | undefined>(undefined);
+	const openedRangeCompareRef = useRef<DateRange | undefined>(undefined);
 
 	const [selectedPreset, setSelectedPreset] = useState<string | undefined>(
 		undefined,
