@@ -8,29 +8,29 @@ import { Edit, LoaderCircle, Trash } from "lucide-react";
 
 export function TableRowSkeleton() {
 	return (
-        (<tr className="w-full border-b border-gray-100 last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
-            {/* Actions */}
-            <td className="whitespace-nowrap py-3 pl-6 pr-3">
+		<tr className="w-full border-b border-gray-100 last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
+			{/* Actions */}
+			<td className="whitespace-nowrap py-3 pl-6 pr-3">
 				<div className="flex justify-end gap-3">
 					<div className="h-[38px] w-[38px] rounded bg-gray-100" />
 					<div className="h-[38px] w-[38px] rounded bg-gray-100" />
 				</div>
 			</td>
-            {/* Customer Name and Image */}
-            <td className="relative overflow-hidden whitespace-nowrap py-3 pl-6 pr-3">
+			{/* Customer Name and Image */}
+			<td className="relative overflow-hidden whitespace-nowrap py-3 pl-6 pr-3">
 				<div className="flex items-center gap-3">
 					<div className="h-8 w-8 rounded-full bg-gray-100" />
 					<div className="h-6 w-24 rounded bg-gray-100" />
 				</div>
 			</td>
-            {Array.from({ length: 10 }, (_, index) => (
+			{Array.from({ length: 10 }, (_, index) => (
 				// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-				(<td key={index} className="whitespace-nowrap px-3 py-3">
-                    <div className="h-6 w-32 rounded bg-gray-100" />
-                </td>)
+				<td key={index} className="whitespace-nowrap px-3 py-3">
+					<div className="h-6 w-32 rounded bg-gray-100" />
+				</td>
 			))}
-        </tr>)
-    );
+		</tr>
+	);
 }
 export function ContractMobileSkeleton({
 	device = "mobile",
@@ -149,22 +149,24 @@ export function ContractMobileSkeleton({
 	);
 }
 export function ContractTableSkeleton() {
-	return (<>
-        <div className="sm:block md:hidden lg:hidden">
-            <ContractMobileSkeleton device="mobile" />
-        </div>
-        <div className="hidden md:block lg:block xl:hidden">
-            <ContractMobileSkeleton device="tablet" />
-        </div>
-        <Table className="hidden xl:block pt-2 w-[calc(90vw)] overflow-x-auto">
-            <tbody className="hidden sm:hidden md:hidden lg:block xl:block pt-2 w-[calc(90vw)] overflow-x-auto bg-transparent">
-                {Array.from({ length: ITEMS_PER_PAGE }, (_, index) => (
-                    // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-                    (<TableRowSkeleton key={index} />)
-                ))}
-            </tbody>
-        </Table>
-    </>);
+	return (
+		<>
+			<div className="sm:block md:hidden lg:hidden">
+				<ContractMobileSkeleton device="mobile" />
+			</div>
+			<div className="hidden md:block lg:block xl:hidden">
+				<ContractMobileSkeleton device="tablet" />
+			</div>
+			<Table className="hidden xl:block pt-2 w-[calc(90vw)] overflow-x-auto">
+				<tbody className="hidden sm:hidden md:hidden lg:block xl:block pt-2 w-[calc(90vw)] overflow-x-auto bg-transparent">
+					{Array.from({ length: ITEMS_PER_PAGE }, (_, index) => (
+						// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+						<TableRowSkeleton key={index} />
+					))}
+				</tbody>
+			</Table>
+		</>
+	);
 }
 
 export default function GenericLoader() {

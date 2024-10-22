@@ -61,7 +61,10 @@ export default function Form({
 
 	const initialState = { message: null, errors: {} };
 	//@ts-expect-error ignore this
-	const [state, dispatch] = useActionState(submitOrDraftContracts, initialState);
+	const [state, dispatch] = useActionState(
+		submitOrDraftContracts,
+		initialState,
+	);
 
 	const onAddSupplier = (name: string) => {
 		addSupplier(name);

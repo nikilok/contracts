@@ -27,31 +27,29 @@ import { File, ListFilter, PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 
-export default async function Page(
-    props: {
-        searchParams: Promise<{
-            status: Status;
-            page: string;
-            query: string;
-        }>;
-    }
-) {
-    const searchParams = await props.searchParams;
-    const currentPage = Number.parseInt(searchParams?.page ?? 1);
-    const status = searchParams?.status ?? "active";
-    const query = searchParams?.query ?? "";
+export default async function Page(props: {
+	searchParams: Promise<{
+		status: Status;
+		page: string;
+		query: string;
+	}>;
+}) {
+	const searchParams = await props.searchParams;
+	const currentPage = Number.parseInt(searchParams?.page ?? 1);
+	const status = searchParams?.status ?? "active";
+	const query = searchParams?.query ?? "";
 
-    const { count, totalPages } = await getContractsPageCount({
+	const { count, totalPages } = await getContractsPageCount({
 		query,
 		status,
 	});
-    const fromPage = (currentPage - 1) * ITEMS_PER_PAGE + 1;
-    const toPage =
+	const fromPage = (currentPage - 1) * ITEMS_PER_PAGE + 1;
+	const toPage =
 		count <= currentPage * ITEMS_PER_PAGE
 			? count
 			: currentPage * ITEMS_PER_PAGE;
 
-    return (
+	return (
 		<main className="grid flex-1 items-start gap-4 p-4 sm:px-6 md:gap-8">
 			<Tabs defaultValue="active" value={status}>
 				<div className="flex items-center">
