@@ -9,12 +9,13 @@ import Form from "@/app/ui/contracts/edit/edit-contracts";
 import { Separator } from "@radix-ui/react-select";
 import { Suspense } from "react";
 
-export default async function Page({ params }: { params: { id: string } }) {
-	const id = params.id;
-	const suppliers = await getSuppliers();
-	const contract = await getContract(id);
+export default async function Page(props: { params: Promise<{ id: string }> }) {
+    const params = await props.params;
+    const id = params.id;
+    const suppliers = await getSuppliers();
+    const contract = await getContract(id);
 
-	return (
+    return (
 		<main className="py-8 px-2">
 			<Card className="w-full max-w-4xl m-auto">
 				<CardHeader>
