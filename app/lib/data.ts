@@ -2,14 +2,13 @@
 
 import { type Prisma, PrismaClient } from "@prisma/client";
 import type { DefaultArgs } from "@prisma/client/runtime/library";
-import { unstable_noStore as noStore, revalidatePath } from "next/cache";
+import { revalidatePath } from "next/cache";
 import type { Contract, Status } from "../types";
 import { ITEMS_PER_PAGE } from "./constants";
 
 const prisma = new PrismaClient();
 
 export async function getSuppliers() {
-	noStore();
 	try {
 		const data = await prisma.suppliers.findMany();
 
@@ -20,7 +19,6 @@ export async function getSuppliers() {
 }
 
 export async function addSupplier(name: string) {
-	noStore();
 	try {
 		await prisma.suppliers.create({
 			data: {
@@ -76,7 +74,6 @@ export async function getContracts({
 }: { query?: string; currentPage: number; status: Status }): Promise<
 	Contract[]
 > {
-	noStore();
 	const currentDate = new Date().toISOString();
 	try {
 		switch (status) {
@@ -240,7 +237,6 @@ export async function getContractsPageCount({
 	count: number;
 	totalPages: number;
 }> {
-	noStore();
 	const currentDate = new Date().toISOString();
 	try {
 		switch (status) {
@@ -398,7 +394,6 @@ export async function getContractsPageCount({
 }
 
 export async function getContract(id: string): Promise<Contract> {
-	noStore();
 	try {
 		const data = await prisma.contracts.findUnique({
 			select,
