@@ -60,8 +60,8 @@ export default function Form({
 	const [contractTo, setContractTo] = useState<undefined | string>(undefined);
 
 	const initialState = { message: null, errors: {} };
-	//@ts-expect-error ignore this
 	const [state, dispatch] = useActionState(
+		//@ts-expect-error ignore this
 		submitOrDraftContracts,
 		initialState,
 	);
