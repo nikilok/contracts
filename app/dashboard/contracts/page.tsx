@@ -27,15 +27,14 @@ import { File, ListFilter, PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 
-export default async function Page({
-	searchParams,
-}: {
-	searchParams: {
+export default async function Page(props: {
+	searchParams: Promise<{
 		status: Status;
 		page: string;
 		query: string;
-	};
+	}>;
 }) {
+	const searchParams = await props.searchParams;
 	const currentPage = Number.parseInt(searchParams?.page ?? 1);
 	const status = searchParams?.status ?? "active";
 	const query = searchParams?.query ?? "";

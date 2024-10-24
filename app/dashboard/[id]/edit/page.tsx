@@ -9,7 +9,8 @@ import Form from "@/app/ui/contracts/edit/edit-contracts";
 import { Separator } from "@radix-ui/react-select";
 import { Suspense } from "react";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page(props: { params: Promise<{ id: string }> }) {
+	const params = await props.params;
 	const id = params.id;
 	const suppliers = await getSuppliers();
 	const contract = await getContract(id);

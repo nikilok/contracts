@@ -23,7 +23,6 @@ export function TableRowSkeleton() {
 					<div className="h-6 w-24 rounded bg-gray-100" />
 				</div>
 			</td>
-
 			{Array.from({ length: 10 }, (_, index) => (
 				// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 				<td key={index} className="whitespace-nowrap px-3 py-3">
