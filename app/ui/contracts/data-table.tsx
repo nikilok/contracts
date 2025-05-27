@@ -73,7 +73,7 @@ export default function DataTable<TData, TValue>({
 										<div className="absolute -right-[-2px] top-0 w-[1px] h-[calc(100%)] bg-slate-300 dark:bg-background/70" />
 										<div
 											className={clsx({
-												"z-1 absolute top-[26.5%] right-0 w-[5px] h-[calc(40%)] rounded border-[1px] border-slate-300 dark: border-blue-500/60 bg-white dark:bg-background/80":
+												"z-1 absolute top-[26.5%] right-0 w-[5px] h-[calc(40%)] rounded border-[1px] border-slate-300 dark:border-blue-500/60 bg-white dark:bg-background/80":
 													header.column.getCanResize(),
 											})}
 										/>
