@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 "use client";
 
 import { cn } from "@/app/lib/utils";
@@ -493,14 +492,13 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
 											<DateInput
 												value={rangeCompare?.to}
 												onChange={(date) => {
-													//@ts-expect-error ignore this
-													if (rangeCompare ?? rangeCompare.from) {
+													if (rangeCompare?.from) {
 														const compareFromDate =
 															date < rangeCompare.from
 																? date
 																: rangeCompare.from;
 														setRangeCompare({
-															...rangeCompare,
+															...(rangeCompare as DateRange),
 															from: compareFromDate,
 															to: date,
 														});
