@@ -1,5 +1,3 @@
-version: '3.8'
-
 networks:
   mongo-network:
     driver: bridge
@@ -18,7 +16,7 @@ services:
       - "27017:27017"
     healthcheck:
       test: |
-        mongosh --host mongo1:27017 --eval         'try { db.adminCommand("ping").ok } catch (e) { print(e); quit(1); }' --quiet
+        mongosh --host mongo1:27017 --eval 'try { db.adminCommand("ping").ok } catch (e) { print(e); quit(1); }' --quiet
       interval: 5s
       timeout: 5s
       retries: 10
@@ -37,7 +35,7 @@ services:
       - "27018:27017"
     healthcheck:
       test: |
-        mongosh --host mongo2:27017 --eval         'try { db.adminCommand("ping").ok } catch (e) { print(e); quit(1); }' --quiet
+        mongosh --host mongo2:27017 --eval 'try { db.adminCommand("ping").ok } catch (e) { print(e); quit(1); }' --quiet
       interval: 5s
       timeout: 5s
       retries: 10
@@ -56,7 +54,7 @@ services:
       - "27019:27017"
     healthcheck:
       test: |
-        mongosh --host mongo3:27017 --eval         'try { db.adminCommand("ping").ok } catch (e) { print(e); quit(1); }' --quiet
+        mongosh --host mongo3:27017 --eval 'try { db.adminCommand("ping").ok } catch (e) { print(e); quit(1); }' --quiet
       interval: 5s
       timeout: 5s
       retries: 10
@@ -68,8 +66,31 @@ services:
     networks:
       - mongo-network
     volumes:
-      - ./init-replica-set.sh:/scripts/init-replica-set.sh # Assuming init-replica-set.sh is in the same dir as docker-compose.yml
-    command: ["/bin/bash", "/scripts/init-replica-set.sh"]
+      - ./init-replica-set.sh:/scripts/init-replica-set.sh
+    environment:
+      - NUM_REPLICAS=${NUM_REPLICAS:-3} # Default to 3 replicas
+    command:
+      - /bin/bash
+      - -c
+      - |
+        echo 'Attempting to connect to MongoDB instances for setup...'
+        # NUM_REPLICAS is an environment variable available to the shell.
+        # NUM_REPLICAS_IN_SCRIPT will be set by the shell.
+        NUM_REPLICAS_IN_SCRIPT=${NUM_REPLICAS:-3}
+        # Use $$ for shell variables in subsequent commands to prevent Compose interpolation.
+        echo "Waiting for $$NUM_REPLICAS_IN_SCRIPT MongoDB instance(s)..."
+
+        for i in $$(seq 1 $$NUM_REPLICAS_IN_SCRIPT); do
+          echo "Waiting for mongo$$i:27017..."
+          until mongosh --host "mongo$$i:27017" --eval 'quit(db.adminCommand("ping").ok ? 0 : 1)' --quiet; do
+            echo "mongo$$i not ready yet, retrying..."
+            sleep 2
+          done
+          echo "mongo$$i is up."
+        done
+
+        echo "All MongoDB instances are responsive. Running init-replica-set.sh..."
+        /scripts/init-replica-set.sh
     depends_on:
       mongo1:
         condition: service_healthy
