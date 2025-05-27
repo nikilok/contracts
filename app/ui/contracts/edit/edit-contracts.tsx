@@ -34,7 +34,7 @@ import {
 	SubCategory,
 } from "@/app/lib/constants";
 import { addSupplier } from "@/app/lib/data";
-import type { Contract } from "@/app/types";
+import type { Contract, State } from "@/app/types";
 import { Calendar as CalendarDaysIcon } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -75,9 +75,8 @@ export default function Form({
 		new Date(contract.contractTo).toISOString(),
 	);
 
-	const initialState = { message: null, errors: {} };
+	const initialState: State = { message: null, errors: {} };
 	const updateContractWithId = updateContract.bind(null, contract.id);
-	//@ts-expect-error ignore this
 	const [state, dispatch] = useActionState(updateContractWithId, initialState);
 
 	const onAddSupplier = (name: string) => {
