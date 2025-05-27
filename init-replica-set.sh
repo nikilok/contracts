@@ -8,6 +8,9 @@ sleep 10
 echo "Initiating replica set..."
 
 mongosh --host mongo1:27017 <<EOF
+var MAX_RETRIES = 20;
+var RETRY_INTERVAL_MS = 5000;
+
 var config = {
     "_id": "rs0",
     "version": 1,
@@ -35,8 +38,8 @@ rs.initiate(config, { force: true });
 echo "Replica set initiating, waiting for it to stabilize..."
 let attempts = 0;
 let isMaster = false;
-while(attempts < 20 && !isMaster) { // Try for up to 100 seconds (20 attempts * 5 seconds)
-    sleep(5000); // mongosh sleep is in milliseconds
+while(attempts < MAX_RETRIES && !isMaster) { // Try for up to MAX_RETRIES attempts
+    sleep(RETRY_INTERVAL_MS); // mongosh sleep is in milliseconds
     let status = rs.status();
     if (status.myState === 1) { // 1 means PRIMARY
         isMaster = true;
