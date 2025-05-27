@@ -12,21 +12,21 @@ export function TableRowSkeleton() {
 			{/* Actions */}
 			<td className="whitespace-nowrap py-3 pl-6 pr-3">
 				<div className="flex justify-end gap-3">
-					<div className="h-[38px] w-[38px] rounded bg-gray-100" />
-					<div className="h-[38px] w-[38px] rounded bg-gray-100" />
+					<div className="h-[38px] w-[38px] rounded bg-gray-100 dark:bg-slate-600" />
+					<div className="h-[38px] w-[38px] rounded bg-gray-100 dark:bg-slate-600" />
 				</div>
 			</td>
 			{/* Customer Name and Image */}
 			<td className="relative overflow-hidden whitespace-nowrap py-3 pl-6 pr-3">
 				<div className="flex items-center gap-3">
-					<div className="h-8 w-8 rounded-full bg-gray-100" />
-					<div className="h-6 w-24 rounded bg-gray-100" />
+					<div className="h-8 w-8 rounded-full bg-gray-100 dark:bg-slate-600" />
+					<div className="h-6 w-24 rounded bg-gray-100 dark:bg-slate-600" />
 				</div>
 			</td>
 			{Array.from({ length: 10 }, (_, index) => (
 				// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 				<td key={index} className="whitespace-nowrap px-3 py-3">
-					<div className="h-6 w-32 rounded bg-gray-100" />
+					<div className="h-6 w-32 rounded bg-gray-100 dark:bg-slate-600" />
 				</td>
 			))}
 		</tr>
@@ -41,7 +41,7 @@ export function ContractMobileSkeleton({
 				<div
 					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 					key={index}
-					className="mb-2 w-full rounded-md bg-white p-4 shadow-md"
+					className="mb-2 w-full rounded-md bg-white dark:bg-slate-600 p-4 shadow-md"
 				>
 					<div className="flex items-center justify-between border-b pb-4">
 						<div>
