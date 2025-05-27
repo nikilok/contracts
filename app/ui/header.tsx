@@ -13,7 +13,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import HeaderSearch from "./header-search";
 import NavLinks from "./navLinks";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeToggle } from "../components/theme-toggle";
 
 const links = [
 	{ name: "Home", href: "/dashboard" },
