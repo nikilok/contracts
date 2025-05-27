@@ -2,9 +2,9 @@
 
 import { Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useRef } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { Input } from "../components/ui/input";
-import { useRef } from "react";
 
 export default function HeaderSearch({ placeholder }: { placeholder: string }) {
 	const searchParams = useSearchParams();

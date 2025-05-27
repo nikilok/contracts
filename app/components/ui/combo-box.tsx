@@ -43,7 +43,6 @@ export function ComboBox({
 				{!disabled ? (
 					<Button
 						variant="outline"
-						role="combobox"
 						aria-expanded={open}
 						className="w-[calc(100%)] justify-between"
 					>

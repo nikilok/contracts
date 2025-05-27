@@ -80,7 +80,7 @@ export const columns: ColumnDef<Contract>[] = [
 		header: "Category",
 		cell: ({ row }) => {
 			const value = `${row.getValue("subCategory")}`;
-			return <TableCell>{getLabel(SubCategory, value)}</TableCell>;
+			return getLabel(SubCategory, value);
 		},
 	},
 	{
@@ -88,7 +88,7 @@ export const columns: ColumnDef<Contract>[] = [
 		header: "Region",
 		cell: ({ row }) => {
 			const value = `${row.getValue("region")}`;
-			return <TableCell>{getLabel(Regions, value)}</TableCell>;
+			return getLabel(Regions, value);
 		},
 	},
 	{
@@ -103,13 +103,13 @@ export const columns: ColumnDef<Contract>[] = [
 		cell: ({ row }) => {
 			const data = row.original;
 			return (
-				<TableCell className="text-right">
+				<span className="text-right">
 					{data.annualContractValue
 						? getCurrency(data.annualContractCurrency).format(
 								data.annualContractValue,
 							)
 						: null}
-				</TableCell>
+				</span>
 			);
 		},
 	},
@@ -119,11 +119,11 @@ export const columns: ColumnDef<Contract>[] = [
 		cell: ({ row }) => {
 			const data = row.original;
 			return (
-				<TableCell className="text-right">
+				<span className="text-right">
 					{data.savingsValue
 						? getCurrency(data.annualContractCurrency).format(data.savingsValue)
 						: null}
-				</TableCell>
+				</span>
 			);
 		},
 	},
@@ -137,7 +137,7 @@ export const columns: ColumnDef<Contract>[] = [
 			const dateTo = new Date(data.contractTo ?? 0);
 			const isEverGreen = Boolean(data.everGreen);
 			const contractTerm = intlFormatDistance(dateTo, baseDate);
-			return <TableCell>{isEverGreen ? "evergreen" : contractTerm}</TableCell>;
+			return isEverGreen ? "evergreen" : contractTerm;
 		},
 	},
 	{
@@ -147,13 +147,9 @@ export const columns: ColumnDef<Contract>[] = [
 		header: "Contract From",
 		enableResizing: false,
 		cell: ({ row }) => {
-			return (
-				<TableCell>
-					{new Date(row.getValue("contractFrom")).toLocaleDateString(
-						"en-US",
-						options,
-					)}
-				</TableCell>
+			return new Date(row.getValue("contractFrom")).toLocaleDateString(
+				"en-US",
+				options,
 			);
 		},
 	},
@@ -163,13 +159,9 @@ export const columns: ColumnDef<Contract>[] = [
 		enableResizing: false,
 		size: 150,
 		cell: ({ row }) => {
-			return (
-				<TableCell>
-					{new Date(row.getValue("contractTo")).toLocaleDateString(
-						"en-US",
-						options,
-					)}
-				</TableCell>
+			return new Date(row.getValue("contractTo")).toLocaleDateString(
+				"en-US",
+				options,
 			);
 		},
 	},
@@ -184,11 +176,7 @@ export const columns: ColumnDef<Contract>[] = [
 			const notifyDate = contractTo.setDate(
 				contractTo.getDate() - daysToNotify,
 			);
-			return (
-				<TableCell>
-					{new Date(notifyDate).toLocaleDateString("en-US", options)}
-				</TableCell>
-			);
+			return new Date(notifyDate).toLocaleDateString("en-US", options);
 		},
 	},
 	{
@@ -196,7 +184,7 @@ export const columns: ColumnDef<Contract>[] = [
 		header: "Renewal Strategy",
 		cell: ({ row }) => {
 			const value = `${row.getValue("renewalStrategy")}`;
-			return <TableCell>{getLabel(RenewalStrategy, value)}</TableCell>;
+			return getLabel(RenewalStrategy, value);
 		},
 	},
 	{
@@ -204,7 +192,7 @@ export const columns: ColumnDef<Contract>[] = [
 		header: "Contract Type",
 		cell: ({ row }) => {
 			const value = `${row.getValue("contractType")}`;
-			return <TableCell>{getLabel(ContractTypes, value)}</TableCell>;
+			return getLabel(ContractTypes, value);
 		},
 	},
 	{
@@ -212,7 +200,7 @@ export const columns: ColumnDef<Contract>[] = [
 		header: "Request Type",
 		cell: ({ row }) => {
 			const value = `${row.getValue("requestType")}`;
-			return <TableCell>{getLabel(RequestType, value)}</TableCell>;
+			return getLabel(RequestType, value);
 		},
 	},
 	{
@@ -221,7 +209,7 @@ export const columns: ColumnDef<Contract>[] = [
 		enableResizing: false,
 		cell: ({ row }) => {
 			const value = Boolean(row.getValue("autoRenewal"));
-			return <TableCell>{value && <Check />}</TableCell>;
+			return value && <Check />;
 		},
 	},
 	{
@@ -230,7 +218,7 @@ export const columns: ColumnDef<Contract>[] = [
 		enableResizing: false,
 		cell: ({ row }) => {
 			const value = Boolean(row.getValue("sefComplete"));
-			return <TableCell>{value && <Check />}</TableCell>;
+			return value && <Check />;
 		},
 	},
 	{
@@ -239,7 +227,7 @@ export const columns: ColumnDef<Contract>[] = [
 		enableResizing: false,
 		cell: ({ row }) => {
 			const value = Boolean(row.getValue("poRequired"));
-			return <TableCell>{value && <Check />}</TableCell>;
+			return value && <Check />;
 		},
 	},
 	{
@@ -248,7 +236,7 @@ export const columns: ColumnDef<Contract>[] = [
 		enableResizing: false,
 		cell: ({ row }) => {
 			const value = Boolean(row.getValue("infoSecInScope"));
-			return <TableCell>{value && <Check />}</TableCell>;
+			return value && <Check />;
 		},
 	},
 	{
@@ -257,7 +245,7 @@ export const columns: ColumnDef<Contract>[] = [
 		enableResizing: false,
 		cell: ({ row }) => {
 			const value = Boolean(row.getValue("infoSecAssessmentComplete"));
-			return <TableCell>{value && <Check />}</TableCell>;
+			return value && <Check />;
 		},
 	},
 	{
@@ -266,7 +254,7 @@ export const columns: ColumnDef<Contract>[] = [
 		enableResizing: false,
 		cell: ({ row }) => {
 			const value = Boolean(row.getValue("piiScope"));
-			return <TableCell>{value && <Check />}</TableCell>;
+			return value && <Check />;
 		},
 	},
 	{
@@ -275,7 +263,7 @@ export const columns: ColumnDef<Contract>[] = [
 		enableResizing: false,
 		cell: ({ row }) => {
 			const value = Boolean(row.getValue("privacyAssessmentComplete"));
-			return <TableCell>{value && <Check />}</TableCell>;
+			return value && <Check />;
 		},
 	},
 	{
@@ -283,7 +271,7 @@ export const columns: ColumnDef<Contract>[] = [
 		header: "Criticality",
 		cell: ({ row }) => {
 			const value = `${row.getValue("riskClassification")}`;
-			return <TableCell>{getLabel(RiskClassification, value)}</TableCell>;
+			return getLabel(RiskClassification, value);
 		},
 	},
 ];
