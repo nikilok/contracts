@@ -54,3 +54,27 @@ export const getCurrency = (currency = "USD") =>
 export const replaceZeroWithEmptyString = (num: string) => {
 	return Number.parseInt(num) === 0 ? "" : num;
 };
+
+interface NavigatorUAData extends Navigator {
+	userAgentData?: {
+		platform: string;
+		brands?: Array<{ brand: string; version: string }>;
+		mobile?: boolean;
+	};
+}
+
+export const isMacPlatform = (): boolean => {
+	let isMac = false;
+	const nav = navigator as NavigatorUAData;
+	// Use navigator.userAgentData if available
+	if (nav.userAgentData?.platform) {
+		isMac = nav.userAgentData.platform.toLowerCase() === "macos";
+	} else if (navigator.platform) {
+		// Fallback to navigator.platform (deprecated but still widely supported)
+		isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
+	} else {
+		// Fallback for older browsers or environments where userAgentData and platform are unavailable
+		isMac = navigator.userAgent.toUpperCase().indexOf("MAC") >= 0;
+	}
+	return isMac;
+};

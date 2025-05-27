@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { Input } from "../components/ui/input";
+import { isMacPlatform } from "../lib/utils";
 
 export default function HeaderSearch({ placeholder }: { placeholder: string }) {
 	const searchParams = useSearchParams();
@@ -47,7 +48,7 @@ export default function HeaderSearch({ placeholder }: { placeholder: string }) {
 	}, []);
 
 	useEffect(() => {
-		const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
+		const isMac = isMacPlatform();
 		const shortcut = isMac ? "(⌘ + F)" : "(Ctrl + F)";
 		setDynamicPlaceholder(`${placeholder} ${shortcut}`);
 	}, [placeholder]);
