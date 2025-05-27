@@ -42,3 +42,38 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 <img width="1905" alt="image" src="https://github.com/user-attachments/assets/fcb70b0e-874e-4f5a-8aba-0ab5fe4927c7">
 
 <img width="1918" alt="image" src="https://github.com/user-attachments/assets/3ec473af-9599-4440-9b3c-b9e37e65819a">
+
+## Local MongoDB Replica Set
+
+This project includes a Docker Compose configuration to run a 3-node MongoDB replica set locally.
+
+### Prerequisites
+
+- Docker and Docker Compose installed.
+- Node.js and npm installed (for using `package.json` scripts).
+
+### Running the Replica Set
+
+1.  **Start the MongoDB replica set:**
+    ```bash
+    npm run mongo:start
+    ```
+    This command will start three MongoDB containers (`mongodb1`, `mongodb2`, `mongodb3`) and a setup container (`mongo-setup`) that initializes the replica set `rs0`. The `mongo-setup` container will run the initialization script and then exit. The MongoDB containers will continue running in the background.
+
+2.  **Connect to the MongoDB replica set:**
+    You can connect to the replica set using the following connection string:
+    ```
+    mongodb://localhost:27017/?replicaSet=rs0
+    ```
+    Use this string with your MongoDB client (e.g., MongoDB Compass, `mongosh`, or your application driver).
+
+3.  **Stop the MongoDB replica set:**
+    ```bash
+    npm run mongo:stop
+    ```
+    This command will stop and remove the MongoDB containers and network. The data volumes (`mongo1-data`, `mongo2-data`, `mongo3-data`) will persist unless manually removed.
+
+### Notes
+- The replica set is named `rs0`.
+- `mongodb1` is accessible on `localhost:27017`.
+- The initialization script (`init-replica-set.sh`) is run automatically by the `mongo-setup` container after the MongoDB nodes are healthy.
