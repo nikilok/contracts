@@ -28,7 +28,7 @@ const links = [
 export default function Header() {
 	return (
 		<div className="shadow-lg h-16 w-full fixed top-0 z-50">
-			<header className="shadow-md flex h-16 items-center gap-4 border-b px-4 md:px-6 w-full bg-white/60 z-50 backdrop-blur-md">
+			<header className="shadow-md flex h-16 items-center gap-4 border-b px-4 md:px-6 w-full bg-white/60 dark:bg-secondary/80 z-50 backdrop-blur-md">
 				<nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
 					<NavLinks links={links} />
 				</nav>
