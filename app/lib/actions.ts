@@ -1,5 +1,6 @@
 "use server";
 import { PrismaClient } from "@prisma/client";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 // import { redirect } from "next/navigation";
@@ -256,4 +257,15 @@ function getRawData(formData: FormData) {
 		everGreen: formData.get("ever-green"),
 		autoRenewal: formData.get("auto-renewal"),
 	} as Record<string, string>;
+}
+
+export async function setThemeCookie(key: string, value: string) {
+	const cookieStore = await cookies();
+	cookieStore.set(key, value, { path: "/", maxAge: 60 * 60 * 24 * 365 }); // Expires in 1 year
+}
+
+export async function getThemeCookie(key: string): Promise<string | undefined> {
+	const cookieStore = await cookies();
+	const cookie = cookieStore.get(key);
+	return cookie?.value;
 }

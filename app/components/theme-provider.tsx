@@ -1,75 +1,87 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import { getThemeCookie, setThemeCookie } from "@/app/lib/actions";
+import React from "react";
 
-type Theme = "dark" | "light" | "system"
+type Theme = "dark" | "light" | "system";
 
 type ThemeProviderProps = {
-  children: React.ReactNode
-  defaultTheme?: Theme
-  storageKey?: string
-}
+	children: React.ReactNode;
+	defaultTheme?: Theme;
+	storageKey?: string;
+};
 
 type ThemeProviderState = {
-  theme: Theme
-  setTheme: (theme: Theme) => void
-}
+	theme: Theme;
+	setTheme: (theme: Theme) => void;
+};
 
 const initialState: ThemeProviderState = {
-  theme: "system",
-  setTheme: () => null,
-}
+	theme: "system",
+	setTheme: () => null,
+};
 
-const ThemeProviderContext = React.createContext<ThemeProviderState>(initialState)
+const ThemeProviderContext =
+	React.createContext<ThemeProviderState>(initialState);
 
 export function ThemeProvider({
-  children,
-  defaultTheme = "system",
-  storageKey = "vite-ui-theme",
-  ...props
+	children,
+	defaultTheme = "system",
+	storageKey = "vite-ui-theme",
+	...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = React.useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
-  )
+	const [theme, setThemeState] = React.useState<Theme>(defaultTheme);
 
-  React.useEffect(() => {
-    const root = window.document.documentElement
+	React.useEffect(() => {
+		const fetchInitialTheme = async () => {
+			const cookieTheme = await getThemeCookie(storageKey);
+			if (cookieTheme && ["dark", "light", "system"].includes(cookieTheme)) {
+				setThemeState(cookieTheme as Theme);
+			} else {
+				// If no cookie or invalid, set to default.
+				// The next effect will persist it if it's not 'system'.
+				setThemeState(defaultTheme);
+			}
+		};
+		fetchInitialTheme();
+	}, [storageKey, defaultTheme]);
 
-    root.classList.remove("light", "dark")
+	React.useEffect(() => {
+		const root = window.document.documentElement;
+		root.classList.remove("light", "dark");
 
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light"
+		if (theme === "system") {
+			const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+				.matches
+				? "dark"
+				: "light";
+			root.classList.add(systemTheme);
+			setThemeCookie(storageKey, systemTheme); // Persist the resolved system theme
+		} else {
+			root.classList.add(theme);
+			setThemeCookie(storageKey, theme);
+		}
+	}, [theme, storageKey]);
 
-      root.classList.add(systemTheme)
-      return
-    }
+	const value = {
+		theme,
+		setTheme: (newTheme: Theme) => {
+			setThemeState(newTheme);
+		},
+	};
 
-    root.classList.add(theme)
-  }, [theme])
-
-  const value = {
-    theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme)
-      setTheme(theme)
-    },
-  }
-
-  return (
-    <ThemeProviderContext.Provider {...props} value={value}>
-      {children}
-    </ThemeProviderContext.Provider>
-  )
+	return (
+		<ThemeProviderContext.Provider {...props} value={value}>
+			{children}
+		</ThemeProviderContext.Provider>
+	);
 }
 
 export const useTheme = () => {
-  const context = React.useContext(ThemeProviderContext)
+	const context = React.useContext(ThemeProviderContext);
 
-  if (context === undefined)
-    throw new Error("useTheme must be used within a ThemeProvider")
+	if (context === undefined)
+		throw new Error("useTheme must be used within a ThemeProvider");
 
-  return context
-}
+	return context;
+};
