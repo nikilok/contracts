@@ -60,23 +60,51 @@ This project includes a Docker Compose configuration to run a 3-node MongoDB rep
     ```
     This command will start three MongoDB containers (`mongodb1`, `mongodb2`, `mongodb3`) and a setup container (`mongo-setup`) that initializes the replica set `rs0`. The `mongo-setup` container will run the initialization script and then exit. The MongoDB containers will continue running in the background.
 
-2.  **Connect to the MongoDB replica set:**
-    You can connect to the replica set using the following primary connection string:
-    ```
-    mongodb://localhost:27017/?replicaSet=rs0
-    ```
-    Your MongoDB client or driver will automatically discover the other members of the replica set using this initial connection. The replica set members are configured to be accessible from your host machine.
-    Use this string with your MongoDB client (e.g., MongoDB Compass, `mongosh`, or your application driver).
+### Host Machine Setup for Connection
 
-3.  **Stop the MongoDB replica set:**
-    ```bash
-    npm run mongo:stop
+To connect to the MongoDB replica set from your host machine (e.g., for Prisma Studio, `npm run update-schema`, or your application running directly on the host), you need to make the replica set members' hostnames (`mongo1`, `mongo2`, `mongo3`) resolvable to your local machine. This is because the MongoDB instances, while accessible via `localhost:<port>`, will report their replica set peers using their internal Docker hostnames (e.g., `mongo1:27017`), which your host machine doesn't know by default.
+
+1.  **Modify your `/etc/hosts` file:**
+    Add the following lines to your `/etc/hosts` file (you'll typically need administrator/sudo privileges):
     ```
-    This command will stop and remove the MongoDB containers and network. The data volumes (`mongo1-data`, `mongo2-data`, `mongo3-data`) will persist unless manually removed.
+    127.0.0.1 mongo1
+    127.0.0.1 mongo2
+    127.0.0.1 mongo3
+    ```
+    On Windows, the hosts file is usually located at `C:\Windows\System32\drivers\etc\hosts`.
+
+2.  **Use the following connection string:**
+    After modifying your `/etc/hosts` file, use this connection string to connect from your host application or MongoDB client:
+    ```
+    mongodb://mongo1:27017,mongo2:27018,mongo3:27019/YOUR_DB_NAME?replicaSet=rs0
+    ```
+    Replace `YOUR_DB_NAME` with your actual database name (e.g., `contracts`).
+    Note the different ports for `mongo1` (27017), `mongo2` (27018), and `mongo3` (27019), which correspond to the ports mapped in `docker-compose.yml`.
+
+3.  **Update your `.env` file:**
+    Ensure your `DATABASE_URL` in your `.env` file (or similar configuration) is updated to this new connection string if your application needs to connect from the host. For example:
+    ```
+    DATABASE_URL="mongodb://mongo1:27017,mongo2:27018,mongo3:27019/contracts?replicaSet=rs0"
+    ```
+
+### Connecting to the MongoDB Replica Set (General Info)
+
+- **From the Host (after setup):** Use the connection string mentioned in "Host Machine Setup for Connection". This is suitable for tools like MongoDB Compass, `mongosh` run from your host, or your application when run directly on the host.
+- **From within Docker containers (not in `mongo-network`):** If you have other Docker containers that need to connect and are *not* part of the `mongo-network`, they would typically use `host.docker.internal:<port>` for each member if the Docker version supports it, or require more complex network configuration. However, for this project, applications are expected to run on the host or within the `mongo-network`.
+- **From within `mongo-network` (e.g., the `mongo-setup` service):** Services within the same Docker network (`mongo-network`) can use the Docker hostnames directly (e.g., `mongodb://mongo1:27017,mongo2:27017,mongo3:27017/YOUR_DB_NAME?replicaSet=rs0`). Notice the internal port `27017` is used for all members in this case.
+
+### Stopping the Replica Set
+
+```bash
+npm run mongo:stop
+```
+This command will stop and remove the MongoDB containers and network. The data volumes (`mongo1-data`, `mongo2-data`, `mongo3-data`) will persist unless manually removed.
 
 ### Notes
 - The replica set is named `rs0`.
-- `mongodb1` (primary initially) is accessible on `localhost:27017` (maps to container port 27017).
-- `mongodb2` is accessible on `localhost:27018` (maps to container port 27017).
-- `mongodb3` is accessible on `localhost:27019` (maps to container port 27017).
-- The initialization script (`init-replica-set.sh`) is run automatically by the `mongo-setup` container to configure these advertised addresses.
+- The `init-replica-set.sh` script configures the replica set members to identify themselves using their Docker hostnames (e.g., `mongo1:27017`). This is why the `/etc/hosts` modification is necessary for host access.
+- Individual MongoDB instances are exposed on the host machine as follows:
+    - `mongo1` (primary initially): `localhost:27017` (maps to container port 27017)
+    - `mongo2`: `localhost:27018` (maps to container port 27017)
+    - `mongo3`: `localhost:27019` (maps to container port 27017)
+  While you can connect to an individual member using `localhost:<port>`, this does not provide full replica set functionality from the host without the `/etc/hosts` modification.
