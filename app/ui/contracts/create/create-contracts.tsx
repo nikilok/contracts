@@ -1,22 +1,5 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useActionState } from "react";
-import { useState } from "react";
-import type { State } from "../../../types";
-import { Calendar as CalendarDaysIcon } from "lucide-react";
-import Link from "next/link";
-import {
-	ContractTypes,
-	Currency,
-	Regions,
-	RenewalStrategy,
-	RequestType,
-	RiskClassification,
-	ServiceCategorization,
-	SubCategory,
-} from "../../../lib/constants";
-import { addSupplier } from "@/app/lib/data";
 import { Button } from "@/app/components/ui/button";
 import { Calendar } from "@/app/components/ui/calendar";
 import { CardContent, CardFooter } from "@/app/components/ui/card";
@@ -36,10 +19,27 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/app/components/ui/select";
-import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/app/components/ui/switch";
 import { Textarea } from "@/app/components/ui/textarea";
 import { submitOrDraftContracts } from "@/app/lib/actions";
+import { addSupplier } from "@/app/lib/data";
+import { Separator } from "@/components/ui/separator";
+import { Calendar as CalendarDaysIcon } from "lucide-react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useActionState } from "react";
+import { useState } from "react";
+import {
+	ContractTypes,
+	Currency,
+	Regions,
+	RenewalStrategy,
+	RequestType,
+	RiskClassification,
+	ServiceCategorization,
+	SubCategory,
+} from "../../../lib/constants";
+import type { State } from "../../../types";
 import { CreateButton, CreateDraftButton } from "../buttons";
 
 export default function Form({
