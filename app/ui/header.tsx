@@ -13,6 +13,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import HeaderSearch from "./header-search";
 import NavLinks from "./navLinks";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const links = [
 	{ name: "Home", href: "/dashboard" },
@@ -52,6 +53,7 @@ export default function Header() {
 					<Suspense fallback="loading...">
 						<HeaderSearch placeholder="Search Contracts..." />
 					</Suspense>
+					<ThemeToggle />
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
 							<Button variant="secondary" size="icon" className="rounded-full">
