@@ -88,7 +88,9 @@ export default function DataTable<TData, TValue>({
 				{table.getRowModel().rows?.length &&
 					table.getRowModel().rows.map((row, index) => (
 						<TableRow
-							className={clsx({ "bg-slate-200/40": index % 2 !== 0 })}
+							className={clsx({
+								"bg-slate-200/40 dark:bg-background/50": index % 2 !== 0,
+							})}
 							key={row.id}
 							data-state={row.getIsSelected() && "selected"}
 						>
