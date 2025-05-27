@@ -2,7 +2,7 @@
 
 import { Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { Input } from "../components/ui/input";
 
@@ -10,6 +10,7 @@ export default function HeaderSearch({ placeholder }: { placeholder: string }) {
 	const searchParams = useSearchParams();
 	const { replace } = useRouter();
 	const inputRef = useRef<HTMLInputElement>(null);
+	const [dynamicPlaceholder, setDynamicPlaceholder] = useState(placeholder);
 
 	const handleSearch = useDebouncedCallback((term: string) => {
 		const params = new URLSearchParams(searchParams);
@@ -45,6 +46,12 @@ export default function HeaderSearch({ placeholder }: { placeholder: string }) {
 		};
 	}, []);
 
+	useEffect(() => {
+		const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
+		const shortcut = isMac ? "(⌘ + F)" : "(Ctrl + F)";
+		setDynamicPlaceholder(`${placeholder} ${shortcut}`);
+	}, [placeholder]);
+
 	return (
 		<form className="ml-auto flex-1 sm:flex-initial" onSubmit={handleSubmit}>
 			<div className="relative">
@@ -53,7 +60,7 @@ export default function HeaderSearch({ placeholder }: { placeholder: string }) {
 					ref={inputRef}
 					type="search"
 					className="shadow-inner pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
-					placeholder={placeholder}
+					placeholder={dynamicPlaceholder}
 					onChange={(e) => handleSearch(e.target.value)}
 					defaultValue={searchParams.get("query")?.toString()}
 				/>
