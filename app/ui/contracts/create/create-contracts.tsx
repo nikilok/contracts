@@ -216,7 +216,6 @@ export default function Form({
 										| { from: Date; to?: Date | undefined }
 										| undefined;
 								}) => {
-									// Added type for values
 									setContractFrom(values.range.from.toISOString());
 									setContractTo(values.range.to?.toISOString());
 								}}
