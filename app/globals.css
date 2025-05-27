@@ -62,8 +62,30 @@
 @layer base {
 	* {
 		@apply border-border;
+		/* For Firefox */
+		scrollbar-width: thin; /* "auto" or "thin" */
+		scrollbar-color: hsl(var(--muted)) hsl(var(--background)); /* thumb and track color */
 	}
 	body {
 		@apply bg-background text-foreground;
+	}
+
+	/* For Webkit-based browsers (Chrome, Safari, Edge) */
+	::-webkit-scrollbar {
+		width: 8px; /* Width of the scrollbar */
+		height: 8px; /* Height of the scrollbar */
+	}
+
+	::-webkit-scrollbar-track {
+		background: hsl(var(--background)); /* Track color */
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: hsl(var(--muted)); /* Thumb color */
+		border-radius: 4px; /* Rounded corners for the thumb */
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background: hsl(var(--secondary)); /* Thumb color on hover */
 	}
 }
