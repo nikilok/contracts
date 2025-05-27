@@ -1,5 +1,22 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
+import { useActionState } from "react";
+import { useState } from "react";
+import type { State } from "../../../types";
+import { Calendar as CalendarDaysIcon } from "lucide-react";
+import Link from "next/link";
+import {
+	ContractTypes,
+	Currency,
+	Regions,
+	RenewalStrategy,
+	RequestType,
+	RiskClassification,
+	ServiceCategorization,
+	SubCategory,
+} from "../../../lib/constants";
+import { addSupplier } from "@/app/lib/data";
 import { Button } from "@/app/components/ui/button";
 import { Calendar } from "@/app/components/ui/calendar";
 import { CardContent, CardFooter } from "@/app/components/ui/card";
@@ -19,25 +36,10 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/app/components/ui/select";
-import { Separator } from "@/app/components/ui/separator";
+import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/app/components/ui/switch";
 import { Textarea } from "@/app/components/ui/textarea";
 import { submitOrDraftContracts } from "@/app/lib/actions";
-import {
-	ContractTypes,
-	Currency,
-	Regions,
-	RenewalStrategy,
-	RequestType,
-	RiskClassification,
-	ServiceCategorization,
-	SubCategory,
-} from "@/app/lib/constants";
-import { addSupplier } from "@/app/lib/data";
-import { Calendar as CalendarDaysIcon } from "lucide-react";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { useActionState, useState } from "react";
 import { CreateButton, CreateDraftButton } from "../buttons";
 
 export default function Form({
@@ -59,9 +61,8 @@ export default function Form({
 	const [contractFrom, setContractFrom] = useState<null | string>(null);
 	const [contractTo, setContractTo] = useState<undefined | string>(undefined);
 
-	const initialState = { message: null, errors: {} };
+	const initialState: State = { message: null, errors: {} };
 	const [state, dispatch] = useActionState(
-		//@ts-expect-error ignore this
 		submitOrDraftContracts,
 		initialState,
 	);
@@ -209,7 +210,13 @@ export default function Form({
 						<Label htmlFor="contract-period">Contract Period</Label>
 						<div>
 							<DateRangePicker
-								onUpdate={(values) => {
+								onUpdate={(values: {
+									range: { from: Date; to?: Date | undefined };
+									rangeCompare?:
+										| { from: Date; to?: Date | undefined }
+										| undefined;
+								}) => {
+									// Added type for values
 									setContractFrom(values.range.from.toISOString());
 									setContractTo(values.range.to?.toISOString());
 								}}
