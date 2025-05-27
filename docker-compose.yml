@@ -33,6 +33,8 @@ services:
     volumes:
       - mongo2-data:/data/db
     command: ["--replSet", "rs0", "--bind_ip_all"]
+    ports:
+      - "27018:27017"
     healthcheck:
       test: |
         mongosh --host mongo2:27017 --eval         'try { db.adminCommand("ping").ok } catch (e) { print(e); quit(1); }' --quiet
@@ -50,6 +52,8 @@ services:
     volumes:
       - mongo3-data:/data/db
     command: ["--replSet", "rs0", "--bind_ip_all"]
+    ports:
+      - "27019:27017"
     healthcheck:
       test: |
         mongosh --host mongo3:27017 --eval         'try { db.adminCommand("ping").ok } catch (e) { print(e); quit(1); }' --quiet
