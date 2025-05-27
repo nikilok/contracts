@@ -2,7 +2,7 @@
 
 import { Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { Input } from "../components/ui/input";
 
@@ -30,6 +30,20 @@ export default function HeaderSearch({ placeholder }: { placeholder: string }) {
 		handleSearch(term);
 		handleSearch.flush();
 	};
+
+	useEffect(() => {
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if ((event.metaKey || event.ctrlKey) && event.key === "f") {
+				event.preventDefault();
+				inputRef.current?.focus();
+			}
+		};
+
+		document.addEventListener("keydown", handleKeyDown);
+		return () => {
+			document.removeEventListener("keydown", handleKeyDown);
+		};
+	}, []);
 
 	return (
 		<form className="ml-auto flex-1 sm:flex-initial" onSubmit={handleSubmit}>
