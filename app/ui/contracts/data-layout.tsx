@@ -24,9 +24,8 @@ export default async function DataLayout({
 		return (
 			<main className="w-auto flex-col mx-auto justify-center text-center pt-2">
 				<Rabbit
-					className="w-full"
+					className="w-full text-black dark:text-slate-400"
 					size={148}
-					color="#000000"
 					absoluteStrokeWidth
 				/>
 				<h1 className="text-2xl">No contracts found here.</h1>
