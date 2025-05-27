@@ -61,10 +61,11 @@ This project includes a Docker Compose configuration to run a 3-node MongoDB rep
     This command will start three MongoDB containers (`mongodb1`, `mongodb2`, `mongodb3`) and a setup container (`mongo-setup`) that initializes the replica set `rs0`. The `mongo-setup` container will run the initialization script and then exit. The MongoDB containers will continue running in the background.
 
 2.  **Connect to the MongoDB replica set:**
-    You can connect to the replica set using the following connection string:
+    You can connect to the replica set using the following primary connection string:
     ```
     mongodb://localhost:27017/?replicaSet=rs0
     ```
+    Your MongoDB client or driver will automatically discover the other members of the replica set using this initial connection. The replica set members are configured to be accessible from your host machine.
     Use this string with your MongoDB client (e.g., MongoDB Compass, `mongosh`, or your application driver).
 
 3.  **Stop the MongoDB replica set:**
@@ -75,5 +76,7 @@ This project includes a Docker Compose configuration to run a 3-node MongoDB rep
 
 ### Notes
 - The replica set is named `rs0`.
-- `mongodb1` is accessible on `localhost:27017`.
-- The initialization script (`init-replica-set.sh`) is run automatically by the `mongo-setup` container after the MongoDB nodes are healthy.
+- `mongodb1` (primary initially) is accessible on `localhost:27017` (maps to container port 27017).
+- `mongodb2` is accessible on `localhost:27018` (maps to container port 27017).
+- `mongodb3` is accessible on `localhost:27019` (maps to container port 27017).
+- The initialization script (`init-replica-set.sh`) is run automatically by the `mongo-setup` container to configure these advertised addresses.
