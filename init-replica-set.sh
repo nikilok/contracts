@@ -14,17 +14,17 @@ var config = {
     "members": [
         {
             "_id": 1,
-            "host": "localhost:27017", // Changed from mongo1:27017
+            "host": "mongo1:27017", // Reverted to internal Docker hostname
             "priority": 3
         },
         {
             "_id": 2,
-            "host": "localhost:27018", // Changed from mongo2:27017
+            "host": "mongo2:27017", // Reverted to internal Docker hostname
             "priority": 2
         },
         {
             "_id": 3,
-            "host": "localhost:27019", // Changed from mongo3:27017
+            "host": "mongo3:27017", // Reverted to internal Docker hostname
             "priority": 1
         }
     ]
