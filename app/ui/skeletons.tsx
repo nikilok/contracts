@@ -172,7 +172,7 @@ export function ContractTableSkeleton() {
 export default function GenericLoader() {
 	return (
 		<main className="flex justify-center items-center h-[calc(100vh)]">
-			<div className="w-10 h-10 flex justify-center items-center bg-slate-800/80 rounded-md">
+			<div className="w-10 h-10 flex justify-center items-center bg-slate-800/80 dark:bg-slate-700/80 rounded-md">
 				<LoaderCircle
 					size={48}
 					color="#ffffff"
