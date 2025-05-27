@@ -36,7 +36,7 @@ export default async function Page(props: {
 }) {
 	const searchParams = await props.searchParams;
 	const currentPage = Number.parseInt(searchParams?.page ?? 1);
-	const status = searchParams?.status ?? "active";
+	const status = searchParams?.status ?? "all";
 	const query = searchParams?.query ?? "";
 
 	const { count, totalPages } = await getContractsPageCount({
