@@ -47,7 +47,7 @@ export function ThemeProvider({
 				? "dark"
 				: "light";
 			root.classList.add(systemTheme);
-			setThemeCookie(storageKey, "system");
+			setThemeCookie(storageKey, systemTheme); // Store the resolved theme
 		} else {
 			root.classList.add(theme);
 			setThemeCookie(storageKey, theme);
