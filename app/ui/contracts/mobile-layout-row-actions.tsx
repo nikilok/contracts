@@ -11,7 +11,9 @@ interface MobileLayoutRowActionsProps {
 	contract: Contract;
 }
 
-export function MobileLayoutRowActions({ contract }: MobileLayoutRowActionsProps) {
+export function MobileLayoutRowActions({
+	contract,
+}: MobileLayoutRowActionsProps) {
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
 	return (
