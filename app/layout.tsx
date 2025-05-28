@@ -24,7 +24,7 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const cookieTheme = await getThemeCookie("vite-ui-theme");
+	const cookieTheme = await getThemeCookie("theme");
 	let initialTheme: Theme;
 	if (
 		cookieTheme === "dark" ||
