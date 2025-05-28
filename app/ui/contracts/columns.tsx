@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/app/components/ui/button";
+import { DeleteConfirmationDialog } from "./delete-confirmation-dialog";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -17,12 +18,15 @@ import {
 	RiskClassification,
 	SubCategory,
 } from "@/app/lib/constants";
+import { deleteContract } from "@/app/lib/actions"; // deleteContract is already imported
 import { getCurrency, getLabel } from "@/app/lib/utils";
 import type { Contract } from "@/app/types";
+// useState is already imported
 import type { ColumnDef } from "@tanstack/react-table";
 import { intlFormatDistance } from "date-fns";
 import { Check, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 const options: Intl.DateTimeFormatOptions = {
 	year: "numeric",
@@ -35,6 +39,7 @@ export const columns: ColumnDef<Contract>[] = [
 		enableResizing: false,
 		cell: ({ row }) => {
 			const data = row.original;
+			const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
 			return (
 				<DropdownMenu>
@@ -57,7 +62,24 @@ export const columns: ColumnDef<Contract>[] = [
 								Update
 							</Link>
 						</DropdownMenuItem>
-						<DropdownMenuItem>Delete</DropdownMenuItem>
+						<DeleteConfirmationDialog
+							contractName={data.description}
+							onConfirm={async () => {
+								await deleteContract(data.id);
+							}}
+							open={isDeleteDialogOpen}
+							onOpenChange={setIsDeleteDialogOpen}
+						>
+							<DropdownMenuItem
+								onSelect={(e) => {
+									e.preventDefault();
+									setIsDeleteDialogOpen(true);
+								}}
+								className="text-red-600 hover:text-red-700"
+							>
+								Delete
+							</DropdownMenuItem>
+						</DeleteConfirmationDialog>
 					</DropdownMenuContent>
 				</DropdownMenu>
 			);
