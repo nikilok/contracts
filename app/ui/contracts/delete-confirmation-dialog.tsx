@@ -12,8 +12,8 @@ import {
 	AlertDialogTrigger,
 } from "@/app/components/ui/alert-dialog";
 import { Button } from "@/app/components/ui/button";
-import type * as React from "react";
 import { Trash2 } from "lucide-react";
+import type * as React from "react";
 
 interface DeleteConfirmationDialogProps {
 	contractName: string;
