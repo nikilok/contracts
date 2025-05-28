@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { ThemeProvider, type Theme } from "./components/theme-provider";
 import { getThemeCookie } from "@/app/lib/actions";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { type Theme, ThemeProvider } from "./components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +26,11 @@ export default async function RootLayout({
 }>) {
 	const cookieTheme = await getThemeCookie("vite-ui-theme");
 	let initialTheme: Theme;
-	if (cookieTheme === "dark" || cookieTheme === "light" || cookieTheme === "system") {
+	if (
+		cookieTheme === "dark" ||
+		cookieTheme === "light" ||
+		cookieTheme === "system"
+	) {
 		initialTheme = cookieTheme;
 	} else {
 		initialTheme = "system";
