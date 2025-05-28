@@ -1,3 +1,5 @@
+"use client";
+
 import { DeleteConfirmationDialog } from "./delete-confirmation-dialog";
 import { Button } from "@/app/components/ui/button";
 import { Separator } from "@/app/components/ui/separator";
@@ -15,7 +17,7 @@ import clsx from "clsx";
 import { intlFormatDistance } from "date-fns";
 import { Edit, Trash } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react"; // Import useState
+import { useState } from "react";
 
 export default function MobileLayout({
 	data,

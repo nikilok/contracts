@@ -21,7 +21,6 @@ import {
 import { deleteContract } from "@/app/lib/actions"; // deleteContract is already imported
 import { getCurrency, getLabel } from "@/app/lib/utils";
 import type { Contract } from "@/app/types";
-// useState is already imported
 import type { ColumnDef } from "@tanstack/react-table";
 import { intlFormatDistance } from "date-fns";
 import { Check, MoreHorizontal } from "lucide-react";
