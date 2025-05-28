@@ -287,10 +287,8 @@ export async function deleteContract(contractId: string) {
 			message: "Database Error: Failed to delete contract.",
 		};
 	}
-	// Redirect happens after try-catch to ensure it occurs even if revalidatePath throws an error (though unlikely).
-	// However, it's common to redirect within the try block after a successful operation.
-	// If the function must return a message on failure, then redirect cannot happen in that case.
-	// Given the current structure, if an error occurs, the function returns the error message.
-	// If successful, it will proceed to redirect.
+	// Redirect happens after the try block only if the operation is successful.
+	// If an error occurs, the function returns an error message in the catch block, and the redirect does not happen.
+	// This ensures that the redirect only occurs when the contract deletion is successful.
 	redirect("/dashboard/contracts");
 }
