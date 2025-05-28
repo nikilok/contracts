@@ -1,8 +1,5 @@
-"use client";
-
 import { Button } from "@/app/components/ui/button";
 import { Separator } from "@/app/components/ui/separator";
-import { deleteContract } from "@/app/lib/actions"; // Already imported
 import {
 	ContractTypes,
 	Regions,
@@ -14,10 +11,9 @@ import { getCurrency, getLabel } from "@/app/lib/utils";
 import type { Contract } from "@/app/types";
 import clsx from "clsx";
 import { intlFormatDistance } from "date-fns";
-import { Edit, Trash } from "lucide-react";
+import { Edit } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
-import { DeleteConfirmationDialog } from "./delete-confirmation-dialog";
+import { MobileLayoutRowActions } from "./mobile-layout-row-actions";
 
 export default function MobileLayout({
 	data,
@@ -37,8 +33,6 @@ export default function MobileLayout({
 				const contractTerm = intlFormatDistance(dateTo, baseDate);
 				const daysToNotify = Number.parseInt(row.reviewPeriod ?? 0);
 				const notifyDate = dateTo.setDate(dateTo.getDate() - daysToNotify);
-				const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-
 				return (
 					<div
 						key={row.id}
@@ -136,26 +130,7 @@ export default function MobileLayout({
 						</div>
 						<Separator />
 						<div className="flex justify-between pt-2 gap-2">
-							<DeleteConfirmationDialog
-								contractName={row.description}
-								onConfirm={async () => {
-									await deleteContract(row.id);
-								}}
-								open={isDeleteDialogOpen}
-								onOpenChange={setIsDeleteDialogOpen}
-							>
-								<Button
-									size="sm"
-									variant="ghost"
-									className="h-7 gap-1"
-									onClick={() => setIsDeleteDialogOpen(true)}
-								>
-									<Trash className="h-3.5 w-3.5 text-red-600" />
-									<span className="sr-only sm:not-sr-only text-red-600 sm:whitespace-nowrap">
-										Delete
-									</span>
-								</Button>
-							</DeleteConfirmationDialog>
+							<MobileLayoutRowActions contract={row} />
 							<Link
 								href={{
 									pathname: `/dashboard/${row.id}/edit`,
