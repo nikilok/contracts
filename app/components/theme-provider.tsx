@@ -27,15 +27,14 @@ const ThemeProviderContext =
 export function ThemeProvider({
 	children,
 	defaultTheme = "system",
-	storageKey = "vite-ui-theme",
+	storageKey = "theme",
 	...props
 }: ThemeProviderProps) {
 	const [theme, setThemeState] = React.useState<Theme>(defaultTheme);
 
 	React.useEffect(() => {
-		// Initialize theme state with defaultTheme passed from the server
 		setThemeState(defaultTheme);
-	}, [defaultTheme]); // Re-run if defaultTheme changes
+	}, [defaultTheme]);
 
 	React.useEffect(() => {
 		const root = window.document.documentElement;
@@ -47,7 +46,7 @@ export function ThemeProvider({
 				? "dark"
 				: "light";
 			root.classList.add(systemTheme);
-			setThemeCookie(storageKey, systemTheme); // Store the resolved theme
+			setThemeCookie(storageKey, systemTheme);
 		} else {
 			root.classList.add(theme);
 			setThemeCookie(storageKey, theme);
