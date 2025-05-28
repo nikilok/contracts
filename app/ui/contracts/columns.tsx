@@ -1,15 +1,5 @@
 "use client";
 
-import { Button } from "@/app/components/ui/button";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuTrigger,
-} from "@/app/components/ui/dropdown-menu";
-import { TableCell } from "@/app/components/ui/table";
-import { deleteContract } from "@/app/lib/actions"; // deleteContract is already imported
 import {
 	ContractTypes,
 	Regions,
@@ -22,8 +12,7 @@ import { getCurrency, getLabel } from "@/app/lib/utils";
 import type { Contract } from "@/app/types";
 import type { ColumnDef } from "@tanstack/react-table";
 import { intlFormatDistance } from "date-fns";
-import { Check, MoreHorizontal } from "lucide-react";
-import Link from "next/link";
+import { Check } from "lucide-react";
 import { ActionMenuCell } from "./action-menu-cell";
 
 const options: Intl.DateTimeFormatOptions = {

@@ -1,11 +1,11 @@
 "use client";
 
 import { Button } from "@/app/components/ui/button";
-import { DeleteConfirmationDialog } from "./delete-confirmation-dialog";
 import { deleteContract } from "@/app/lib/actions";
 import type { Contract } from "@/app/types";
 import { Trash } from "lucide-react";
 import { useState } from "react";
+import { DeleteConfirmationDialog } from "./delete-confirmation-dialog";
 
 interface MobileLayoutRowActionsProps {
 	contract: Contract;
