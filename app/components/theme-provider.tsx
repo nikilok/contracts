@@ -3,7 +3,7 @@
 import { getThemeCookie, setThemeCookie } from "@/app/lib/actions";
 import React from "react";
 
-type Theme = "dark" | "light" | "system";
+export type Theme = "dark" | "light" | "system";
 
 type ThemeProviderProps = {
 	children: React.ReactNode;
@@ -33,18 +33,9 @@ export function ThemeProvider({
 	const [theme, setThemeState] = React.useState<Theme>(defaultTheme);
 
 	React.useEffect(() => {
-		const fetchInitialTheme = async () => {
-			const cookieTheme = await getThemeCookie(storageKey);
-			if (cookieTheme && ["dark", "light", "system"].includes(cookieTheme)) {
-				setThemeState(cookieTheme as Theme);
-			} else {
-				// If no cookie or invalid, set to default.
-				// The next effect will persist it if it's not 'system'.
-				setThemeState(defaultTheme);
-			}
-		};
-		fetchInitialTheme();
-	}, [storageKey, defaultTheme]);
+		// Initialize theme state with defaultTheme passed from the server
+		setThemeState(defaultTheme);
+	}, [defaultTheme]); // Re-run if defaultTheme changes
 
 	React.useEffect(() => {
 		const root = window.document.documentElement;
