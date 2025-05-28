@@ -13,6 +13,7 @@ import {
 } from "@/app/components/ui/alert-dialog";
 import { Button } from "@/app/components/ui/button";
 import type * as React from "react";
+import { Trash2 } from "lucide-react";
 
 interface DeleteConfirmationDialogProps {
 	contractName: string;
@@ -44,6 +45,7 @@ export function DeleteConfirmationDialog({
 					<AlertDialogCancel>Cancel</AlertDialogCancel>
 					<AlertDialogAction asChild>
 						<Button variant="destructive" onClick={() => onConfirm()}>
+							<Trash2 className="mr-2 h-4 w-4" />
 							Delete
 						</Button>
 					</AlertDialogAction>
