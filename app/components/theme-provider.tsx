@@ -1,6 +1,6 @@
 "use client";
 
-import { getThemeCookie, setThemeCookie } from "@/app/lib/actions";
+import { setThemeCookie } from "@/app/lib/actions";
 import React from "react";
 
 export type Theme = "dark" | "light" | "system";
