@@ -2,6 +2,7 @@
 import { PrismaClient } from "@prisma/client";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 // import { redirect } from "next/navigation";
 import type { ContractDB, State } from "../types";
@@ -268,4 +269,28 @@ export async function getThemeCookie(key: string): Promise<string | undefined> {
 	const cookieStore = await cookies();
 	const cookie = cookieStore.get(key);
 	return cookie?.value;
+}
+
+export async function deleteContract(contractId: string) {
+	try {
+		await prisma.contracts.delete({
+			where: {
+				id: contractId,
+			},
+		});
+		revalidatePath("/dashboard/contracts");
+		// Optionally, return a success message or status, though redirecting might make this implicit.
+		// For example: return { message: "Contract deleted successfully." };
+	} catch (error) {
+		console.error("Database Error: Failed to delete contract.", error);
+		return {
+			message: "Database Error: Failed to delete contract.",
+		};
+	}
+	// Redirect happens after try-catch to ensure it occurs even if revalidatePath throws an error (though unlikely).
+	// However, it's common to redirect within the try block after a successful operation.
+	// If the function must return a message on failure, then redirect cannot happen in that case.
+	// Given the current structure, if an error occurs, the function returns the error message.
+	// If successful, it will proceed to redirect.
+	redirect("/dashboard/contracts");
 }

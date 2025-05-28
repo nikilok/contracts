@@ -1,3 +1,4 @@
+import { DeleteConfirmationDialog } from "./delete-confirmation-dialog";
 import { Button } from "@/app/components/ui/button";
 import { Separator } from "@/app/components/ui/separator";
 import {
@@ -7,12 +8,14 @@ import {
 	RequestType,
 	SubCategory,
 } from "@/app/lib/constants";
+import { deleteContract } from "@/app/lib/actions"; // Already imported
 import { getCurrency, getLabel } from "@/app/lib/utils";
 import type { Contract } from "@/app/types";
 import clsx from "clsx";
 import { intlFormatDistance } from "date-fns";
 import { Edit, Trash } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react"; // Import useState
 
 export default function MobileLayout({
 	data,
@@ -32,6 +35,7 @@ export default function MobileLayout({
 				const contractTerm = intlFormatDistance(dateTo, baseDate);
 				const daysToNotify = Number.parseInt(row.reviewPeriod ?? 0);
 				const notifyDate = dateTo.setDate(dateTo.getDate() - daysToNotify);
+				const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
 				return (
 					<div
@@ -130,12 +134,26 @@ export default function MobileLayout({
 						</div>
 						<Separator />
 						<div className="flex justify-between pt-2 gap-2">
-							<Button size="sm" variant="ghost" className="h-7 gap-1">
-								<Trash className="h-3.5 w-3.5 text-red-600" />
-								<span className="sr-only sm:not-sr-only text-red-600 sm:whitespace-nowrap">
-									Delete
-								</span>
-							</Button>
+							<DeleteConfirmationDialog
+								contractName={row.description}
+								onConfirm={async () => {
+									await deleteContract(row.id);
+								}}
+								open={isDeleteDialogOpen}
+								onOpenChange={setIsDeleteDialogOpen}
+							>
+								<Button
+									size="sm"
+									variant="ghost"
+									className="h-7 gap-1"
+									onClick={() => setIsDeleteDialogOpen(true)}
+								>
+									<Trash className="h-3.5 w-3.5 text-red-600" />
+									<span className="sr-only sm:not-sr-only text-red-600 sm:whitespace-nowrap">
+										Delete
+									</span>
+								</Button>
+							</DeleteConfirmationDialog>
 							<Link
 								href={{
 									pathname: `/dashboard/${row.id}/edit`,
