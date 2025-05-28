@@ -24,8 +24,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { intlFormatDistance } from "date-fns";
 import { Check, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
-import { DeleteConfirmationDialog } from "./delete-confirmation-dialog";
+import { ActionMenuCell } from "./action-menu-cell";
 
 const options: Intl.DateTimeFormatOptions = {
 	year: "numeric",
@@ -37,51 +36,8 @@ export const columns: ColumnDef<Contract>[] = [
 		id: "action",
 		enableResizing: false,
 		cell: ({ row }) => {
-			const data = row.original;
-			const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-
-			return (
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button aria-haspopup="true" size="icon" variant="ghost">
-							<MoreHorizontal className="h-4 w-4" />
-							<span className="sr-only">Toggle menu</span>
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align="end">
-						<DropdownMenuLabel>Actions</DropdownMenuLabel>
-						<DropdownMenuItem>
-							<Link
-								href={{
-									pathname: `/dashboard/${data.id}/edit`,
-									query: { status: "active" },
-								}}
-								className="w-full"
-							>
-								Update
-							</Link>
-						</DropdownMenuItem>
-						<DeleteConfirmationDialog
-							contractName={data.description}
-							onConfirm={async () => {
-								await deleteContract(data.id);
-							}}
-							open={isDeleteDialogOpen}
-							onOpenChange={setIsDeleteDialogOpen}
-						>
-							<DropdownMenuItem
-								onSelect={(e) => {
-									e.preventDefault();
-									setIsDeleteDialogOpen(true);
-								}}
-								className="text-red-600 hover:text-red-700"
-							>
-								Delete
-							</DropdownMenuItem>
-						</DeleteConfirmationDialog>
-					</DropdownMenuContent>
-				</DropdownMenu>
-			);
+			const contract = row.original;
+			return <ActionMenuCell contract={contract} />;
 		},
 	},
 	{
