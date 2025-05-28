@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/app/components/ui/button";
-import { DeleteConfirmationDialog } from "./delete-confirmation-dialog";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -10,6 +9,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/app/components/ui/dropdown-menu";
 import { TableCell } from "@/app/components/ui/table";
+import { deleteContract } from "@/app/lib/actions"; // deleteContract is already imported
 import {
 	ContractTypes,
 	Regions,
@@ -18,7 +18,6 @@ import {
 	RiskClassification,
 	SubCategory,
 } from "@/app/lib/constants";
-import { deleteContract } from "@/app/lib/actions"; // deleteContract is already imported
 import { getCurrency, getLabel } from "@/app/lib/utils";
 import type { Contract } from "@/app/types";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -26,6 +25,7 @@ import { intlFormatDistance } from "date-fns";
 import { Check, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { DeleteConfirmationDialog } from "./delete-confirmation-dialog";
 
 const options: Intl.DateTimeFormatOptions = {
 	year: "numeric",

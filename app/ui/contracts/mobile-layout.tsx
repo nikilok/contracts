@@ -1,8 +1,8 @@
 "use client";
 
-import { DeleteConfirmationDialog } from "./delete-confirmation-dialog";
 import { Button } from "@/app/components/ui/button";
 import { Separator } from "@/app/components/ui/separator";
+import { deleteContract } from "@/app/lib/actions"; // Already imported
 import {
 	ContractTypes,
 	Regions,
@@ -10,7 +10,6 @@ import {
 	RequestType,
 	SubCategory,
 } from "@/app/lib/constants";
-import { deleteContract } from "@/app/lib/actions"; // Already imported
 import { getCurrency, getLabel } from "@/app/lib/utils";
 import type { Contract } from "@/app/types";
 import clsx from "clsx";
@@ -18,6 +17,7 @@ import { intlFormatDistance } from "date-fns";
 import { Edit, Trash } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { DeleteConfirmationDialog } from "./delete-confirmation-dialog";
 
 export default function MobileLayout({
 	data,
