@@ -11,6 +11,7 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@/app/components/ui/alert-dialog";
+import { Button } from "@/app/components/ui/button";
 import type * as React from "react";
 
 interface DeleteConfirmationDialogProps {
@@ -41,8 +42,10 @@ export function DeleteConfirmationDialog({
 				</AlertDialogDescription>
 				<AlertDialogFooter>
 					<AlertDialogCancel>Cancel</AlertDialogCancel>
-					<AlertDialogAction onClick={() => onConfirm()}>
-						Delete
+					<AlertDialogAction asChild>
+						<Button variant="destructive" onClick={() => onConfirm()}>
+							Delete
+						</Button>
 					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
